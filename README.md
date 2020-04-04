@@ -1,6 +1,6 @@
 ## Mesibo Messenger for iOS - Swift
 
-> Note: Swift version is in progress. It contains mixed code. However, AppDelegate.swift and BackendAPI.swift contain most of the mesibo specific code which you can use it for your reference. 
+> Note: Swift version is in progress. It contains mixed code. However, AppDelegate.swift, MesiboUIManager.swift and BackendAPI.swift contain most of the mesibo specific code which you can use it for your reference. 
 
 [Mesibo](https://mesibo.com) Messenger is an open-source app with real-time messaging, voice and video call features. This repo contains the source code for Mesibo Messenger App for iOS. The GitHub repository for Android version is [here](https://github.com/mesibo/messenger-app-android).
 

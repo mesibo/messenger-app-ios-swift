@@ -15,3 +15,6 @@
 #import <mesibouihelper/mesibouihelper.h>
 #import "logs.h"
 #import "SampleAppListeners.h"
+#import "ProfileViewerController.h"
+#import "SettingsViewController.h"
+#import "EditSelfProfileViewController.h"

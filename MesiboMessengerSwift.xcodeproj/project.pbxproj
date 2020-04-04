@@ -88,6 +88,7 @@
 		88F30B531F7D0BB700803AA8 /* Contacts.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 88F30B521F7D0BB700803AA8 /* Contacts.framework */; };
 		88F39D602436428500361C78 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 88F39D5F2436428500361C78 /* AppDelegate.swift */; };
 		88F39D862436F93200361C78 /* BackendAPI.swift in Sources */ = {isa = PBXBuildFile; fileRef = 88F39D852436F93200361C78 /* BackendAPI.swift */; };
+		88F39D892438C13800361C78 /* MesiboUIManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 88F39D882438C13800361C78 /* MesiboUIManager.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -227,6 +228,7 @@
 		88F39D5E2436428400361C78 /* MesiboMessengerSwift-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "MesiboMessengerSwift-Bridging-Header.h"; sourceTree = "<group>"; };
 		88F39D5F2436428500361C78 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		88F39D852436F93200361C78 /* BackendAPI.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BackendAPI.swift; sourceTree = "<group>"; };
+		88F39D882438C13800361C78 /* MesiboUIManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MesiboUIManager.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -365,6 +367,7 @@
 			children = (
 				3EA48FE11E389AA700492966 /* AppUIManager.h */,
 				3EA48FE21E389AA700492966 /* AppUIManager.m */,
+				88F39D882438C13800361C78 /* MesiboUIManager.swift */,
 				88F39D852436F93200361C78 /* BackendAPI.swift */,
 				3EA48FF11E389AA700492966 /* EditSelfProfileViewController.h */,
 				3EA48FE91E389AA700492966 /* EditSelfProfileViewController.m */,
@@ -656,6 +659,7 @@
 				3EA490101E389AA700492966 /* UIColors.m in Sources */,
 				3EA490211E389B4C00492966 /* SettingsViewController.m in Sources */,
 				88F39D862436F93200361C78 /* BackendAPI.swift in Sources */,
+				88F39D892438C13800361C78 /* MesiboUIManager.swift in Sources */,
 				3EA4901E1E389B4C00492966 /* DataUsageViewController.m in Sources */,
 				3EA490021E389AA700492966 /* SampleAppFileTransferHandler.m in Sources */,
 				8817FE951FF92FA300ABB3F4 /* SamplePushKitNotify.m in Sources */,
