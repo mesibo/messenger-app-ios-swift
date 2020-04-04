@@ -36,7 +36,7 @@
 typedef void (^SampleAPI_LogoutBlock)(id parent);
 typedef void (^SampleAPI_onResponse)(int result, NSDictionary *response);
 
-//#define USE_SWIFT_API
+#define USE_SWIFT_API
 #ifdef USE_SWIFT_API
 #define SampleAPIInstance BackendAPI.getInstance
 #else

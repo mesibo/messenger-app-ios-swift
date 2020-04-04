@@ -53,6 +53,9 @@
 @implementation SampleAPI
 
 +(SampleAPI *)getInstance {
+    #ifdef USE_SWIFT_API
+    return BackendAPI.getInstance;
+#endif
     static SampleAPI *myInstance = nil;
     if(nil == myInstance) {
         @synchronized(self) {

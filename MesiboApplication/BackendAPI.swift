@@ -56,12 +56,14 @@ let CC_KEY = "cc"
         return getInstanceMyInstance!
     }
     
+    /*
     public static let sharedInstance: BackendAPI = {
         let instance = BackendAPI()
         instance.initialize()
         // setup code
         return instance
     }()
+ */
     
     public func isValidUrl(url: String?) -> Bool {
         return url?.hasPrefix("http://") ?? false || url?.hasPrefix("https://") ?? false
@@ -91,7 +93,7 @@ let CC_KEY = "cc"
         //mUserDefaults = UserDefaults.standard
         mContactTimestamp = 0
         mToken = UserDefaults.standard.string(forKey: "token")
-        
+        //mToken = nil 
         mPhone = nil
         mCc = nil
         mSyncPending = true
@@ -101,13 +103,13 @@ let CC_KEY = "cc"
         
         mDeviceType = "\(Mesibo.getInstance().getDeviceType())"
         
-        if mToken!.count > 0 {
+        if nil != mToken && mToken!.count > 0 {
             mContactTimestamp = UInt64(UserDefaults.standard.integer(forKey: "ts"))
             startMesibo(resetProfiles: false)
         }
     }
     
-    public func setOnLogout(logOutBlock: SampleAPI_LogoutBlock?) {
+    public func setOnLogout(_ logOutBlock: SampleAPI_LogoutBlock?) {
         mLogoutBlock = logOutBlock
     }
     
@@ -132,7 +134,7 @@ let CC_KEY = "cc"
         Mesibo.getInstance().setPath(appdir)
         
         Mesibo.getInstance().setAccessToken(getToken())
-        Mesibo.getInstance().setDatabase("test.db", resetTables: (__uint32_t)(resetProfiles ? MESIBO_DBTABLE_PROFILES : 0)) //TBD, change this after testing
+        Mesibo.getInstance().setDatabase("mesibo.db", resetTables: (__uint32_t)(resetProfiles ? MESIBO_DBTABLE_PROFILES : 0)) //TBD, change this after testing
         
         if resetProfiles {
             ContactUtils.getInstance().reset()
@@ -175,7 +177,7 @@ let CC_KEY = "cc"
             //update entire table after all groups added since UI doesn't add group messages unless profile present
             let contacts = response!["contacts"] as? [String]
             
-            if (contacts!.count > 0) {
+            if (nil != contacts && contacts!.count > 0) {
                 DispatchQueue.main.async(execute: {
                     Mesibo.getInstance().setProfile(nil, refresh: true)
                 })
@@ -399,7 +401,7 @@ let CC_KEY = "cc"
             }
         }
         
-        let serverts = Int64(returnedDict!["ts"] as! String)
+        let serverts: Int64 = returnedDict!["ts"] as! Int64
         
         if SAMPLEAPP_RESULT_OK != result {
             if nil != handler {
@@ -424,7 +426,6 @@ let CC_KEY = "cc"
             mPhone = returnedDict!["phone"] as? String
             mCc = returnedDict!["cc"] as? String
             
-            
             if !BackendAPI.isEmpty(mToken) {
                 mContactTimestamp = 0
                 save()
@@ -437,7 +438,7 @@ let CC_KEY = "cc"
                 
                 startMesibo(resetProfiles: true)
                 
-                createContact(returnedDict, serverts: serverts!, selfProfile: true, refresh: false, visibility: Int(VISIBILITY_VISIBLE))
+                createContact(returnedDict, serverts: serverts, selfProfile: true, refresh: false, visibility: Int(VISIBILITY_VISIBLE))
             }
 	} else if (op == "getcontacts") {
                 let contacts = returnedDict!["contacts"] as? [AnyHashable]
@@ -451,7 +452,7 @@ let CC_KEY = "cc"
                 for i in 0..<(contacts?.count ?? 0) {
                     let userDictionary = contacts?[i] as? [AnyHashable : Any]
                     
-                    createContact(userDictionary, serverts: serverts!, selfProfile: false, refresh: true, visibility: Int(visibility))
+                    createContact(userDictionary, serverts: serverts, selfProfile: false, refresh: true, visibility: Int(visibility))
                 }
                 
                 if (contacts?.count ?? 0) > 0 {
@@ -460,7 +461,7 @@ let CC_KEY = "cc"
                 mResetSyncedContacts = false
             }
             else if (op == "getgroup") || (op == "setgroup") {
-            createContact(returnedDict, serverts: serverts!, selfProfile: false, refresh: false, visibility: Int(VISIBILITY_VISIBLE))
+            createContact(returnedDict, serverts: serverts, selfProfile: false, refresh: false, visibility: Int(VISIBILITY_VISIBLE))
             } else if (op == "editmembers") || (op == "setadmin") {
                 let groupid = UInt32(returnedDict!["gid"] as! String)
                 if groupid! > UInt32(0) {
@@ -477,7 +478,7 @@ let CC_KEY = "cc"
             } else if (op == "upload") {
                 let profile = Int(returnedDict!["profile"] as! String)
                 if profile != 0 {
-                    createContact(returnedDict, serverts: serverts!, selfProfile: true, refresh: false, visibility: Int(VISIBILITY_VISIBLE))
+                    createContact(returnedDict, serverts: serverts, selfProfile: true, refresh: false, visibility: Int(VISIBILITY_VISIBLE))
                 }
             }
             
@@ -589,7 +590,7 @@ let CC_KEY = "cc"
             
             var status = ""
             
-            for i in 0...users.count {
+            for i in 0...users.count-1 {
                 if !BackendAPI.isEmpty(status) {
                     status = status + (", ")
                 }
@@ -641,12 +642,16 @@ let CC_KEY = "cc"
                 return
             }
             
-            let timestamp = Int64(response!["ts"] as! String)!
+            var timestamp: Int64 = 0;
+            let t = response!["ts"] {
+                timestamp = response!["ts"] as! Int64
+            }
             if !selfProfile && timestamp > mContactTimestamp {
                 mContactTimestamp = UInt64(timestamp)
             }
             
-            let tn = response!["tn"] as! String
+            
+            let tn: String? = response!["tn"] as? String
             
             createContact(name, phone: phone, groupid: groupid, status: status, members: members, photo: photo, tnbase64: tn, ts: UInt64(timestamp), when: serverts - timestamp, selfProfile: selfProfile, refresh: refresh, visibility: visibility)
         }
