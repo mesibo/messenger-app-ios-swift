@@ -31,7 +31,8 @@ To download, open a terminal and issue following commands:
     $ mkdir Messenger
     $ cd Messenger
     $ git lfs install
-    $ git clone https://github.com/mesibo/messenger-app-ios.git
+    $ git clone https://github.com/mesibo/messenger-app-ios-swift.git
+    $ ./fetch_mesibo_webrtc_framework.sh
 
 ### Download the code as a zip file
 You can also download the complete iOS Messenger source code as a [zip file](https://github.com/mesibo/messenger-app-ios/archive/master.zip). Although simple, the downsize of this approach is that you will have to download the complete source code everytime it is updated on the repository. 
@@ -69,7 +70,6 @@ These apps use following [Mesibo SDKs](https://mesibo.com).
 
 These apps also use following third party libraries/services.
 
-- [Facebook AccountKit](https://www.accountkit.com/) for the Phone Verification
 - [Google Maps](https://developers.google.com/maps/documentation/) and [Google Places](https://cloud.google.com/maps-platform/places/) SDKs for Geolocation integration 
 
 ## Documentation & Tutorials
