@@ -53,7 +53,6 @@
 		8817FE921FF92CFD00ABB3F4 /* PushKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8817FE911FF92CFC00ABB3F4 /* PushKit.framework */; };
 		8817FE951FF92FA300ABB3F4 /* SamplePushKitNotify.m in Sources */ = {isa = PBXBuildFile; fileRef = 8817FE941FF92FA300ABB3F4 /* SamplePushKitNotify.m */; };
 		88292D9A1E88D1B90008A4F7 /* NSDictionary+NilObject.m in Sources */ = {isa = PBXBuildFile; fileRef = 88292D951E88D1B90008A4F7 /* NSDictionary+NilObject.m */; };
-		88292D9C1E88D1B90008A4F7 /* SampleAppNotify.m in Sources */ = {isa = PBXBuildFile; fileRef = 88292D991E88D1B90008A4F7 /* SampleAppNotify.m */; };
 		88292DA01E88E36E0008A4F7 /* AddressBook.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 88292D9F1E88E36E0008A4F7 /* AddressBook.framework */; };
 		88292DAA1E891A3C0008A4F7 /* GooglePlacePicker.bundle in Resources */ = {isa = PBXBuildFile; fileRef = 88292DA91E891A3C0008A4F7 /* GooglePlacePicker.bundle */; };
 		8839B07A21ADB50B00B55B85 /* WebRTC.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8839B07921ADB50B00B55B85 /* WebRTC.framework */; };
@@ -88,6 +87,7 @@
 		88F39D892438C13800361C78 /* MesiboUIManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 88F39D882438C13800361C78 /* MesiboUIManager.swift */; };
 		88F39D8C2439898100361C78 /* SampleAppListeners.swift in Sources */ = {isa = PBXBuildFile; fileRef = 88F39D8B2439898100361C78 /* SampleAppListeners.swift */; };
 		88F39D8E2439A61B00361C78 /* SampleAppFileTransferHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = 88F39D8D2439A61B00361C78 /* SampleAppFileTransferHandler.swift */; };
+		88F39D90243A3ED800361C78 /* SampleAppNotify.swift in Sources */ = {isa = PBXBuildFile; fileRef = 88F39D8F243A3ED800361C78 /* SampleAppNotify.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -186,8 +186,6 @@
 		8817FE941FF92FA300ABB3F4 /* SamplePushKitNotify.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = SamplePushKitNotify.m; sourceTree = "<group>"; };
 		88292D941E88D1B90008A4F7 /* NSDictionary+NilObject.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSDictionary+NilObject.h"; sourceTree = "<group>"; };
 		88292D951E88D1B90008A4F7 /* NSDictionary+NilObject.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSDictionary+NilObject.m"; sourceTree = "<group>"; };
-		88292D981E88D1B90008A4F7 /* SampleAppNotify.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SampleAppNotify.h; sourceTree = "<group>"; };
-		88292D991E88D1B90008A4F7 /* SampleAppNotify.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SampleAppNotify.m; sourceTree = "<group>"; };
 		88292D9F1E88E36E0008A4F7 /* AddressBook.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AddressBook.framework; path = System/Library/Frameworks/AddressBook.framework; sourceTree = SDKROOT; };
 		88292DA91E891A3C0008A4F7 /* GooglePlacePicker.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; name = GooglePlacePicker.bundle; path = Frameworks/Google/GooglePlacePicker.framework/Versions/A/Resources/GooglePlacePicker.bundle; sourceTree = "<group>"; };
 		8839B07921ADB50B00B55B85 /* WebRTC.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = WebRTC.framework; sourceTree = "<group>"; };
@@ -224,6 +222,7 @@
 		88F39D882438C13800361C78 /* MesiboUIManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MesiboUIManager.swift; sourceTree = "<group>"; };
 		88F39D8B2439898100361C78 /* SampleAppListeners.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SampleAppListeners.swift; sourceTree = "<group>"; };
 		88F39D8D2439A61B00361C78 /* SampleAppFileTransferHandler.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SampleAppFileTransferHandler.swift; sourceTree = "<group>"; };
+		88F39D8F243A3ED800361C78 /* SampleAppNotify.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SampleAppNotify.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -376,8 +375,7 @@
 				3EA48FE71E389AA700492966 /* SampleAPI.m */,
 				88F39D8D2439A61B00361C78 /* SampleAppFileTransferHandler.swift */,
 				88F39D8B2439898100361C78 /* SampleAppListeners.swift */,
-				88292D981E88D1B90008A4F7 /* SampleAppNotify.h */,
-				88292D991E88D1B90008A4F7 /* SampleAppNotify.m */,
+				88F39D8F243A3ED800361C78 /* SampleAppNotify.swift */,
 				8817FE931FF92FA300ABB3F4 /* SamplePushKitNotify.h */,
 				8817FE941FF92FA300ABB3F4 /* SamplePushKitNotify.m */,
 				88B4F3461EBDF3960032E9F2 /* UIView+Visibility.h */,
@@ -645,7 +643,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				88F39D602436428500361C78 /* AppDelegate.swift in Sources */,
-				88292D9C1E88D1B90008A4F7 /* SampleAppNotify.m in Sources */,
+				88F39D90243A3ED800361C78 /* SampleAppNotify.swift in Sources */,
 				3EA4900B1E389AA700492966 /* AppAlert.m in Sources */,
 				88F39D8E2439A61B00361C78 /* SampleAppFileTransferHandler.swift in Sources */,
 				3EA490101E389AA700492966 /* UIColors.m in Sources */,

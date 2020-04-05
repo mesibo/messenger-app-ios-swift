@@ -254,7 +254,7 @@ import MesiboUIHelper
                 }
             }
             
-            SampleAppNotify.getInstance().notify(SAMPLEAPP_NOTIFYTYPE_OTHER, subject: subject, message: msg)
+            SampleAppNotify.getInstance().notify(Int(1), subject: subject, message: msg)
         }
         
         SampleAPI.getInstance().createContact(returnedDict, serverts: Int64((Mesibo.getInstance().getTimestamp() - params!.ts) / 1000),
