@@ -142,7 +142,7 @@ var shareInProgress: Bool = false
         
     }
     
-    class func showEntireAlbum(_ im: ImagePicker?, parent: UIViewController, album: inout [AnyHashable], title: String?) {
+    class func showEntireAlbum(_ im: ImagePicker?, parent: UIViewController, album:  [AnyHashable], title: String?) {
         im?.showMediaFiles(parent, withMediaData: album, withTitle: title)
         
     }

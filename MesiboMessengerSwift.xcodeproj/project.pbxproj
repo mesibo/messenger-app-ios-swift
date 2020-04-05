@@ -54,7 +54,6 @@
 		8817FE921FF92CFD00ABB3F4 /* PushKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8817FE911FF92CFC00ABB3F4 /* PushKit.framework */; };
 		8817FE951FF92FA300ABB3F4 /* SamplePushKitNotify.m in Sources */ = {isa = PBXBuildFile; fileRef = 8817FE941FF92FA300ABB3F4 /* SamplePushKitNotify.m */; };
 		88292D9A1E88D1B90008A4F7 /* NSDictionary+NilObject.m in Sources */ = {isa = PBXBuildFile; fileRef = 88292D951E88D1B90008A4F7 /* NSDictionary+NilObject.m */; };
-		88292D9B1E88D1B90008A4F7 /* SampleAppListeners.m in Sources */ = {isa = PBXBuildFile; fileRef = 88292D971E88D1B90008A4F7 /* SampleAppListeners.m */; };
 		88292D9C1E88D1B90008A4F7 /* SampleAppNotify.m in Sources */ = {isa = PBXBuildFile; fileRef = 88292D991E88D1B90008A4F7 /* SampleAppNotify.m */; };
 		88292DA01E88E36E0008A4F7 /* AddressBook.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 88292D9F1E88E36E0008A4F7 /* AddressBook.framework */; };
 		88292DAA1E891A3C0008A4F7 /* GooglePlacePicker.bundle in Resources */ = {isa = PBXBuildFile; fileRef = 88292DA91E891A3C0008A4F7 /* GooglePlacePicker.bundle */; };
@@ -88,6 +87,7 @@
 		88F39D602436428500361C78 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 88F39D5F2436428500361C78 /* AppDelegate.swift */; };
 		88F39D862436F93200361C78 /* BackendAPI.swift in Sources */ = {isa = PBXBuildFile; fileRef = 88F39D852436F93200361C78 /* BackendAPI.swift */; };
 		88F39D892438C13800361C78 /* MesiboUIManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 88F39D882438C13800361C78 /* MesiboUIManager.swift */; };
+		88F39D8C2439898100361C78 /* SampleAppListeners.swift in Sources */ = {isa = PBXBuildFile; fileRef = 88F39D8B2439898100361C78 /* SampleAppListeners.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -188,8 +188,6 @@
 		8817FE941FF92FA300ABB3F4 /* SamplePushKitNotify.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = SamplePushKitNotify.m; sourceTree = "<group>"; };
 		88292D941E88D1B90008A4F7 /* NSDictionary+NilObject.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSDictionary+NilObject.h"; sourceTree = "<group>"; };
 		88292D951E88D1B90008A4F7 /* NSDictionary+NilObject.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSDictionary+NilObject.m"; sourceTree = "<group>"; };
-		88292D961E88D1B90008A4F7 /* SampleAppListeners.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SampleAppListeners.h; sourceTree = "<group>"; };
-		88292D971E88D1B90008A4F7 /* SampleAppListeners.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SampleAppListeners.m; sourceTree = "<group>"; };
 		88292D981E88D1B90008A4F7 /* SampleAppNotify.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SampleAppNotify.h; sourceTree = "<group>"; };
 		88292D991E88D1B90008A4F7 /* SampleAppNotify.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SampleAppNotify.m; sourceTree = "<group>"; };
 		88292D9F1E88E36E0008A4F7 /* AddressBook.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AddressBook.framework; path = System/Library/Frameworks/AddressBook.framework; sourceTree = SDKROOT; };
@@ -226,6 +224,7 @@
 		88F39D5F2436428500361C78 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		88F39D852436F93200361C78 /* BackendAPI.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BackendAPI.swift; sourceTree = "<group>"; };
 		88F39D882438C13800361C78 /* MesiboUIManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MesiboUIManager.swift; sourceTree = "<group>"; };
+		88F39D8B2439898100361C78 /* SampleAppListeners.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SampleAppListeners.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -378,8 +377,7 @@
 				3EA48FE71E389AA700492966 /* SampleAPI.m */,
 				3EA48FF61E389AA700492966 /* SampleAppFileTransferHandler.h */,
 				3EA48FE31E389AA700492966 /* SampleAppFileTransferHandler.m */,
-				88292D961E88D1B90008A4F7 /* SampleAppListeners.h */,
-				88292D971E88D1B90008A4F7 /* SampleAppListeners.m */,
+				88F39D8B2439898100361C78 /* SampleAppListeners.swift */,
 				88292D981E88D1B90008A4F7 /* SampleAppNotify.h */,
 				88292D991E88D1B90008A4F7 /* SampleAppNotify.m */,
 				8817FE931FF92FA300ABB3F4 /* SamplePushKitNotify.h */,
@@ -655,6 +653,7 @@
 				3EA490211E389B4C00492966 /* SettingsViewController.m in Sources */,
 				88F39D862436F93200361C78 /* BackendAPI.swift in Sources */,
 				88F39D892438C13800361C78 /* MesiboUIManager.swift in Sources */,
+				88F39D8C2439898100361C78 /* SampleAppListeners.swift in Sources */,
 				3EA4901E1E389B4C00492966 /* DataUsageViewController.m in Sources */,
 				3EA490021E389AA700492966 /* SampleAppFileTransferHandler.m in Sources */,
 				8817FE951FF92FA300ABB3F4 /* SamplePushKitNotify.m in Sources */,
@@ -664,7 +663,6 @@
 				3EA490041E389AA700492966 /* SampleAPI.m in Sources */,
 				88B4F3481EBDF3960032E9F2 /* NSLayoutConstraint+Visibiltiy.m in Sources */,
 				88B4F3491EBDF3960032E9F2 /* UIView+Visibility.m in Sources */,
-				88292D9B1E88D1B90008A4F7 /* SampleAppListeners.m in Sources */,
 				3EA490031E389AA700492966 /* CommonAppUtils.m in Sources */,
 				3EA490001E389AA700492966 /* ProfileViewerController.m in Sources */,
 				3EA490201E389B4C00492966 /* SettingsUtils.m in Sources */,

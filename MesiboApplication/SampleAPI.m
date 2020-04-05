@@ -10,7 +10,6 @@
 #import "Mesibo/Mesibo.h"
 #import "NSDictionary+NilObject.h"
 #import "ContactUtils/ContactUtils.h"
-#import "SampleAppListeners.h"
 
 #import <GoogleMaps/GoogleMaps.h>
 #import <GooglePlaces/GooglePlaces.h>
@@ -127,7 +126,6 @@
 #define SYNCEDCONTACTS_KEY @"syncedcontacts"
 
 -(void) startMesibo:(BOOL) resetProfiles {
-    
     
     [SampleAppListeners getInstance]; // will initiallize and register listener
     // early initialize for reverse lookup

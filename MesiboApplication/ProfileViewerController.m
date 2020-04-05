@@ -400,7 +400,7 @@
     
     if (image != nil) {
         
-        [AppUIManager showImageFile:[ImagePicker sharedInstance] withParentController:self withImage:image withTitle:mUserProfile.name];
+        [MesiboUIManager showImageFile:[ImagePicker sharedInstance] parent:self image:image title:mUserProfile.name];
     } else {
         //[AppAlert showDialogue:@"Profile image not found" withTitle:@"Missing Image"];
     }
@@ -416,8 +416,10 @@
         if(albumData.mPhotoGList.count==0)
             [mAlbumGalleryData removeObjectAtIndex:i];
     }
-    if(mAlbumGalleryData.count >0)
+    
+    if(mAlbumGalleryData.count >0) {
         [MesiboUIManager showEntireAlbum:im parent:self album:mAlbumGalleryData title:mUserProfile.name];
+    }
     
 }
 
@@ -892,7 +894,7 @@
     NSString *imagePath = [MesiboInstance getProfilePicture:mp type:MESIBO_FILETYPE_AUTO];
     UIImage *profileImage = [UIImage imageWithContentsOfFile:imagePath];
     if(!profileImage)
-        profileImage = [AppUIManager getDefaultImage:NO];
+        profileImage = [MesiboUIManager getDefaultImage:NO];
     
     profileImageView.image = profileImage;
     

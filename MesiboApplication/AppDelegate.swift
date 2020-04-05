@@ -161,7 +161,7 @@ import UIKit
         return true
     }
     
-    @objc public func Mesibo_OnConnectionStatus(_ status: Int) {
+    public func mesibo_(onConnectionStatus status: Int32) {
         //Log("OnConnectionStatus status: %d", status)
         
         if status == MESIBO_STATUS_SIGNOUT {
@@ -355,7 +355,7 @@ import UIKit
         setRootController(editSelfProfileController)
     }
     
-    @objc public func Mesibo_onGetMenu(_ parent: Any?, type: Int, profile: MesiboUserProfile?) -> [AnyHashable]? {
+    public func mesibo_(onGetMenu parent: Any!, type: Int32, profile: MesiboUserProfile!) -> [Any]! {
         
         var btns: [AnyHashable]? = nil
         
@@ -391,7 +391,8 @@ import UIKit
         
     }
     
-    @objc public func Mesibo_onMenuItemSelected(_ parent: Any?, type: Int, profile: MesiboUserProfile?, item: Int) -> Bool {
+    public func mesibo_(onMenuItemSelected parent: Any!, type: Int32, profile: MesiboUserProfile!, item: Int32) -> Bool {
+        
         // userlist menu are active
         if type == 0 {
             // USERLIST
