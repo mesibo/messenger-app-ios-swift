@@ -1,8 +1,12 @@
 ## Mesibo Messenger for iOS - Swift
+[Mesibo](https://mesibo.com) Messenger is an open-source app with real-time messaging, voice and video call features. This repo contains the source code for Mesibo Messenger App for iOS. 
 
-> Note: Swift version is in progress. Although mesibo specific code is in Swift, some auxiliary UI code is still in Objective-C. Refer, AppDelegate.swift, MesiboUIManager.swift, SampleAppListeners.swift and BackendAPI.swift contain most of the mesibo specific code which you can use it for your reference.
+> Note: Swift version still has some auxiliary UI code in Objective-C. However, all mesibo specific code is in Swift. Refer, AppDelegate.swift, MesiboUIManager.swift, SampleAppListeners.swift and BackendAPI.swift contain most of the mesibo specific code which you can use it for your reference.
 
-[Mesibo](https://mesibo.com) Messenger is an open-source app with real-time messaging, voice and video call features. This repo contains the source code for Mesibo Messenger App for iOS. The GitHub repository for Android version is [here](https://github.com/mesibo/messenger-app-android).
+### Other Versions
+- [iOS - Objective-C](https://github.com/mesibo/messenger-app-ios). 
+- [Android - Java](https://github.com/mesibo/messenger-app-android). 
+- [Android - Kotlin](https://github.com/mesibo/messenger-app-android-kotlin). 
 
 ### Features
 - One-on-one messaging and Group chat

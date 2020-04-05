@@ -2,8 +2,8 @@
 //  SampleAppNotify.m
 //  TestMesiboUI
 //
-//  Created by John on 24/03/17.
-//  Copyright © 2018 Mesibo. All rights reserved.
+//  Created by Mabel 
+//  Copyright © 2020 Mesibo. All rights reserved.
 //
 
 #import "SampleAppNotify.h"

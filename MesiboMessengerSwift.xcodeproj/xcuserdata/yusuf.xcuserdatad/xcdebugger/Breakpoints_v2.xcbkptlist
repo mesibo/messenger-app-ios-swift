@@ -772,7 +772,7 @@
          BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
          <BreakpointContent
             uuid = "478A3765-F10D-48F7-810C-CD249279CA0C"
-            shouldBeEnabled = "Yes"
+            shouldBeEnabled = "No"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "MesiboApplication/SampleAppListeners.swift"
@@ -909,6 +909,22 @@
             startingLineNumber = "232"
             endingLineNumber = "232"
             landmarkName = "mesibo_(onMessageFilter:direction:data:)"
+            landmarkType = "7">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            uuid = "EA13D4D5-40EC-4F8E-9FE2-98B1966EC2F2"
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "MesiboApplication/SampleAppFileTransferHandler.swift"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "20"
+            endingLineNumber = "20"
+            landmarkName = "mesibo_(onStartUpload:)"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
