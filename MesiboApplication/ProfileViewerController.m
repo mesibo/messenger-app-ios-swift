@@ -15,7 +15,6 @@
 #import "MesiboMessenger-Swift.h"
 #import "AppAlert.h"
 #import "UIManager.h"
-#import "AppUIManager.h"
 //#import "UIView+Visibility.h"
 
 // do not change it .........................
@@ -177,7 +176,7 @@
     if(getFullPath)
         profileImage = [UIImage imageWithContentsOfFile:getFullPath];
     else
-        profileImage = [AppUIManager getDefaultImage:(mUserProfile.groupid > 0)];
+        profileImage = [MesiboUIManager getDefaultImage:(mUserProfile.groupid > 0)];
     
     [_mProfileImageView setImage:profileImage];
     _mProfileImageView.contentMode = UIViewContentModeScaleAspectFit;
@@ -418,7 +417,7 @@
             [mAlbumGalleryData removeObjectAtIndex:i];
     }
     if(mAlbumGalleryData.count >0)
-        [AppUIManager showEntireAlbum:im withParentController:self withAlbum:mAlbumGalleryData withTitle:mUserProfile.name];
+        [MesiboUIManager showEntireAlbum:im parent:self album:mAlbumGalleryData title:mUserProfile.name];
     
 }
 
@@ -821,10 +820,7 @@
         return;
     }
     
-    [AppUIManager showImagesInViewer:im withParentController:self withImages:mFavMediaFiles withStartIndex:index withTitle:mUserProfile.name];
-    
-    //
-    
+    [MesiboUIManager showImagesInViewer:im parent:self images:mFavMediaFiles index:index title:mUserProfile.name];
 }
 
 + (UIViewController*) topMostController {

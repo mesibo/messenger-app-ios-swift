@@ -21,7 +21,7 @@ var mDefaultGroupProfilePath: String?
 var shareInProgress: Bool = false
 
 
-class MesiboUIManager {
+@objcMembers public class MesiboUIManager: NSObject {
     class func getMeProfileStoryBoard() -> UIStoryboard? {
 
         let bundle = MesiboUIManager.getBundle()
@@ -47,7 +47,7 @@ class MesiboUIManager {
 
     }
     
-    class func launchProfile(_ parent: Any?, profile: MesiboUserProfile?) {
+    public class func launchProfile(_ parent: Any?, profile: MesiboUserProfile?) {
         let storyboard = MesiboUIManager.getMeProfileStoryBoard()
         let pvc = storyboard?.instantiateViewController(withIdentifier: "ProfileViewerController") as? ProfileViewerController
         if (pvc is ProfileViewerController) {
@@ -133,17 +133,17 @@ class MesiboUIManager {
         //[old dismissViewControllerAnimated:NO completion:nil];
     }
     
-    class func showImageFile(_ im: ImagePicker?, withParentController Parent: UIViewController, with image: UIImage?, withTitle title: String?) {
-        im?.showPhoto(inViewer: Parent, with: image, withTitle: title)
+    class func showImageFile(_ im: ImagePicker?, parent: UIViewController, image: UIImage?,  title: String?) {
+        im?.showPhoto(inViewer: parent, with: image, withTitle: title)
     }
     
-    class func showImages(inViewer im: ImagePicker?, withParentController Parent: UIViewController, withImages imagepathArray: [AnyHashable]?, withStart index: Int, withTitle title: String?) {
-        im?.showMediaFiles(inViewer: Parent, withInitialIndex: Int32(index), withData: imagepathArray, withTitle: title)
+    class func showImages(inViewer im: ImagePicker?, parent: UIViewController, images: [AnyHashable]?, index: Int, title: String?) {
+        im?.showMediaFiles(inViewer: parent, withInitialIndex: Int32(index), withData: images, withTitle: title)
         
     }
     
-    class func showEntireAlbum(_ im: ImagePicker?, withParentController Parent: UIViewController, withAlbum album: inout [AnyHashable], withTitle title: String?) {
-        im?.showMediaFiles(Parent, withMediaData: album, withTitle: title)
+    class func showEntireAlbum(_ im: ImagePicker?, parent: UIViewController, album: inout [AnyHashable], title: String?) {
+        im?.showMediaFiles(parent, withMediaData: album, withTitle: title)
         
     }
     
@@ -158,13 +158,13 @@ class MesiboUIManager {
         
     }
     
-    class func launchImageEditor(_ im: ImagePicker?, withParent Parent: UIViewController, with image: UIImage?, hideEditControls hideControls: Bool, with handler: MesiboImageEditorBlock?) {
+    class func launchImageEditor(_ im: ImagePicker?, parent: UIViewController, image: UIImage?, hideEditControls hideControls: Bool, handler: MesiboImageEditorBlock?) {
         var im = im
         if nil == im {
             im = ImagePicker.sharedInstance()
         }
         
-        im?.mParent = Parent
+        im?.mParent = parent
         im?.getImageEditor(image, title: "Edit Picture", hideEditControl: hideControls, showCaption: false, showCropOverlay: true, squareCrop: true, maxDimension: 600, with: handler)
         
     }

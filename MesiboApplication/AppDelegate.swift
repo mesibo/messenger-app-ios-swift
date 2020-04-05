@@ -218,7 +218,7 @@ import UIKit
         setRootController(navigationController)
         
         
-        AppUIManager.setDefaultParent(navigationController)
+        MesiboUIManager.setDefaultParent(navigationController)
         MesiboCall.sharedInstance().start()
     }
     
@@ -353,8 +353,6 @@ import UIKit
         })
         
         setRootController(editSelfProfileController)
-        
-        // [AppUIManager launchEditProfile:self.window.rootViewController  withMainWindow:self.window];
     }
     
     @objc public func Mesibo_onGetMenu(_ parent: Any?, type: Int, profile: MesiboUserProfile?) -> [AnyHashable]? {
@@ -399,7 +397,7 @@ import UIKit
             // USERLIST
             if item == 1 {
                 //item == 0 is reserved
-                AppUIManager.launchSettings(parent)
+                MesiboUIManager.launchSettings(parent as! UIViewController)
             }
         } else {
             // MESSAGEBOX
@@ -417,7 +415,7 @@ import UIKit
     }
     
     @objc public func mesibo_(onShowProfile parent: Any?, profile: MesiboUserProfile?) {
-        AppUIManager.launchProfile(parent, profile: profile)
+        MesiboUIManager.launchProfile(parent, profile: profile)
         
     }
     

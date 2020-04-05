@@ -386,8 +386,6 @@ let CC_KEY = "cc"
             return true
         }
         
-        //NSString *result = (NSString *)[returnedDict objectForKeyOrNil:@"result"];
-        //NSString *subresult = (NSString *)[returnedDict objectForKeyOrNil:@"subresult"];
         op = returnedDict!["op"] as? String
         let res = returnedDict!["result"] as? String
         if (res == "OK") {

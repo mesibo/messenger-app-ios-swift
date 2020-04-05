@@ -10,7 +10,6 @@
 #import "EditSelfProfileViewController.h"
 #import "SampleAPI.h"
 #import <mesibo/mesibo.h>
-#import "AppUIManager.h"
 #import "MesiboMessenger-Swift.h"
 
 
@@ -81,7 +80,7 @@
             if([MesiboInstance fileExists:imagePath]) {
                 imageView.image = [UIImage imageWithContentsOfFile:imagePath];
             } else {
-                imageView.image = [AppUIManager getDefaultImage:NO];
+                imageView.image = [MesiboUIManager getDefaultImage:NO];
             }
             
             UILabel *nameLabel = [cell viewWithTag:101];

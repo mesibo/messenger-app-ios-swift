@@ -15,7 +15,6 @@
 #import "CommonAppUtils.h"
 #import "UIManager.h"
 #import <mesibo/mesibo.h>
-#import "AppUIManager.h"
 #import "UIColors.h"
 #import "MesiboMessenger-Swift.h"
 
@@ -108,7 +107,7 @@
         UIImage *image = [UIImage imageWithContentsOfFile:picturePath];
         ImagePicker *im = [ImagePicker sharedInstance];
         im.mParent = self;
-        [AppUIManager showImageFile:im withParentController:self withImage:image withTitle:sp.name];
+        [MesiboUIManager showImageFile:im parent:self image:image title:sp.name];
     }
 }
 
@@ -177,7 +176,7 @@
     if(path)
         _mProfilePicture.image = [UIImage imageWithContentsOfFile:path];
     else
-        _mProfilePicture.image = [AppUIManager getDefaultImage:NO];
+        _mProfilePicture.image = [MesiboUIManager getDefaultImage:NO];
     
     
     [_mProfilePicture layoutIfNeeded];
@@ -226,10 +225,10 @@
     ImagePicker *im = [ImagePicker sharedInstance];
     im.mParent = self;
     
-    [AppUIManager pickImageData:im withParent:self withMediaType:filetype withBlockHandler:^(ImagePickerFile *picker) {
+    [MesiboUIManager pickImageData:im withParent:self withMediaType:filetype withBlockHandler:^(ImagePickerFile *picker) {
         dispatch_async(dispatch_get_main_queue(), ^{
             NSLog(@"Returned data %@", [picker description]);
-            [AppUIManager launchImageEditor:im withParent:self withImage:picker.image hideEditControls:NO withBlock:^BOOL(UIImage *image, NSString *caption) {
+            [MesiboUIManager launchImageEditor:im parent:self image:picker.image hideEditControls:NO handler:^BOOL(UIImage *image, NSString *caption) {
                 dispatch_async(dispatch_get_main_queue(), ^{
                     // Your UI code //
                     //_mProfilePicture.image = image;

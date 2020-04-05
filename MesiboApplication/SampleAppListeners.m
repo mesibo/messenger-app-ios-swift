@@ -10,7 +10,6 @@
 #import "NSDictionary+NilObject.h"
 #import "ContactUtils/ContactUtils.h"
 #import "UIManager.h"
-#import "AppUIManager.h"
 #import "SampleAppNotify.h"
 #import "AppAlert.h"
 #import "MesiboCall/MesiboCall.h"
@@ -140,7 +139,7 @@
 }
 
 - (void)Mesibo_onShowProfile:(id)parent profile:(MesiboUserProfile *)profile {
-    [AppUIManager launchProfile:parent profile:profile];
+    [MesiboUIManager launchProfile:parent profile:profile];
 }
 
 
@@ -280,7 +279,7 @@
 }
 
 -(void) MesiboCall_onShowViewController:(id)parent vc:(id)vc {
-    [AppUIManager launchVC:parent vc:vc];
+    [MesiboUIManager launchVC:parent vc:vc];
 }
 
 -(void) MesiboCall_onDismissViewController:(id)vc {

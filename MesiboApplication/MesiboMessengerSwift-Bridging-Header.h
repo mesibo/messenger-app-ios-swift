@@ -6,10 +6,9 @@
 #import "mesibo/mesibo.h"
 #import "MesiboCall/MesiboCall.h"
 #import "SampleAppFileTransferHandler.h"
-#import "SampleApi.h"
+#import "SampleAPI.h"
 #import "UIColors.h"
 #import "UIManager.h"
-#import "AppUIManager.h"
 #import "AppAlert.h"
 #import "EditSelfProfileViewController.h"
 #import <mesibouihelper/mesibouihelper.h>

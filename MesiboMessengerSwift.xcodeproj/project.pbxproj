@@ -14,7 +14,6 @@
 		3EA48FB01E38998C00492966 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 3EA48FAE1E38998C00492966 /* Main.storyboard */; };
 		3EA48FB51E38998C00492966 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 3EA48FB31E38998C00492966 /* LaunchScreen.storyboard */; };
 		3EA490001E389AA700492966 /* ProfileViewerController.m in Sources */ = {isa = PBXBuildFile; fileRef = 3EA48FE01E389AA700492966 /* ProfileViewerController.m */; };
-		3EA490011E389AA700492966 /* AppUIManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 3EA48FE21E389AA700492966 /* AppUIManager.m */; };
 		3EA490021E389AA700492966 /* SampleAppFileTransferHandler.m in Sources */ = {isa = PBXBuildFile; fileRef = 3EA48FE31E389AA700492966 /* SampleAppFileTransferHandler.m */; };
 		3EA490031E389AA700492966 /* CommonAppUtils.m in Sources */ = {isa = PBXBuildFile; fileRef = 3EA48FE41E389AA700492966 /* CommonAppUtils.m */; };
 		3EA490041E389AA700492966 /* SampleAPI.m in Sources */ = {isa = PBXBuildFile; fileRef = 3EA48FE71E389AA700492966 /* SampleAPI.m */; };
@@ -134,8 +133,6 @@
 		3EA48FB41E38998C00492966 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		3EA48FB61E38998C00492966 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		3EA48FE01E389AA700492966 /* ProfileViewerController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ProfileViewerController.m; sourceTree = "<group>"; };
-		3EA48FE11E389AA700492966 /* AppUIManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AppUIManager.h; sourceTree = "<group>"; };
-		3EA48FE21E389AA700492966 /* AppUIManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AppUIManager.m; sourceTree = "<group>"; };
 		3EA48FE31E389AA700492966 /* SampleAppFileTransferHandler.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SampleAppFileTransferHandler.m; sourceTree = "<group>"; };
 		3EA48FE41E389AA700492966 /* CommonAppUtils.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CommonAppUtils.m; sourceTree = "<group>"; };
 		3EA48FE51E389AA700492966 /* CommonAppUtils.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CommonAppUtils.h; sourceTree = "<group>"; };
@@ -365,8 +362,6 @@
 		3EA48FDD1E389A7E00492966 /* Sources */ = {
 			isa = PBXGroup;
 			children = (
-				3EA48FE11E389AA700492966 /* AppUIManager.h */,
-				3EA48FE21E389AA700492966 /* AppUIManager.m */,
 				88F39D882438C13800361C78 /* MesiboUIManager.swift */,
 				88F39D852436F93200361C78 /* BackendAPI.swift */,
 				3EA48FF11E389AA700492966 /* EditSelfProfileViewController.h */,
@@ -668,7 +663,6 @@
 				3EA490061E389AA700492966 /* EditSelfProfileViewController.m in Sources */,
 				3EA490041E389AA700492966 /* SampleAPI.m in Sources */,
 				88B4F3481EBDF3960032E9F2 /* NSLayoutConstraint+Visibiltiy.m in Sources */,
-				3EA490011E389AA700492966 /* AppUIManager.m in Sources */,
 				88B4F3491EBDF3960032E9F2 /* UIView+Visibility.m in Sources */,
 				88292D9B1E88D1B90008A4F7 /* SampleAppListeners.m in Sources */,
 				3EA490031E389AA700492966 /* CommonAppUtils.m in Sources */,
