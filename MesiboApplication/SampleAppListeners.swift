@@ -139,10 +139,10 @@ import MesiboUIHelper
     
     public func mesibo_(onSetGroup parent: Any!, profile: MesiboUserProfile!, type: Int32, members: [Any]!, handler: Mesibo_onSetGroupHandler!) {
         
-        UIManager.getInstance().addProgress(((parent) as? UIViewController)?.view)
-        UIManager.getInstance().showProgress()
+        ProgressIndicator.getInstance().addProgress(((parent) as? UIViewController)?.view)
+        ProgressIndicator.getInstance().showProgress()
         SampleAPI.getInstance().setGroup(profile, members: members, handler: { result, response in
-            UIManager.getInstance().hideProgress()
+            ProgressIndicator.getInstance().hideProgress()
             let groupid = (response?["gid"] as? NSNumber)?.uint32Value ?? 0
             handler!(groupid)
         })

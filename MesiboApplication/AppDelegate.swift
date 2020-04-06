@@ -181,10 +181,10 @@ import UIKit
     
     func onLogin(_ phone: String?, code: String?, akToken: String?, caller: Any?, handler resultHandler: @escaping PhoneVerificationResultBlock) {
         
-        UIManager.getInstance().addProgress(((caller) as? UIViewController)?.view)
-        UIManager.getInstance().showProgress()
+        ProgressIndicator.getInstance().addProgress(((caller) as? UIViewController)?.view)
+        ProgressIndicator.getInstance().showProgress()
         let handler:SampleAPI_onResponse = { (result:Int32, response:Dictionary<AnyHashable, Any>?) -> () in
-            UIManager.getInstance().hideProgress()
+            ProgressIndicator.getInstance().hideProgress()
             
                 print("\(response)")
             

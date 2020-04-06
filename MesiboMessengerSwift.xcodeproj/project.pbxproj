@@ -20,7 +20,6 @@
 		3EA490071E389AA700492966 /* settings.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 3EA48FEA1E389AA700492966 /* settings.storyboard */; };
 		3EA490081E389AA700492966 /* profile.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 3EA48FEB1E389AA700492966 /* profile.storyboard */; };
 		3EA490091E389AA700492966 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 3EA48FEC1E389AA700492966 /* Assets.xcassets */; };
-		3EA4900A1E389AA700492966 /* UIManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 3EA48FEE1E389AA700492966 /* UIManager.m */; };
 		3EA4900B1E389AA700492966 /* AppAlert.m in Sources */ = {isa = PBXBuildFile; fileRef = 3EA48FF01E389AA700492966 /* AppAlert.m */; };
 		3EA4900C1E389AA700492966 /* prof.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 3EA48FF51E389AA700492966 /* prof.jpg */; };
 		3EA4900D1E389AA700492966 /* q.png in Resources */ = {isa = PBXBuildFile; fileRef = 3EA48FF71E389AA700492966 /* q.png */; };
@@ -51,7 +50,6 @@
 		8817FE811FF919CC00ABB3F4 /* VideoToolbox.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8817FE801FF919CC00ABB3F4 /* VideoToolbox.framework */; };
 		8817FE831FF91A5F00ABB3F4 /* CallKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8817FE821FF91A5F00ABB3F4 /* CallKit.framework */; };
 		8817FE921FF92CFD00ABB3F4 /* PushKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8817FE911FF92CFC00ABB3F4 /* PushKit.framework */; };
-		8817FE951FF92FA300ABB3F4 /* SamplePushKitNotify.m in Sources */ = {isa = PBXBuildFile; fileRef = 8817FE941FF92FA300ABB3F4 /* SamplePushKitNotify.m */; };
 		88292D9A1E88D1B90008A4F7 /* NSDictionary+NilObject.m in Sources */ = {isa = PBXBuildFile; fileRef = 88292D951E88D1B90008A4F7 /* NSDictionary+NilObject.m */; };
 		88292DA01E88E36E0008A4F7 /* AddressBook.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 88292D9F1E88E36E0008A4F7 /* AddressBook.framework */; };
 		88292DAA1E891A3C0008A4F7 /* GooglePlacePicker.bundle in Resources */ = {isa = PBXBuildFile; fileRef = 88292DA91E891A3C0008A4F7 /* GooglePlacePicker.bundle */; };
@@ -88,6 +86,8 @@
 		88F39D8C2439898100361C78 /* SampleAppListeners.swift in Sources */ = {isa = PBXBuildFile; fileRef = 88F39D8B2439898100361C78 /* SampleAppListeners.swift */; };
 		88F39D8E2439A61B00361C78 /* SampleAppFileTransferHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = 88F39D8D2439A61B00361C78 /* SampleAppFileTransferHandler.swift */; };
 		88F39D90243A3ED800361C78 /* SampleAppNotify.swift in Sources */ = {isa = PBXBuildFile; fileRef = 88F39D8F243A3ED800361C78 /* SampleAppNotify.swift */; };
+		88F6C037243AD22C003767D6 /* PushKitNotify.swift in Sources */ = {isa = PBXBuildFile; fileRef = 88F6C036243AD22C003767D6 /* PushKitNotify.swift */; };
+		88F6C03A243ADAB0003767D6 /* ProgressIndicator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 88F6C039243ADAB0003767D6 /* ProgressIndicator.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -142,8 +142,6 @@
 		3EA48FEB1E389AA700492966 /* profile.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = profile.storyboard; sourceTree = "<group>"; };
 		3EA48FEC1E389AA700492966 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		3EA48FED1E389AA700492966 /* UIColors.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UIColors.h; sourceTree = "<group>"; };
-		3EA48FEE1E389AA700492966 /* UIManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UIManager.m; sourceTree = "<group>"; };
-		3EA48FEF1E389AA700492966 /* UIManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UIManager.h; sourceTree = "<group>"; };
 		3EA48FF01E389AA700492966 /* AppAlert.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AppAlert.m; sourceTree = "<group>"; };
 		3EA48FF11E389AA700492966 /* EditSelfProfileViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EditSelfProfileViewController.h; sourceTree = "<group>"; };
 		3EA48FF21E389AA700492966 /* ProfileViewerController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ProfileViewerController.h; sourceTree = "<group>"; };
@@ -182,8 +180,6 @@
 		8817FE801FF919CC00ABB3F4 /* VideoToolbox.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = VideoToolbox.framework; path = System/Library/Frameworks/VideoToolbox.framework; sourceTree = SDKROOT; };
 		8817FE821FF91A5F00ABB3F4 /* CallKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CallKit.framework; path = System/Library/Frameworks/CallKit.framework; sourceTree = SDKROOT; };
 		8817FE911FF92CFC00ABB3F4 /* PushKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = PushKit.framework; path = System/Library/Frameworks/PushKit.framework; sourceTree = SDKROOT; };
-		8817FE931FF92FA300ABB3F4 /* SamplePushKitNotify.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SamplePushKitNotify.h; sourceTree = "<group>"; };
-		8817FE941FF92FA300ABB3F4 /* SamplePushKitNotify.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = SamplePushKitNotify.m; sourceTree = "<group>"; };
 		88292D941E88D1B90008A4F7 /* NSDictionary+NilObject.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSDictionary+NilObject.h"; sourceTree = "<group>"; };
 		88292D951E88D1B90008A4F7 /* NSDictionary+NilObject.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSDictionary+NilObject.m"; sourceTree = "<group>"; };
 		88292D9F1E88E36E0008A4F7 /* AddressBook.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AddressBook.framework; path = System/Library/Frameworks/AddressBook.framework; sourceTree = SDKROOT; };
@@ -223,6 +219,8 @@
 		88F39D8B2439898100361C78 /* SampleAppListeners.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SampleAppListeners.swift; sourceTree = "<group>"; };
 		88F39D8D2439A61B00361C78 /* SampleAppFileTransferHandler.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SampleAppFileTransferHandler.swift; sourceTree = "<group>"; };
 		88F39D8F243A3ED800361C78 /* SampleAppNotify.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SampleAppNotify.swift; sourceTree = "<group>"; };
+		88F6C036243AD22C003767D6 /* PushKitNotify.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PushKitNotify.swift; sourceTree = "<group>"; };
+		88F6C039243ADAB0003767D6 /* ProgressIndicator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProgressIndicator.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -303,14 +301,15 @@
 		3EA48FA41E38998C00492966 /* MesiboApplication */ = {
 			isa = PBXGroup;
 			children = (
-				881727101EAF56A100AB9B3C /* MesiboApplication.entitlements */,
 				3EA490221E389C3D00492966 /* AppDelegate */,
-				3EA490151E389B3900492966 /* SettingsModule */,
-				3EA48FDE1E389A8B00492966 /* Storyboards */,
-				3EA48FDD1E389A7E00492966 /* Sources */,
-				3EA48FDC1E389A6600492966 /* Utils */,
 				3EA48FDA1E389A4900492966 /* Images */,
+				881727101EAF56A100AB9B3C /* MesiboApplication.entitlements */,
+				88F6C03B243ADD7A003767D6 /* ProfileViews */,
+				3EA490151E389B3900492966 /* SettingsModule */,
+				3EA48FDD1E389A7E00492966 /* Sources */,
+				3EA48FDE1E389A8B00492966 /* Storyboards */,
 				3EA48FA51E38998C00492966 /* Supporting Files */,
+				3EA48FDC1E389A6600492966 /* Utils */,
 			);
 			path = MesiboApplication;
 			sourceTree = "<group>";
@@ -344,11 +343,15 @@
 		3EA48FDC1E389A6600492966 /* Utils */ = {
 			isa = PBXGroup;
 			children = (
+				88292D941E88D1B90008A4F7 /* NSDictionary+NilObject.h */,
+				88292D951E88D1B90008A4F7 /* NSDictionary+NilObject.m */,
+				88B4F3441EBDF3960032E9F2 /* NSLayoutConstraint+Visibiltiy.h */,
+				88B4F3451EBDF3960032E9F2 /* NSLayoutConstraint+Visibiltiy.m */,
+				88B4F3461EBDF3960032E9F2 /* UIView+Visibility.h */,
+				88B4F3471EBDF3960032E9F2 /* UIView+Visibility.m */,
 				3EA48FE41E389AA700492966 /* CommonAppUtils.m */,
 				3EA48FE51E389AA700492966 /* CommonAppUtils.h */,
 				3EA48FED1E389AA700492966 /* UIColors.h */,
-				3EA48FEE1E389AA700492966 /* UIManager.m */,
-				3EA48FEF1E389AA700492966 /* UIManager.h */,
 				3EA48FF01E389AA700492966 /* AppAlert.m */,
 				3EA48FF31E389AA700492966 /* AppAlert.h */,
 				3EA48FFA1E389AA700492966 /* UIColors.m */,
@@ -359,27 +362,17 @@
 		3EA48FDD1E389A7E00492966 /* Sources */ = {
 			isa = PBXGroup;
 			children = (
-				88F39D882438C13800361C78 /* MesiboUIManager.swift */,
 				88F39D852436F93200361C78 /* BackendAPI.swift */,
-				3EA48FF11E389AA700492966 /* EditSelfProfileViewController.h */,
-				3EA48FE91E389AA700492966 /* EditSelfProfileViewController.m */,
 				3EA48FF41E389AA700492966 /* Includes.h */,
 				8844A9A121AA601D00489277 /* logs.h */,
-				88292D941E88D1B90008A4F7 /* NSDictionary+NilObject.h */,
-				88292D951E88D1B90008A4F7 /* NSDictionary+NilObject.m */,
-				88B4F3441EBDF3960032E9F2 /* NSLayoutConstraint+Visibiltiy.h */,
-				88B4F3451EBDF3960032E9F2 /* NSLayoutConstraint+Visibiltiy.m */,
-				3EA48FF21E389AA700492966 /* ProfileViewerController.h */,
-				3EA48FE01E389AA700492966 /* ProfileViewerController.m */,
+				88F39D882438C13800361C78 /* MesiboUIManager.swift */,
+				88F6C039243ADAB0003767D6 /* ProgressIndicator.swift */,
+				88F6C036243AD22C003767D6 /* PushKitNotify.swift */,
 				3EA48FE61E389AA700492966 /* SampleAPI.h */,
 				3EA48FE71E389AA700492966 /* SampleAPI.m */,
 				88F39D8D2439A61B00361C78 /* SampleAppFileTransferHandler.swift */,
 				88F39D8B2439898100361C78 /* SampleAppListeners.swift */,
 				88F39D8F243A3ED800361C78 /* SampleAppNotify.swift */,
-				8817FE931FF92FA300ABB3F4 /* SamplePushKitNotify.h */,
-				8817FE941FF92FA300ABB3F4 /* SamplePushKitNotify.m */,
-				88B4F3461EBDF3960032E9F2 /* UIView+Visibility.h */,
-				88B4F3471EBDF3960032E9F2 /* UIView+Visibility.m */,
 			);
 			name = Sources;
 			sourceTree = "<group>";
@@ -398,14 +391,14 @@
 		3EA490151E389B3900492966 /* SettingsModule */ = {
 			isa = PBXGroup;
 			children = (
+				3E595B651E3CE313005E1396 /* AboutViewController.h */,
+				3E595B661E3CE313005E1396 /* AboutViewController.m */,
 				3EA490161E389B4C00492966 /* DataUsageViewController.h */,
 				3EA490171E389B4C00492966 /* DataUsageViewController.m */,
 				3EA4901A1E389B4C00492966 /* SettingsUtils.h */,
 				3EA4901B1E389B4C00492966 /* SettingsUtils.m */,
 				3EA4901C1E389B4C00492966 /* SettingsViewController.h */,
 				3EA4901D1E389B4C00492966 /* SettingsViewController.m */,
-				3E595B651E3CE313005E1396 /* AboutViewController.h */,
-				3E595B661E3CE313005E1396 /* AboutViewController.m */,
 			);
 			name = SettingsModule;
 			sourceTree = "<group>";
@@ -515,6 +508,17 @@
 				3EA490531E38A00300492966 /* CoreTelephony.framework */,
 			);
 			name = Others;
+			sourceTree = "<group>";
+		};
+		88F6C03B243ADD7A003767D6 /* ProfileViews */ = {
+			isa = PBXGroup;
+			children = (
+				3EA48FF21E389AA700492966 /* ProfileViewerController.h */,
+				3EA48FE01E389AA700492966 /* ProfileViewerController.m */,
+				3EA48FF11E389AA700492966 /* EditSelfProfileViewController.h */,
+				3EA48FE91E389AA700492966 /* EditSelfProfileViewController.m */,
+			);
+			name = ProfileViews;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -647,13 +651,13 @@
 				3EA4900B1E389AA700492966 /* AppAlert.m in Sources */,
 				88F39D8E2439A61B00361C78 /* SampleAppFileTransferHandler.swift in Sources */,
 				3EA490101E389AA700492966 /* UIColors.m in Sources */,
+				88F6C037243AD22C003767D6 /* PushKitNotify.swift in Sources */,
 				3EA490211E389B4C00492966 /* SettingsViewController.m in Sources */,
 				88F39D862436F93200361C78 /* BackendAPI.swift in Sources */,
 				88F39D892438C13800361C78 /* MesiboUIManager.swift in Sources */,
 				88F39D8C2439898100361C78 /* SampleAppListeners.swift in Sources */,
 				3EA4901E1E389B4C00492966 /* DataUsageViewController.m in Sources */,
-				8817FE951FF92FA300ABB3F4 /* SamplePushKitNotify.m in Sources */,
-				3EA4900A1E389AA700492966 /* UIManager.m in Sources */,
+				88F6C03A243ADAB0003767D6 /* ProgressIndicator.swift in Sources */,
 				3E595B671E3CE313005E1396 /* AboutViewController.m in Sources */,
 				3EA490061E389AA700492966 /* EditSelfProfileViewController.m in Sources */,
 				3EA490041E389AA700492966 /* SampleAPI.m in Sources */,

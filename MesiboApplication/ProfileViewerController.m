@@ -14,7 +14,6 @@
 #import "SampleAPI.h"
 #import "MesiboMessenger-Swift.h"
 #import "AppAlert.h"
-#import "UIManager.h"
 //#import "UIView+Visibility.h"
 
 // do not change it .........................
@@ -297,7 +296,7 @@
     _mEditMemberHeight.constant = 0;
     _mAddMemberView.alpha = 0;
     
-    [[UIManager getInstance] addProgress:self.view];
+    [[ProgressIndicator getInstance] addProgress:self.view];
     
 }
 
@@ -969,9 +968,9 @@
             
             if(j == 1) {
                 
-                [[UIManager getInstance] showProgress];
+                [[ProgressIndicator getInstance] showProgress];
                 [SampleAPIInstance editMemebers:mUserProfile.groupid removegroup:YES members:member handler:^(int result, NSDictionary *response) {
-                    [[UIManager getInstance] hideProgress];
+                    [[ProgressIndicator getInstance] hideProgress];
                     if(result == SAMPLEAPP_RESULT_OK) {
                         [mProfiles removeObjectAtIndex:indexPath.row];
                         [_mMembersTable reloadData];
@@ -979,9 +978,9 @@
                     
                 }];
             } else if(0 == j) {
-                [[UIManager getInstance] showProgress];
+                [[ProgressIndicator getInstance] showProgress];
                 [SampleAPIInstance setAdmin:mUserProfile.groupid members:memberProfile.address admin:makeAdmin handler:^(int result, NSDictionary *response) {
-                    [[UIManager getInstance] hideProgress];
+                    [[ProgressIndicator getInstance] hideProgress];
                     if(result == SAMPLEAPP_RESULT_OK) {
                         [self parseGroupMembers];
                         [_mMembersTable reloadData];
@@ -1017,11 +1016,11 @@
 }
 
 - (IBAction)deleteGroup:(id)sender {
-    [[UIManager getInstance] showProgress];
+    [[ProgressIndicator getInstance] showProgress];
     
     [SampleAPIInstance deleteGroup:mUserProfile.groupid handler:^(int result, NSDictionary *response) {
         NSString *results = (NSString *)[response objectForKey:@"result"];
-        [[UIManager getInstance] hideProgress];
+        [[ProgressIndicator getInstance] hideProgress];
         if(SAMPLEAPP_RESULT_OK == result &&  [results isEqualToString:@"OK"]) {
             
             NSMutableArray *allViewControllers = [NSMutableArray arrayWithArray:[self.navigationController viewControllers]];

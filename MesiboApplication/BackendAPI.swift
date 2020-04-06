@@ -175,12 +175,14 @@ let CC_KEY = "cc"
         
         getContacts(contacts: nil, hidden: false, handler: { result, response in
             //update entire table after all groups added since UI doesn't add group messages unless profile present
+            if(nil != response) {
             let contacts = response!["contacts"] as? [String]
             
             if (nil != contacts && contacts!.count > 0) {
                 DispatchQueue.main.async(execute: {
                     Mesibo.getInstance().setProfile(nil, refresh: true)
                 })
+            }
             }
             
             BackendAPI.getInstance().startContactSync()

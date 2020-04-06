@@ -2,9 +2,8 @@
 //  SampleAPI.m
 //  MesiboDevel
 //
-//  Created by John on 23/12/17.
 //  Copyright © 2018 Mesibo. All rights reserved.
-//
+//  This file is for reference only and will be removed. Use BackendAPI.swift instead
 
 #import "SampleAPI.h"
 #import "Mesibo/Mesibo.h"

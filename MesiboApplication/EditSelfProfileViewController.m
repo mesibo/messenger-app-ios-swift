@@ -13,7 +13,6 @@
 #import <MesiboUI/MesiboUI.h>
 #import "SampleAPI.h"
 #import "CommonAppUtils.h"
-#import "UIManager.h"
 #import <mesibo/mesibo.h>
 #import "UIColors.h"
 #import "MesiboMessenger-Swift.h"
@@ -86,7 +85,7 @@
     
     _mSaveBtn.backgroundColor = [UIColor getColor:PRIMARY_COLOR];
     
-    [[UIManager getInstance] addProgress:self.view];
+    [[ProgressIndicator getInstance] addProgress:self.view];
     
 }
 
@@ -142,10 +141,10 @@
      */
     
     
-    [[UIManager getInstance] showProgress];
+    [[ProgressIndicator getInstance] showProgress];
     [SampleAPIInstance setProfile:name status:status groupid:0 handler:^(int result, NSDictionary *response) {
         
-        [[UIManager getInstance] hideProgress];
+        [[ProgressIndicator getInstance] hideProgress];
         
         if(result==SAMPLEAPP_RESULT_OK && [[response objectForKey:@"result"] isEqualToString:@"OK"]) {
             
@@ -239,10 +238,10 @@
                     NSData *imageData = UIImageJPEGRepresentation(image, 0.7);
                     [imageData writeToFile:path atomically:YES];
                     
-                    [[UIManager getInstance] showProgress];
+                    [[ProgressIndicator getInstance] showProgress];
                     
                     [SampleAPIInstance setProfilePicture:path groupid:0 handler:^(int result, NSDictionary *response) {
-                        [[UIManager getInstance] hideProgress];
+                        [[ProgressIndicator getInstance] hideProgress];
                         if(SAMPLEAPP_RESULT_OK == result) {
                             NSString *photo = [response valueForKey:@"photo"];
                             NSString *profilePath = [[MesiboInstance getFilePath:MESIBO_FILETYPE_PROFILEIMAGE] stringByAppendingPathComponent:photo];
