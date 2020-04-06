@@ -1,12 +1,11 @@
 ## Mesibo Messenger for iOS - Swift
 [Mesibo](https://mesibo.com) Messenger is an open-source app with real-time messaging, voice and video call features. This repo contains the source code for Mesibo Messenger App for iOS. 
 
-> Note: Swift version still has some auxiliary UI code in Objective-C. However, all mesibo specific code is in Swift. Refer, AppDelegate.swift, MesiboUIManager.swift, SampleAppListeners.swift and BackendAPI.swift contain most of the mesibo specific code which you can use it for your reference.
 
 ### Other Versions
-- [iOS - Objective-C](https://github.com/mesibo/messenger-app-ios). 
-- [Android - Java](https://github.com/mesibo/messenger-app-android). 
-- [Android - Kotlin](https://github.com/mesibo/messenger-app-android-kotlin). 
+- [iOS - Objective-C](https://github.com/mesibo/messenger-app-ios)
+- [Android - Java](https://github.com/mesibo/messenger-app-android) 
+- [Android - Kotlin](https://github.com/mesibo/messenger-app-android-kotlin)
 
 ### Features
 - One-on-one messaging and Group chat
@@ -42,6 +41,9 @@ To download, open a terminal and issue following commands:
 You can also download the complete iOS Messenger source code as a [zip file](https://github.com/mesibo/messenger-app-ios/archive/master.zip). Although simple, the downsize of this approach is that you will have to download the complete source code everytime it is updated on the repository. 
 
 > WARNING! zip file will be quite large due to inclusion of bitcode enabled frameworks. `git clone` is the recommended approach.
+
+### Notes of mixed code
+Swift version still has some auxiliary UI code in Objective-C. However, all mesibo specific code is in Swift. Refer, AppDelegate.swift, MesiboUIManager.swift, SampleAppListeners.swift and BackendAPI.swift contain most of the mesibo specific code which you can use it for your reference.
 
 ### Stay Up-to-date
 Whatever approach you take to download the code, it is important to stay up-to-date with the latest changes, new features, fixes etc. Ensure to **Star(*)** the project on GitHub to get notified whenever the source code is updated. 
