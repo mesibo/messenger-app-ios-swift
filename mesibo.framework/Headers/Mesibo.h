@@ -763,7 +763,7 @@ typedef void (^Mesibo_onRunHandler)(void);
 -(void) reset;
 -(BOOL) setPath:(NSString *)path;
 -(int) setAccessToken:(NSString *)accessToken;
--(int) setPushToken:(NSString *)pushToken;
+-(int) setPushToken:(NSString *)pushToken voip:(BOOL)voip;
 -(void) setPushRegistryCompletion:(void (^)(void))completion;
 -(uint32_t) getAccessTokenValidity;
 -(int) setBufferLen:(int)length empty:(BOOL)empty;
