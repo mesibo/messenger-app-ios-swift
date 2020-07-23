@@ -21,7 +21,7 @@ typedef NS_ENUM(NSUInteger, RTCVideoCodecMode) {
 
 /** Settings for encoder. Corresponds to webrtc::VideoCodec. */
 RTC_OBJC_EXPORT
-@interface RTCVideoEncoderSettings : NSObject
+@interface RTC_OBJC_TYPE (RTCVideoEncoderSettings) : NSObject
 
 @property(nonatomic, strong) NSString *name;
 
@@ -31,7 +31,6 @@ RTC_OBJC_EXPORT
 @property(nonatomic, assign) unsigned int startBitrate;  // kilobits/sec.
 @property(nonatomic, assign) unsigned int maxBitrate;
 @property(nonatomic, assign) unsigned int minBitrate;
-@property(nonatomic, assign) unsigned int targetBitrate;
 
 @property(nonatomic, assign) uint32_t maxFramerate;
 

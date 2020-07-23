@@ -905,6 +905,7 @@ typedef void (^Mesibo_onRunHandler)(void);
 -(void) setCallInterface:(int)type ci:(void *) ci;
 -(int) call:(NSString *)phone video:(BOOL)video;
 -(int) answer:(BOOL)video;
+-(int) call_ack;
 -(int) mute:(BOOL)audio video:(BOOL)video enable:(BOOL)enable;
 -(int) hold:(BOOL)enable;
 -(int) dtmf:(int)digit;

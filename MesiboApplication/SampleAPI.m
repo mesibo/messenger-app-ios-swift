@@ -989,7 +989,7 @@
         mApnTokenSent = YES; // so that next time it will not be called
     }
     
-    [MesiboInstance setPushToken:mApnToken];
+    [MesiboInstance setPushToken:mApnToken voip:NO];
 }
 
 -(void) addContacts:(NSArray *)profiles hidden:(BOOL)hidden {

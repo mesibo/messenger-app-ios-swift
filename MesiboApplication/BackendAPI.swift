@@ -1027,7 +1027,7 @@ let CC_KEY = "cc"
                 mApnTokenSent = true // so that next time it will not be called
             }
             
-            Mesibo.getInstance()?.setPushToken(mApnToken)
+            Mesibo.getInstance()?.setPushToken(mApnToken, voip: false)
         }
         
         public func addContacts(_ profiles: [AnyHashable]?, hidden: Bool) {
