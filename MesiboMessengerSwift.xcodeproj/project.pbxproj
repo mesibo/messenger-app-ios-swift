@@ -364,8 +364,8 @@
 			children = (
 				88F39D852436F93200361C78 /* BackendAPI.swift */,
 				3EA48FF41E389AA700492966 /* Includes.h */,
-				8844A9A121AA601D00489277 /* logs.h */,
 				88F39D882438C13800361C78 /* MesiboUIManager.swift */,
+				8844A9A121AA601D00489277 /* logs.h */,
 				88F6C039243ADAB0003767D6 /* ProgressIndicator.swift */,
 				88F6C036243AD22C003767D6 /* PushKitNotify.swift */,
 				3EA48FE61E389AA700492966 /* SampleAPI.h */,
