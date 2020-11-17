@@ -67,6 +67,8 @@
 
 -(BOOL) call:(id)parent callid:(uint32_t)callid  address:(NSString *)address video:(BOOL)video incoming:(BOOL)incoming;
 
+-(BOOL) call2:(id)parent callid:(uint32_t)callid  address:(NSString *)address video:(BOOL)video incoming:(BOOL)incoming mirrored:(BOOL)mirrored;
+
 -(void) setListener:(id<MesiboCallDelegate>) delegate;
 
 -(void) start;

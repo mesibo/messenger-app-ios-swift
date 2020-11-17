@@ -69,7 +69,7 @@
 	<key>LSRequiresIPhoneOS</key>
 	<true/>
 	<key>MessengerApiUrl</key>
-	<string>https://app.mesibo.com/api.php</string>
+	<string>https://app.mesibo.com/messenger/api.php</string>
 	<key>MessengerDownloadUrl</key>
 	<string>https://appimages.mesibo.com/</string>
 	<key>MessengerUploadUrl</key>

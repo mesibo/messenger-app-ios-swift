@@ -497,6 +497,7 @@ typedef MesiboUserProfile MesiboAddress;
 
 
 
+
 @interface MesiboReadSession : NSObject
 +(void) addSession:(uint64_t)sessionid session:(id)session;
 +(MesiboReadSession *)getSession:(uint64_t)sessionid ;
@@ -505,6 +506,9 @@ typedef MesiboUserProfile MesiboAddress;
 -(void) initSession:(NSString*)peer groupid:(uint32_t)groupid query:(NSString *)query delegate:(id)listener;
 -(void)endSession ;
 
+//private function - only for internal use
+-(void)_onsync:(int) count flags:(uint32_t)flags;
+
 
 -(BOOL) isReading:(MesiboParams *)params ;
 
@@ -512,7 +516,8 @@ typedef MesiboUserProfile MesiboAddress;
 -(void) stop ;
 -(void) restart ;
 
--(int) read:(int) count ;
+-(int) read:(int)count;
+-(void) sync:(int)count;
 
 -(void) enableReadReceipt:(BOOL) enable ;
 
@@ -721,6 +726,8 @@ typedef void (^Mesibo_onRunHandler)(void);
 -(void) Mesibo_onFile:(MesiboParams *)params file:(MesiboFileInfo *) file;
 
 -(void) Mesibo_OnPresence:(MesiboParams *)params data:(NSData *)data;
+
+-(void) Mesibo_OnSync:(int)count;
 
 -(BOOL) Mesibo_onCall:(uint32_t)peerid callid:(uint32_t)callid profile:(MesiboUserProfile *)profile flags:(uint64_t)flags;
 -(BOOL) Mesibo_onCallStatus:(uint32_t)peerid callid:(uint32_t)callid status:(int)status flags:(uint64_t)flags desc:(NSString *)desc;
