@@ -144,6 +144,7 @@
 
 //Local Status used by client
 #define MESIBO_CALLSTATUS_CHANNELUP             0x30
+#define MESIBO_CALLSTATUS_CONNECTED             0x30
 #define MESIBO_CALLSTATUS_QUALITY               0x31
 #define MESIBO_CALLSTATUS_RECONNECTING          0x32
 
@@ -921,10 +922,13 @@ typedef void (^Mesibo_onRunHandler)(void);
 -(void) setAnswerMode:(int)lazy;
 -(void) setCallProcessing:(int)rejectStatus currentStatus:(int)currentStatus;
 -(void) setCallStatus:(int)type sdp:(NSString *)sdp;
+-(void) setCallQueue:(id)q;
+-(void) requestBackgroundTime;
 //-(MesiboServer *) getServer:(int)type;
 
 // INTERNAL USE ONLY - NOT TO BE USED
 -(id) getProfilesManager;
+
 
 /*
  

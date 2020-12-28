@@ -97,7 +97,6 @@ import UIKit
             doLaunchWelcomeController()
         }
         
-        mesiboCall = MesiboCall.sharedInstance()
         pushNotify = SamplePushKitNotify.getInstance()
         return true
     }
@@ -157,7 +156,7 @@ import UIKit
         let phoneNum = personHandle?.value
         //[CallManager sharedInstance].delegate = self;
         //[[CallManager sharedInstance] startCallWithPhoneNumber:phoneNum];
-        MesiboCall.sharedInstance().call(nil, callid: 0, address: phoneNum, video: false, incoming: false)
+        //MesiboCall.getInstance().callUi(forExistingCall: nil)
         return true
     }
     
@@ -219,7 +218,7 @@ import UIKit
         
         
         MesiboUIManager.setDefaultParent(navigationController)
-        MesiboCall.sharedInstance().start()
+        MesiboCall.start(with: nil, name: "mesibo", icon: nil, callKit: true)
     }
     
     func launchMainUI() {
@@ -404,10 +403,10 @@ import UIKit
             // MESSAGEBOX
             if item == 0 {
                 print("Menu btn from messagebox pressed")
-                MesiboCall.sharedInstance().call(parent, callid: 0, address: profile?.address, video: false, incoming: false)
+                MesiboCall.getInstance().callUi(parent, address: (profile?.address)!, video: false)
             } else if item == 1 {
                 DispatchQueue.main.async(execute: {
-                    MesiboCall.sharedInstance().call(parent, callid: 0, address: profile?.address, video: true, incoming: false)
+                    MesiboCall.getInstance().callUi(parent, address: (profile?.address)!, video: true)
                     
                 })
             }

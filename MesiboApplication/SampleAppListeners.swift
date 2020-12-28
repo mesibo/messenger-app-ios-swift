@@ -12,7 +12,7 @@ import MesiboUI
 import MesiboCall
 import MesiboUIHelper
 
-@objcMembers public class SampleAppListeners : NSObject, MesiboDelegate, MesiboCallDelegate {
+@objcMembers public class SampleAppListeners : NSObject, MesiboDelegate {
     
     static var getInstanceMyInstance: SampleAppListeners? = nil
     
@@ -31,7 +31,8 @@ import MesiboUIHelper
     
     func initialize() {
         Mesibo.getInstance()!.addListener(self)
-        MesiboCall.sharedInstance()!.setListener(self)
+        //setup listener if you need to customize mesibo call
+        //MesiboCall.sharedInstance()!.setListener(self)
     }
     
     public func mesibo_(onMessage params: MesiboParams?, data: Data?) {
@@ -293,13 +294,6 @@ import MesiboUIHelper
         }
         
         return true
-    }
-    
-    public func mesiboCall_(onShowViewController parent: Any?, vc: Any?) {
-        MesiboUIManager.launchVC(parent as! UIViewController, vc: vc as! UIViewController)
-    }
-    
-    public func mesiboCall_(onDismissViewController vc: Any?) {
     }
     
 }

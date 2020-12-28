@@ -29,27 +29,14 @@ import UserNotificationsUI
     func initialize() {
         
         let center = UNUserNotificationCenter.current()
-        center.delegate = self
         center.requestAuthorization(options: [.alert, .badge, .sound], completionHandler: { granted, error in
             // Enable or disable features based on authorization.
             //print("on Auth")
         })
         
     }
-    
-    func notify_pre10(_ type: Int, subject: String?, message: String?) {
-        if true /*|| application.applicationState == UIApplicationStateActive*/ {
-            let localNotification = UILocalNotification()
-            localNotification.userInfo = nil
-            localNotification.soundName = UILocalNotificationDefaultSoundName
-            localNotification.alertTitle = subject
-            localNotification.alertBody = message
-            localNotification.fireDate = nil //[NSDate date];
-            localNotification.applicationIconBadgeNumber = 1 // count
-            UIApplication.shared.scheduleLocalNotification(localNotification)
-        }
-    }
-    
+   
+   
     func notify(_ type: Int, subject: String?, message: String?) {
         if (message?.count ?? 0) == 0 {
             return
