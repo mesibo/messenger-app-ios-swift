@@ -31,8 +31,11 @@
 #define MESIBOCALL_CODEC_H265          8
 #define MESIBOCALL_CODEC_OPUS       0x100
 
-#define MESIBOCALL_CAMERA_FRONT          0
-#define MESIBOCALL_CAMERA_BACK       1
+#define MESIBOCALL_VIDEOSOURCE_CAMERADEFAULT        0
+#define MESIBOCALL_VIDEOSOURCE_CAMERAFRONT          1
+#define MESIBOCALL_VIDEOSOURCE_CAMERAREAR           2
+#define MESIBOCALL_VIDEOSOURCE_SCREEN               4
+
 
 @interface MesiboCallNotification : NSObject
 @property (nonatomic) NSString * _Nullable title;
@@ -55,10 +58,8 @@
 @property (nonatomic) int bitrate; //kbps
 @property (nonatomic) int quality;
 @property (nonatomic) int codec;
-@property (nonatomic) int camera; // start with front or back
+@property (nonatomic) int source;
 @property (nonatomic) float zoom;
-@property (nonatomic) BOOL screenCapture;
-@property (nonatomic) BOOL mirror;
 @property (nonatomic) BOOL fitZoom;
 @property (nonatomic) BOOL hardwareAcceleration;
 @property (nonatomic) NSString * _Nullable fileName;
@@ -73,43 +74,42 @@
 @property (nonatomic) BOOL disableEarpiece;
 @end
 
+@interface MesiboCallUiProperties : NSObject
+@property (nonatomic) NSString * _Nullable title;
+@property (nonatomic) UIImage * _Nullable userImage;
+@property (nonatomic) UIImage * _Nullable userImageSmall;
+@property (nonatomic) BOOL showScreenSharing;
+@end
+
 @interface MesiboCallProperties : NSObject
 
 @property (nonatomic, weak) id _Nullable parent;
 @property (nonatomic, weak) id _Nullable controller;
+@property (nonatomic) MesiboUserProfile * _Nullable user;
+
+
 
 @property (nonatomic) MesiboVideoProperties * _Nullable video;
 @property (nonatomic) MesiboAudioProperties * _Nullable audio;
-
 @property (nonatomic) MesiboVideoProperties * _Nullable record;
 
+@property (nonatomic) MesiboCallUiProperties * _Nullable ui;
+@property (nonatomic) MesiboCallNotification * _Nullable notify;
 @property (nonatomic) id _Nullable other;
 
-@property (nonatomic) NSString * _Nullable title;
-@property (nonatomic) MesiboUserProfile * _Nullable user;
-@property (nonatomic) UIImage * _Nullable userImage;
-@property (nonatomic) UIImage * _Nullable userImageSmall;
-
-@property (nonatomic) MesiboCallNotification * _Nullable notify;
+@property (nonatomic) int batteryLowThreshold; // 0 to disable
 
 
 @property (nonatomic) BOOL autoAnswer;
-
 @property (nonatomic) BOOL autoDetectAppState;
-
-
-@property (nonatomic) BOOL enableCameraAtStart; // enable camera before ring
 @property (nonatomic) BOOL disableSpeakerOnProximity;
 @property (nonatomic) BOOL hideOnProximity;
 @property (nonatomic) BOOL runInBackground;
 @property (nonatomic) BOOL stopVideoInBackground;
-
 @property (nonatomic) BOOL holdOnCellularIncoming;
 @property (nonatomic) BOOL checkNetworkConnection;
 
 @property (nonatomic) BOOL enableCallKit; // requires CallKit to be enabled first
-@property (nonatomic) BOOL useCallKitUi;
-
 
 @property (nonatomic) BOOL incoming;
 
@@ -161,7 +161,9 @@
 -(void) hangup;
 
 -(void) switchCamera;
+-(void) switchSource;
 -(void) changeVideoFormat:(int)width height:(int)height framerate:(int)framerate;
+-(void) setVideoSource:(int)source index:(int)index;
 
 -(void) mute:(BOOL)audio video:(BOOL)video enabled:(BOOL)enabled;
 -(BOOL) toggleAudioMute;
@@ -230,6 +232,8 @@ enum MesiboAudioDevice {MESIBO_AUDIODEVICE_SPEAKER, MESIBO_AUDIODEVICE_HEADSET, 
 -(void) MesiboCall_OnAudioDeviceChanged:(MesiboCallProperties * _Nonnull)cp active:(int)active inactive:(int)inactive;
 -(void) MesiboCall_OnVideo:(MesiboCallProperties * _Nonnull)cp video:(MesiboVideoProperties * _Nonnull)video remote:(BOOL)remote;
 -(void) MesiboCall_OnUpdateUserInterface:(MesiboCallProperties * _Nonnull)cp state:(int)state video:(BOOL)video enable:(BOOL)enable;
+-(void) MesiboCall_OnOrientationChanged:(BOOL)landscape remote:(BOOL)remote;
+-(void) MesiboCall_OnBatteryStatus:(BOOL)low remote:(BOOL)remote;
 -(void) MesiboCall_OnDTMF:(MesiboCallProperties * _Nonnull)cp digit:(int)digit;
 @optional
 

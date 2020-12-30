@@ -731,7 +731,7 @@ typedef void (^Mesibo_onRunHandler)(void);
 -(void) Mesibo_OnSync:(int)count;
 
 -(BOOL) Mesibo_onCall:(uint32_t)peerid callid:(uint32_t)callid profile:(MesiboUserProfile *)profile flags:(uint64_t)flags;
--(BOOL) Mesibo_onCallStatus:(uint32_t)peerid callid:(uint32_t)callid status:(int)status flags:(uint64_t)flags desc:(NSString *)desc;
+-(BOOL) Mesibo_onCallStatus:(uint32_t)peerid callid:(uint32_t)callid status:(int)status flags:(uint64_t)flags info:(uint64_t)info resolution:(uint64_t)resolution desc:(NSString *)desc;
 -(void) Mesibo_onServer:(int)type url:(NSString *)url username:(NSString *)username credential:(NSString *)credential;
 
 -(BOOL) Mesibo_onStartFileTransfer:(MesiboFileInfo *)file;
@@ -914,6 +914,7 @@ typedef void (^Mesibo_onRunHandler)(void);
 -(int) call:(NSString *)phone video:(BOOL)video;
 -(int) answer:(BOOL)video;
 -(int) call_ack;
+-(int) call_info:(uint64_t)info width:(uint16_t)width height:(uint16_t) height;
 -(int) mute:(BOOL)audio video:(BOOL)video enable:(BOOL)enable;
 -(int) hold:(BOOL)enable;
 -(int) dtmf:(int)digit;
@@ -924,6 +925,8 @@ typedef void (^Mesibo_onRunHandler)(void);
 -(void) setCallStatus:(int)type sdp:(NSString *)sdp;
 -(void) setCallQueue:(id)q;
 -(void) requestBackgroundTime;
+-(void) remlog_start:(NSString *)host port:(int) port;
+-(void) remlog:(NSString *)log;
 //-(MesiboServer *) getServer:(int)type;
 
 // INTERNAL USE ONLY - NOT TO BE USED
