@@ -164,6 +164,7 @@
 -(void) switchSource;
 -(void) changeVideoFormat:(int)width height:(int)height framerate:(int)framerate;
 -(void) setVideoSource:(int)source index:(int)index;
+-(int) getVideoSource;
 
 -(void) mute:(BOOL)audio video:(BOOL)video enabled:(BOOL)enabled;
 -(BOOL) toggleAudioMute;
@@ -188,6 +189,7 @@
 -(BOOL) getMuteStatus:(BOOL)audio video:(BOOL)video remote:(BOOL)remote;
 
 -(void) playInCallSound:(NSURL * _Nonnull)url volume:(float)volume loops:(int)loops;
+-(void) stopInCallSound;
 
 // ---------------------------------- private functions - DO NOT USE, they will be removed --------------------------------
 -(void) setup:(MesiboCallProperties * _Nonnull)cp;
@@ -230,6 +232,7 @@ enum MesiboAudioDevice {MESIBO_AUDIODEVICE_SPEAKER, MESIBO_AUDIODEVICE_HEADSET, 
 -(void) MesiboCall_OnHangup:(MesiboCallProperties * _Nonnull)cp reason:(int)reason;
 -(void) MesiboCall_OnStatus:(MesiboCallProperties * _Nonnull)cp status:(int) status video:(BOOL) video;
 -(void) MesiboCall_OnAudioDeviceChanged:(MesiboCallProperties * _Nonnull)cp active:(int)active inactive:(int)inactive;
+-(void) MesiboCall_OnVideoSourceChanged:(int)source index:(int) index;
 -(void) MesiboCall_OnVideo:(MesiboCallProperties * _Nonnull)cp video:(MesiboVideoProperties * _Nonnull)video remote:(BOOL)remote;
 -(void) MesiboCall_OnUpdateUserInterface:(MesiboCallProperties * _Nonnull)cp state:(int)state video:(BOOL)video enable:(BOOL)enable;
 -(void) MesiboCall_OnOrientationChanged:(BOOL)landscape remote:(BOOL)remote;
