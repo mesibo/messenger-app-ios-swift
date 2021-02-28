@@ -1,6 +1,7 @@
-//
-//  Mesibo.h
-//  Copyright © 2019 Mesibo Inc. All rights reserved.
+// Mesibo.h
+// Copyright © 2021 Mesibo. All rights reserved.
+// https://mesibo.com
+
 #pragma once
 
 #import <Foundation/Foundation.h>
@@ -216,6 +217,12 @@
 #define MESIBO_DBTABLE_KEYS              4
 
 #define MESIBO_DBTABLE_ALL (MESIBO_DBTABLE_MESSAGES|MESIBO_DBTABLE_PROFILES|MESIBO_DBTABLE_KEYS)
+
+#define MESIBO_CONFIGTYPE_CALLFLAGS             0x100
+#define MESIBO_CONFIGTYPE_CALLANSWERMODE        0x101
+#define MESIBO_CONFIGTYPE_CALLREQTO             0x110
+#define MESIBO_CONFIGTYPE_CALLANSTO             0x111
+#define MESIBO_CONFIGTYPE_CALLCONNECTTO         0x112
 
 @interface MesiboUserProfile : NSObject
 @property (nonatomic) NSString *address;
@@ -734,6 +741,9 @@ typedef void (^Mesibo_onRunHandler)(void);
 -(BOOL) Mesibo_onCallStatus:(uint32_t)peerid callid:(uint32_t)callid status:(int)status flags:(uint64_t)flags info:(uint64_t)info resolution:(uint64_t)resolution desc:(NSString *)desc;
 -(void) Mesibo_onServer:(int)type url:(NSString *)url username:(NSString *)username credential:(NSString *)credential;
 
+-(void) Mesibo_onConfParitcipant:(uint32_t)uid sid:(uint32_t)sid address:(NSString *)address name:(NSString *)name role:(uint32_t) role flags:(uint32_t) flags;
+-(void) Mesibo_onConfCall:(uint32_t)uid sid:(uint32_t)sid op:(int)op resolution:(uint32_t)resolution fps:(int)fps bw:(uint32_t)bw flags:(uint32_t)flags sdp:(NSString *)sdp mid:(NSString *)mid mline:(int) mline;
+
 -(BOOL) Mesibo_onStartFileTransfer:(MesiboFileInfo *)file;
 -(BOOL) Mesibo_onStopFileTransfer:(MesiboFileInfo *) file;
 -(BOOL) Mesibo_onFileTransferProgress:(MesiboFileInfo *) file;
@@ -776,7 +786,8 @@ typedef void (^Mesibo_onRunHandler)(void);
 -(uint32_t) getAccessTokenValidity;
 -(int) setBufferLen:(int)length empty:(BOOL)empty;
 -(void) setSecureConnection:(BOOL) enable;
-
+-(void) setConfiuration:(uint32_t) type value:(uint32_t)value;
+-(void) setConfiuration:(uint32_t) type svalue:(NSString *)svalue;
 //********************** Listner *********************************************
 //both are same functions, setDelegate is more common in iOS world
 -(BOOL) setDelegate:(id)delegate;
@@ -913,14 +924,13 @@ typedef void (^Mesibo_onRunHandler)(void);
 -(void) setCallInterface:(int)type ci:(void *) ci;
 -(int) call:(NSString *)phone video:(BOOL)video;
 -(int) answer:(BOOL)video;
--(int) call_ack;
+-(int) call_ack:(BOOL)cis;
 -(int) call_info:(uint64_t)info width:(uint16_t)width height:(uint16_t) height;
 -(int) mute:(BOOL)audio video:(BOOL)video enable:(BOOL)enable;
 -(int) hold:(BOOL)enable;
 -(int) dtmf:(int)digit;
 -(int) hangup:(uint32_t)callid;
 -(int) getMuteStatus;
--(void) setAnswerMode:(int)lazy;
 -(void) setCallProcessing:(int)rejectStatus currentStatus:(int)currentStatus;
 -(void) setCallStatus:(int)type sdp:(NSString *)sdp;
 -(void) setCallQueue:(id)q;
@@ -932,6 +942,15 @@ typedef void (^Mesibo_onRunHandler)(void);
 // INTERNAL USE ONLY - NOT TO BE USED
 -(id) getProfilesManager;
 
+// INTERNAL USE ONLY - DO NOT invoke these functions directly
+-(int) groupcall_start:(uint32_t) groupid;
+-(int) groupcall_stop:(uint32_t) groupid;
+-(int) groupcall_create_participant:(uint32_t) sid flags:(uint32_t) flags;
+-(int) groupcall_call:(uint32_t)peer sid:(uint32_t)sid flags:(uint32_t)flags resolution:(uint32_t)resolution screen:(BOOL)screen;
+-(int) groupcall_hangup:(uint32_t)peer sid:(uint32_t) sid;
+-(int) groupcall_set_media:(uint32_t)peer sid:(uint32_t)sid resolution:(uint32_t)resolution screen:(BOOL)screen;
+-(int) groupcall_mute:(uint32_t)peer sid:(uint32_t)sid video:(BOOL)video audio:(BOOL)audio mute:(BOOL)mute;
+-(int) groupcall_sdp:(uint32_t)peer sid:(uint32_t)sid resolutioon:(uint32_t)resolution type:(int)type sdp:(NSString *)sdp mid:(NSString *)mid mline:(int) mline;
 
 /*
  

@@ -1,9 +1,6 @@
-//
-//  MesiboCall.h
-//  MesiboCall
-//
-//  Copyright © 2018 Mesibo. All rights reserved.
-//
+// MesiboCall.h
+// Copyright © 2021 Mesibo. All rights reserved.
+// https://mesibo.com
 #pragma once
 
 #import <Foundation/Foundation.h>
@@ -36,6 +33,8 @@
 #define MESIBOCALL_VIDEOSOURCE_CAMERAREAR           2
 #define MESIBOCALL_VIDEOSOURCE_SCREEN               4
 
+//forward declaration
+//@protocol MesiboCallInProgressListener;
 
 @interface MesiboCallNotification : NSObject
 @property (nonatomic) NSString * _Nullable title;
@@ -79,6 +78,17 @@
 @property (nonatomic) UIImage * _Nullable userImage;
 @property (nonatomic) UIImage * _Nullable userImageSmall;
 @property (nonatomic) BOOL showScreenSharing;
+@property (nonatomic) BOOL autoHideControls;
+@property (nonatomic) BOOL autoSwapVideoViews;
+@property (nonatomic) id _Nullable inProgressListener; // only a few listeners will be invoked
+
+@end
+
+@interface MesiboIceServer : NSObject
+@property (nonatomic) int type;
+@property (nonatomic) NSMutableArray * _Nullable urls;
+@property (nonatomic) NSString * _Nullable username;
+@property (nonatomic) NSString * _Nullable credential;
 @end
 
 @interface MesiboCallProperties : NSObject
@@ -109,6 +119,8 @@
 @property (nonatomic) BOOL holdOnCellularIncoming;
 @property (nonatomic) BOOL checkNetworkConnection;
 
+@property (nonatomic) NSMutableArray * _Nullable iceServers;
+
 @property (nonatomic) BOOL enableCallKit; // requires CallKit to be enabled first
 
 @property (nonatomic) BOOL incoming;
@@ -129,7 +141,7 @@
 -(void) zoom:(float)zoom;
 -(BOOL) fitLetterBox:(CGRect)bounds;
 -(BOOL) fitZoom:(CGRect)bounds;
--(BOOL) position:(int)size xpadding:(int)xpadding ypadding:(int)ypadding bounds:(CGRect)bounds;
+-(BOOL) position:(int)size aspect:(float)aspect xpadding:(int)xpadding ypadding:(int)ypadding bounds:(CGRect)bounds;
 
 //Private method - not for external use
 -(void) setVideo:(nullable id)video;
@@ -242,6 +254,9 @@ enum MesiboAudioDevice {MESIBO_AUDIODEVICE_SPEAKER, MESIBO_AUDIODEVICE_HEADSET, 
 
 @end
 
+@class MesiboParticipant;
+@class MesiboGroupCall;
+
 #define MesiboCallInstance [MesiboCall getInstance]
 
 typedef void (^MesiboPermissionBlock)(BOOL granted);
@@ -266,6 +281,7 @@ typedef void (^MesiboPermissionBlock)(BOOL granted);
 -(BOOL) isAppInBackground;
 -(BOOL) isCallKitAllowed; 
 -(BOOL) enableCallKit:(BOOL)detectRegulatoryRestrictions icon:(UIImage *_Nonnull)icon;
+-(void) enablePushKit:(BOOL) enable; // mandatory call
 
 +(UIImage * _Nullable) getImage:(NSBundle * _Nonnull)bundle name:(NSString * _Nonnull)name;
 +(UIImage * _Nullable) getColoredImage:(NSBundle * _Nonnull)bundle name:(NSString * _Nonnull)name color:(UIColor * _Nullable)color;
@@ -273,8 +289,88 @@ typedef void (^MesiboPermissionBlock)(BOOL granted);
 +(BOOL) checkPermissions:(BOOL)video handler:(MesiboPermissionBlock _Nonnull) handler;
 
 -(void) setDefaultUiParent:(id _Nonnull)parent;
+-(void) setDefaultUiProperties:(MesiboCallUiProperties * _Nullable)properties;
+-(MesiboCallUiProperties * _Nullable)getDefaultUiProperties;
 -(void) setDefaultUiTitle:(NSString * _Nonnull)name;
 -(NSString * _Nonnull) getDefaultUiTitle;
 
+-(MesiboGroupCall * _Nullable) getActiveGroupCall;
+-(MesiboGroupCall * _Nullable) groupCall:(id _Nonnull)controller groupid:(uint32_t) groupid;
+-(BOOL) groupCallDemo:(id _Nonnull)parent gid:(uint32_t)gid video:(BOOL)video publish:(BOOL)publish;
+
 @end
 
+
+
+
+@protocol MesiboGroupCallListener
+-(void) MesiboGroupcall_OnPublisher:(MesiboParticipant *_Nonnull)p joined:(BOOL) joined;
+-(void) MesiboGroupcall_OnSubscriber:(MesiboParticipant *_Nonnull)p joined:(BOOL) joined;
+-(void) MesiboGroupCall_OnAudioDeviceChanged:(int)active inactive:(int)inactive;
+@end
+
+@protocol MesiboGroupCallInProgressListener
+-(void) MesiboGroupcall_OnMute:(MesiboParticipant * _Nonnull)p audio:(BOOL)audio video:(BOOL) video remote:(BOOL)remote;
+-(void) MesiboGroupcall_OnHangup:(MesiboParticipant * _Nonnull)p reason:(int)reason;
+-(void) MesiboGroupcall_OnConnected:(MesiboParticipant * _Nonnull)p connected:(BOOL) connected;
+-(void) MesiboGroupcall_OnTalking:(MesiboParticipant * _Nonnull)p talking:(BOOL) talking;
+-(void) MesiboGroupcall_OnVideoSourceChanged:(int)source index:(int) index;
+-(void) MesiboGroupcall_OnVideo:(MesiboParticipant * _Nonnull)p aspectRatio:(float)aspectRatio landscape:(BOOL)landscape;
+-(void) MesiboGroupcall_OnAudio:(MesiboParticipant * _Nonnull)p;
+@end
+
+@interface MesiboParticipant : NSObject
+-(void) setListener:(id<MesiboGroupCallInProgressListener> _Nonnull) listener;
+-(BOOL) call:(BOOL)audio video:(BOOL)video listener:(id<MesiboGroupCallInProgressListener> _Nonnull) listener;
+-(void) hangup;
+
+-(void) switchCamera;
+-(void) switchSource;
+-(BOOL) isFrontCamera;
+-(void) changeVideoFormat:(int) width height:(int) height fps:(int)fps;
+-(void) setVideoSource:(int) source index:(int) index;
+-(int) getVideoSource;
+
+-(void) mute:(BOOL) audio video:(BOOL) video enabled:(BOOL) enabled;
+-(BOOL) toggleAudioMute;
+-(BOOL) toggleVideoMute;
+-(BOOL) getMuteStatus:(BOOL) video;
+
+-(void) setVideoView:(MesiboVideoView * _Nullable)v;
+-(MesiboVideoView * _Nullable) getVideoView;
+
+-(BOOL) isCallInProgress;
+-(BOOL) isCallConnected;
+
+-(BOOL) isVideoCall;
+-(BOOL) hasVideo;
+-(BOOL) hasAudio;
+-(BOOL) isTalking;
+-(uint64_t) getTalkTimestamp;
+
+-(BOOL) isVideoLandscape;
+-(float) getAspectRatio;
+
+-(uint64_t) getId;
+-(uint32_t) getSid;
+
+-(id _Nullable) getUserData;
+-(void) setUserData:(id _Nullable) data;
+
+-(NSString * _Nullable) getName;
+-(void) setName:(NSString * _Nonnull) name;
+-(NSString * _Nonnull) getAddress;
+-(BOOL) isMe;
+@end
+
+@interface MesiboGroupCall : NSObject
+-(MesiboParticipant * _Nullable) createPublisher:(uint32_t)sid;
+
+-(void) join:(id<MesiboGroupCallListener> _Nonnull) listener;
+-(void) leave;
+
+-(void) setAudioDevice:(int)device enable:(BOOL)enable;
+
+-(void) playInCallSound:(NSURL * _Nonnull)url volume:(float)volume loops:(int)loops;
+-(void) stopInCallSound;
+@end
