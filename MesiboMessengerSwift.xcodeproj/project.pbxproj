@@ -28,11 +28,6 @@
 		3EA4901E1E389B4C00492966 /* DataUsageViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 3EA490171E389B4C00492966 /* DataUsageViewController.m */; };
 		3EA490201E389B4C00492966 /* SettingsUtils.m in Sources */ = {isa = PBXBuildFile; fileRef = 3EA4901B1E389B4C00492966 /* SettingsUtils.m */; };
 		3EA490211E389B4C00492966 /* SettingsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 3EA4901D1E389B4C00492966 /* SettingsViewController.m */; };
-		3EA490421E389F4200492966 /* GoogleMaps.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3EA4903D1E389F4200492966 /* GoogleMaps.framework */; };
-		3EA490431E389F4200492966 /* GoogleMapsBase.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3EA4903E1E389F4200492966 /* GoogleMapsBase.framework */; };
-		3EA490441E389F4200492966 /* GoogleMapsCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3EA4903F1E389F4200492966 /* GoogleMapsCore.framework */; };
-		3EA490451E389F4200492966 /* GooglePlacePicker.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3EA490401E389F4200492966 /* GooglePlacePicker.framework */; };
-		3EA490461E389F4200492966 /* GooglePlaces.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3EA490411E389F4200492966 /* GooglePlaces.framework */; };
 		3EA490541E38A00300492966 /* CoreTelephony.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3EA490531E38A00300492966 /* CoreTelephony.framework */; };
 		3EA490561E38A00C00492966 /* AVFoundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3EA490551E38A00C00492966 /* AVFoundation.framework */; };
 		3EA490581E38A01400492966 /* GLKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3EA490571E38A01400492966 /* GLKit.framework */; };
@@ -52,7 +47,6 @@
 		8817FE921FF92CFD00ABB3F4 /* PushKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8817FE911FF92CFC00ABB3F4 /* PushKit.framework */; };
 		88292D9A1E88D1B90008A4F7 /* NSDictionary+NilObject.m in Sources */ = {isa = PBXBuildFile; fileRef = 88292D951E88D1B90008A4F7 /* NSDictionary+NilObject.m */; };
 		88292DA01E88E36E0008A4F7 /* AddressBook.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 88292D9F1E88E36E0008A4F7 /* AddressBook.framework */; };
-		88292DAA1E891A3C0008A4F7 /* GooglePlacePicker.bundle in Resources */ = {isa = PBXBuildFile; fileRef = 88292DA91E891A3C0008A4F7 /* GooglePlacePicker.bundle */; };
 		8839B07A21ADB50B00B55B85 /* WebRTC.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8839B07921ADB50B00B55B85 /* WebRTC.framework */; };
 		8839B07B21ADB51F00B55B85 /* WebRTC.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8839B07921ADB50B00B55B85 /* WebRTC.framework */; };
 		8839B07C21ADB51F00B55B85 /* WebRTC.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 8839B07921ADB50B00B55B85 /* WebRTC.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
@@ -69,8 +63,7 @@
 		88811C5521A80C2400AECB33 /* MesiboCallBundle.bundle in Resources */ = {isa = PBXBuildFile; fileRef = 88811C5421A80C2400AECB33 /* MesiboCallBundle.bundle */; };
 		889963561E93BB7600FE21EB /* appicon.png in Resources */ = {isa = PBXBuildFile; fileRef = 889963551E93BB7600FE21EB /* appicon.png */; };
 		889963711E93CC6100FE21EB /* ImagePickerBundle.bundle in Resources */ = {isa = PBXBuildFile; fileRef = 889963701E93CC6100FE21EB /* ImagePickerBundle.bundle */; };
-		88AD36751E433E0600A0241E /* GoogleMaps.bundle in Resources */ = {isa = PBXBuildFile; fileRef = 88AD36741E433E0600A0241E /* GoogleMaps.bundle */; };
-		88AD36791E433ECE00A0241E /* GooglePlaces.bundle in Resources */ = {isa = PBXBuildFile; fileRef = 88AD36781E433ECE00A0241E /* GooglePlaces.bundle */; };
+		88AD47B22602155C00829724 /* Network.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 88AD47B12602155C00829724 /* Network.framework */; };
 		88B4F3291EBB617F0032E9F2 /* mesibo-Regular.otf in Resources */ = {isa = PBXBuildFile; fileRef = 88B4F3281EBB61690032E9F2 /* mesibo-Regular.otf */; };
 		88B4F3481EBDF3960032E9F2 /* NSLayoutConstraint+Visibiltiy.m in Sources */ = {isa = PBXBuildFile; fileRef = 88B4F3451EBDF3960032E9F2 /* NSLayoutConstraint+Visibiltiy.m */; };
 		88B4F3491EBDF3960032E9F2 /* UIView+Visibility.m in Sources */ = {isa = PBXBuildFile; fileRef = 88B4F3471EBDF3960032E9F2 /* UIView+Visibility.m */; };
@@ -201,6 +194,7 @@
 		889963701E93CC6100FE21EB /* ImagePickerBundle.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; name = ImagePickerBundle.bundle; path = mediapicker.framework/Versions/A/Resources/ImagePickerBundle.bundle; sourceTree = "<group>"; };
 		88AD36741E433E0600A0241E /* GoogleMaps.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; name = GoogleMaps.bundle; path = Frameworks/Google/GoogleMaps.framework/Versions/A/Resources/GoogleMaps.bundle; sourceTree = "<group>"; };
 		88AD36781E433ECE00A0241E /* GooglePlaces.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; name = GooglePlaces.bundle; path = Frameworks/Google/GooglePlaces.framework/Versions/A/Resources/GooglePlaces.bundle; sourceTree = "<group>"; };
+		88AD47B12602155C00829724 /* Network.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Network.framework; path = System/Library/Frameworks/Network.framework; sourceTree = SDKROOT; };
 		88B4F3281EBB61690032E9F2 /* mesibo-Regular.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "mesibo-Regular.otf"; sourceTree = "<group>"; };
 		88B4F3441EBDF3960032E9F2 /* NSLayoutConstraint+Visibiltiy.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSLayoutConstraint+Visibiltiy.h"; sourceTree = "<group>"; };
 		88B4F3451EBDF3960032E9F2 /* NSLayoutConstraint+Visibiltiy.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSLayoutConstraint+Visibiltiy.m"; sourceTree = "<group>"; };
@@ -248,6 +242,7 @@
 				3EA490661E38A07B00492966 /* libc++.1.tbd in Frameworks */,
 				3EA490641E38A06900492966 /* OpenGLES.framework in Frameworks */,
 				3EA490601E38A04500492966 /* ImageIO.framework in Frameworks */,
+				88AD47B22602155C00829724 /* Network.framework in Frameworks */,
 				3EA490621E38A05200492966 /* CoreLocation.framework in Frameworks */,
 				883F3E4021A9B0520090D7B9 /* mesibouihelper.framework in Frameworks */,
 				88B4F35F1EBF67890032E9F2 /* contactutils.framework in Frameworks */,
@@ -260,11 +255,6 @@
 				88C4EC1521EE3D8C0066F405 /* mesibo.framework in Frameworks */,
 				8839B07B21ADB51F00B55B85 /* WebRTC.framework in Frameworks */,
 				88811C4F21A80BE000AECB33 /* mediapicker.framework in Frameworks */,
-				3EA490441E389F4200492966 /* GoogleMapsCore.framework in Frameworks */,
-				3EA490431E389F4200492966 /* GoogleMapsBase.framework in Frameworks */,
-				3EA490421E389F4200492966 /* GoogleMaps.framework in Frameworks */,
-				3EA490461E389F4200492966 /* GooglePlaces.framework in Frameworks */,
-				3EA490451E389F4200492966 /* GooglePlacePicker.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -415,6 +405,7 @@
 		3EA490231E389C5F00492966 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				88AD47B12602155C00829724 /* Network.framework */,
 				8817FE911FF92CFC00ABB3F4 /* PushKit.framework */,
 				8817FE821FF91A5F00ABB3F4 /* CallKit.framework */,
 				8817FE801FF919CC00ABB3F4 /* VideoToolbox.framework */,
@@ -626,14 +617,11 @@
 				3EA4900F1E389AA700492966 /* n.png in Resources */,
 				3EA4900C1E389AA700492966 /* prof.jpg in Resources */,
 				88B6A0531EA736080051A873 /* opensource_ios.png in Resources */,
-				88292DAA1E891A3C0008A4F7 /* GooglePlacePicker.bundle in Resources */,
 				889963561E93BB7600FE21EB /* appicon.png in Resources */,
 				8880D8491EA4D128004D5121 /* plug_play.png in Resources */,
 				3EA490091E389AA700492966 /* Assets.xcassets in Resources */,
 				8880D83D1EA22E8A004D5121 /* videocall.png in Resources */,
 				3EA48FB01E38998C00492966 /* Main.storyboard in Resources */,
-				88AD36791E433ECE00A0241E /* GooglePlaces.bundle in Resources */,
-				88AD36751E433E0600A0241E /* GoogleMaps.bundle in Resources */,
 				88811C5521A80C2400AECB33 /* MesiboCallBundle.bundle in Resources */,
 				889963711E93CC6100FE21EB /* ImagePickerBundle.bundle in Resources */,
 			);

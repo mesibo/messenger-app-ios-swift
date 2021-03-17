@@ -7,8 +7,6 @@
 
 import Foundation
 import contactutils
-import GoogleMaps
-import GooglePlaces
 import Intents
 import mesibo
 import MesiboUI

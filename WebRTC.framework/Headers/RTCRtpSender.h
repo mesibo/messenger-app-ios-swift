@@ -10,10 +10,10 @@
 
 #import <Foundation/Foundation.h>
 
-#import "RTCDtmfSender.h"
-#import "RTCMacros.h"
-#import "RTCMediaStreamTrack.h"
-#import "RTCRtpParameters.h"
+#import <WebRTC/RTCDtmfSender.h>
+#import <WebRTC/RTCMacros.h>
+#import <WebRTC/RTCMediaStreamTrack.h>
+#import <WebRTC/RTCRtpParameters.h>
 
 NS_ASSUME_NONNULL_BEGIN
 
@@ -21,8 +21,8 @@ RTC_OBJC_EXPORT
 @protocol RTC_OBJC_TYPE
 (RTCRtpSender)<NSObject>
 
-    /** A unique identifier for this sender. */
-    @property(nonatomic, readonly) NSString *senderId;
+/** A unique identifier for this sender. */
+@property(nonatomic, readonly) NSString *senderId;
 
 /** The currently active RTCRtpParameters, as defined in
  *  https://www.w3.org/TR/webrtc/#idl-def-RTCRtpParameters.

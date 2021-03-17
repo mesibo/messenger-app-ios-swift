@@ -7,8 +7,7 @@
 
 import Foundation
 import contactutils
-import GoogleMaps
-import GooglePlaces
+
 import mesibo
 
 let APNTOKEN_KEY = "apntoken"
@@ -148,9 +147,6 @@ let CC_KEY = "cc"
         if nil != mCc && Int(mCc! as String)! > 0 {
             ContactUtils.getInstance().setCountryCode(Int32(mCc! as String)!)
         }
-        
-        GMSServices.provideAPIKey(mGoogleKey!)
-        GMSPlacesClient.provideAPIKey(mGoogleKey!)
         
         Mesibo.getInstance().setSecureConnection(true)
         Mesibo.getInstance().start()

@@ -80,6 +80,7 @@
 @property (nonatomic) BOOL showScreenSharing;
 @property (nonatomic) BOOL autoHideControls;
 @property (nonatomic) BOOL autoSwapVideoViews;
+@property (nonatomic) BOOL useMetalKit;
 @property (nonatomic) id _Nullable inProgressListener; // only a few listeners will be invoked
 
 @end
@@ -131,7 +132,6 @@
 
 @interface MesiboVideoView : UIView
 
--(void) setup;
 -(void) enableHardwareScaler:(BOOL) enable;
 -(void) enableOverlay:(BOOL) enable;
 -(void) enablePip:(BOOL) enable;
@@ -142,9 +142,6 @@
 -(BOOL) fitLetterBox:(CGRect)bounds;
 -(BOOL) fitZoom:(CGRect)bounds;
 -(BOOL) position:(int)size aspect:(float)aspect xpadding:(int)xpadding ypadding:(int)ypadding bounds:(CGRect)bounds;
-
-//Private method - not for external use
--(void) setVideo:(nullable id)video;
 
 @end
 
@@ -203,14 +200,7 @@
 -(void) playInCallSound:(NSURL * _Nonnull)url volume:(float)volume loops:(int)loops;
 -(void) stopInCallSound;
 
-// ---------------------------------- private functions - DO NOT USE, they will be removed --------------------------------
--(void) setup:(MesiboCallProperties * _Nonnull)cp;
--(void) OnForeground;
--(void) OnBackground;
--(void) detach;
--(BOOL) isDetached;
--(id _Nonnull) getCallContext;
-// --------------------------- end of private functions --------------------------------
+
 
 
 
@@ -363,6 +353,27 @@ typedef void (^MesiboPermissionBlock)(BOOL granted);
 -(BOOL) isMe;
 @end
 
+
+
+@interface MesiboParticipantSortParams : NSObject
+@property (nonatomic) BOOL orderedBySelf;
+@property (nonatomic) BOOL orderedByTalking;
+@property (nonatomic) BOOL orderedByName;
+@property (nonatomic) BOOL orderedByVideo;
+
+@property (nonatomic) BOOL forceAspectRatio;
+@property (nonatomic) BOOL flexibleOrientation;
+
+@property (nonatomic) float maxHorzAspectRatio;
+@property (nonatomic) float minVertAspectRation;
+@property (nonatomic) float multiplier;
+@end
+
+@protocol MesiboParticipantSortListener
+-(MesiboParticipant *_Nonnull) ParticipantSort_onGetParticipant:(id _Nonnull)o;
+-(void) ParticipantSort_onSetCoordinates:(id _Nonnull)o position:(int)position x:(float)x y:(float)y width:(float)width height:(float)height;
+@end
+
 @interface MesiboGroupCall : NSObject
 -(MesiboParticipant * _Nullable) createPublisher:(uint32_t)sid;
 
@@ -373,4 +384,7 @@ typedef void (^MesiboPermissionBlock)(BOOL granted);
 
 -(void) playInCallSound:(NSURL * _Nonnull)url volume:(float)volume loops:(int)loops;
 -(void) stopInCallSound;
+
+- (NSArray * _Nullable) sortStreams:(id _Nonnull) listener views:(NSArray * _Nonnull)views width:(float)width height:(float)height start:(int)start size:(int)size params:(MesiboParticipantSortParams * _Nullable) params;
 @end
+

@@ -10,11 +10,13 @@
 
 #import <Foundation/Foundation.h>
 
-#import "RTCMacros.h"
-#import "RTCRtpReceiver.h"
-#import "RTCRtpSender.h"
+#import <WebRTC/RTCMacros.h>
+#import <WebRTC/RTCRtpReceiver.h>
+#import <WebRTC/RTCRtpSender.h>
 
 NS_ASSUME_NONNULL_BEGIN
+
+extern NSString *const kRTCRtpTransceiverErrorDomain;
 
 /** https://w3c.github.io/webrtc-pc/#dom-rtcrtptransceiverdirection */
 typedef NS_ENUM(NSInteger, RTCRtpTransceiverDirection) {
@@ -98,12 +100,9 @@ RTC_OBJC_EXPORT
 
 /** The direction attribute indicates the preferred direction of this
  *  transceiver, which will be used in calls to createOffer and createAnswer.
- *  An update of directionality does not take effect immediately. Instead,
- *  future calls to createOffer and createAnswer mark the corresponding media
- *  descriptions as sendrecv, sendonly, recvonly, or inactive.
  *  https://w3c.github.io/webrtc-pc/#dom-rtcrtptransceiver-direction
  */
-@property(nonatomic) RTCRtpTransceiverDirection direction;
+@property(nonatomic, readonly) RTCRtpTransceiverDirection direction;
 
 /** The currentDirection attribute indicates the current direction negotiated
  *  for this transceiver. If this transceiver has never been represented in an
@@ -117,7 +116,14 @@ RTC_OBJC_EXPORT
  *  this transceiver will no longer send, the receiver will no longer receive.
  *  https://w3c.github.io/webrtc-pc/#dom-rtcrtptransceiver-stop
  */
-- (void)stop;
+- (void)stopInternal;
+
+/** An update of directionality does not take effect immediately. Instead,
+ *  future calls to createOffer and createAnswer mark the corresponding media
+ *  descriptions as sendrecv, sendonly, recvonly, or inactive.
+ *  https://w3c.github.io/webrtc-pc/#dom-rtcrtptransceiver-direction
+ */
+- (void)setDirection:(RTCRtpTransceiverDirection)direction error:(NSError **)error;
 
 @end
 

@@ -10,8 +10,6 @@
 #import "NSDictionary+NilObject.h"
 #import "ContactUtils/ContactUtils.h"
 
-#import <GoogleMaps/GoogleMaps.h>
-#import <GooglePlaces/GooglePlaces.h>
 #import "AppAlert.h"
 
 #import "MesiboMessenger-Swift.h"
@@ -84,10 +82,7 @@
         NSLog(@"************* INVALID URL - set a valid URL in MessengerApiUrl field in Info.plist ************* ");
     }
     
-    mGoogleKey = [[NSBundle mainBundle] objectForInfoDictionaryKey:@"GoogleMapKey"];
-    if (!mGoogleKey || [mGoogleKey length] < 32) {
-        NSLog(@"************* INVALID GOOGLE MAP KEY - set a valid Key in GoogleMapKey field in Info.plist ************* ");
-    }
+    
     
     mUserDefaults = [NSUserDefaults standardUserDefaults];
     mContactTimestamp = 0;
@@ -146,8 +141,6 @@
     if(mCc && [mCc intValue] > 0)
         [ContactUtilsInstance setCountryCode:[mCc intValue]];
     
-    [GMSServices provideAPIKey:mGoogleKey];
-    [GMSPlacesClient provideAPIKey:mGoogleKey];
     
     [MesiboInstance setSecureConnection:YES];
     [MesiboInstance start];
