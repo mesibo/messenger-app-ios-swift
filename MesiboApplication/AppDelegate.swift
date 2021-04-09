@@ -204,7 +204,7 @@ import UIKit
     }
     
     func launchMesiboUI() {
-        let ui = Mesibo.getInstance().getUiOptions()
+        let ui = MesiboUI.getOptions()
         ui?.emptyUserListMessage = "No active conversations! Invite your family and friends to try mesibo."
         
         let mesiboController = MesiboUI.getViewController()

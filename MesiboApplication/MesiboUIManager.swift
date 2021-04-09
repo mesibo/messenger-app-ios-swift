@@ -116,8 +116,8 @@ var shareInProgress: Bool = false
     class func launchMesiboUI(_ rootController: UIViewController?, withMainWindow mainWindow: UIWindow?) {
         var rootController = rootController
         
-        let ui = Mesibo.getInstance()!.getUiOptions()
-        ui?.emptyUserListMessage = "No active conversations! Invite your family and friends to try mesibo."
+        let ui = MesiboUI.getOptions()
+        ui?.emptyUserListMessage = "No active conversations! Click on the message icon to send a message."
         
         let old = mainWindow?.rootViewController
         

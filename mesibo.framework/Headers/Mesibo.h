@@ -262,6 +262,7 @@
 @property (nonatomic) uint32_t flag;
 @property (nonatomic) int type;
 @property (nonatomic) int status;
+@property (nonatomic) int statusFlags;
 @property (nonatomic) int origin;
 
 @property (nonatomic) NSString *enckey;
@@ -303,6 +304,7 @@
 
 
 -(BOOL) isMessageStatusFailed;
+-(BOOL) isMessageStatusInProgress;
 
 
 // WARNING - not to be used directly - (private function)
@@ -655,52 +657,7 @@ typedef BOOL (^Mesibo_onHTTPProgress)(MesiboHttp *http, int state, int progress)
 @property (nonatomic) NSString *password;
 @end
 
-@interface MesiboUiOptions : NSObject
-@property (nonatomic) UIImage *contactPlaceHolder;
-@property (nonatomic) UIImage *messagingBackground;
 
-@property (nonatomic) BOOL useLetterTitleImage;
-
-@property (nonatomic) BOOL enableVoiceCall;
-@property (nonatomic) BOOL enableVideoCall;
-@property (nonatomic) BOOL enableForward;
-@property (nonatomic) BOOL enableSearch;
-@property (nonatomic) BOOL enableBackButton;
-
-@property (copy, nonatomic) NSString *messageListTitle;
-@property (copy, nonatomic) NSString *userListTitle;
-@property (copy, nonatomic) NSString *createGroupTitle;
-@property (copy, nonatomic) NSString *selectContactTitle;
-@property (copy, nonatomic) NSString *selectGroupContactsTitle;
-@property (copy, nonatomic) NSString *forwardTitle;
-
-@property (copy, nonatomic) NSString *userOnlineIndicationTitle;
-@property (copy, nonatomic) NSString *onlineIndicationTitle;
-@property (copy, nonatomic) NSString *offlineIndicationTitle;
-@property (copy, nonatomic) NSString *connectingIndicationTitle;
-@property (copy, nonatomic) NSString *noNetworkIndicationTitle;
-
-@property (copy, nonatomic) NSString *emptyUserListMessage;
-
-@property (nonatomic) BOOL showRecentInForward;
-@property (nonatomic) BOOL mConvertSmilyToEmoji;
-
-@property (assign, nonatomic) int *mLetterTitleColors;
-@property (assign, nonatomic) int mToolbarColor;
-@property (assign, nonatomic) int mStatusBarColor;
-@property (assign, nonatomic) int mToolbarTextColor;
-@property (assign, nonatomic) int mUserListTypingIndicationColor;
-@property (assign, nonatomic) int mUserListStatusColor;
-
-@property (assign, nonatomic) uint64_t mTypingIndicationTimeMs;
-
-@property (assign, nonatomic) uint64_t mMaxImageFileSize;
-@property (assign, nonatomic) uint64_t mMaxVideoFileSize;
-
-@property (assign, nonatomic) BOOL mEnableNotificationBadge;
-
-
-@end
 
 
 /*
@@ -914,8 +871,7 @@ typedef void (^Mesibo_onRunHandler)(void);
 -(BOOL) setMessageWidthInPercent:(int) percent;
 -(int) getMessageWidthInPoints;
 
--(MesiboUiOptions *) getUiOptions;
--(void) setUiOptions:(MesiboUiOptions *)options;
+
 
 
 + (void) Log:(const char*)sourceFile lineNumber:(int)lineNumber format:(NSString*)format, ...;
