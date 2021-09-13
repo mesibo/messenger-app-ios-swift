@@ -50,6 +50,8 @@
 @property (copy, nonatomic) NSString *offlineIndicationTitle;
 @property (copy, nonatomic) NSString *connectingIndicationTitle;
 @property (copy, nonatomic) NSString *noNetworkIndicationTitle;
+@property (copy, nonatomic) NSString *suspendedIndicationTitle;
+
 
 @property (copy, nonatomic) NSString *emptyUserListMessage;
 
@@ -62,8 +64,10 @@
 @property (assign, nonatomic) int mToolbarTextColor;
 @property (assign, nonatomic) int mUserListTypingIndicationColor;
 @property (assign, nonatomic) int mUserListStatusColor;
+@property (assign, nonatomic) int messageBackgroundColorForMe;
+@property (assign, nonatomic) int messageBackgroundColorForPeer;
+@property (assign, nonatomic) int messagingBackgroundColor;
 
-@property (assign, nonatomic) uint64_t mTypingIndicationTimeMs;
 
 @property (assign, nonatomic) uint64_t mMaxImageFileSize;
 @property (assign, nonatomic) uint64_t mMaxVideoFileSize;
@@ -83,12 +87,12 @@
 
 +(UIImage *) getDefaultImage:(BOOL) group;
 
-+(void) launchMessageViewController:(UIViewController *) parent profile:(MesiboUserProfile*)profile ;
++(void) launchMessageViewController:(UIViewController *) parent profile:(MesiboProfile*)profile ;
 
 +(MesiboUiOptions *) getUiOptions;
 +(void) setUiOptions:(MesiboUiOptions *)options;
 
-+(void) launchMessageViewController:(UIViewController *) parent profile:(MesiboUserProfile*)profile uidelegate:(id)uidelegate;
++(void) launchMessageViewController:(UIViewController *) parent profile:(MesiboProfile*)profile uidelegate:(id)uidelegate;
 
 //+(void) getUITableViewInstance:(UITableViewWithReloadCallback *) table;
 

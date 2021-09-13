@@ -28,7 +28,7 @@
 
 @property (weak, nonatomic) IBOutlet UILabel *mUserActivityStatus;
 
-@property (strong , nonatomic) MesiboUserProfile *mUserData;
+@property (strong , nonatomic) MesiboProfile *mUserData;
 @property (weak, nonatomic) IBOutlet NSLayoutConstraint *mHideStatusViewConstrain;
 
 

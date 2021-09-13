@@ -50,7 +50,7 @@ var shareInProgress: Bool = false
 
     }
     
-    public class func launchProfile(_ parent: Any?, profile: MesiboUserProfile?) {
+    public class func launchProfile(_ parent: Any?, profile: MesiboProfile?) {
         let storyboard = MesiboUIManager.getMeProfileStoryBoard()
         let pvc = storyboard?.instantiateViewController(withIdentifier: "ProfileViewerController") as? ProfileViewerController
         if (pvc is ProfileViewerController) {
@@ -76,7 +76,7 @@ var shareInProgress: Bool = false
     class func launchEditProfile(_ RootController: UIViewController?, withMainWindow mainWindow: UIWindow?) {
         var RootController = RootController
         let storybord = UIStoryboard(name: "Main", bundle: Bundle.main)
-        let editSelfProfileController = storybord.instantiateViewController(withIdentifier: "EditSelfProfileViewController") as? EditSelfProfileViewController
+        let editSelfProfileController = storybord.instantiateViewController(withIdentifier: "EditSelfProfileViewController") as? EditProfileController
         editSelfProfileController?.setLaunchMesiboCallback({
             MesiboUIManager.launchMesiboUI(RootController, withMainWindow: mainWindow)
         })

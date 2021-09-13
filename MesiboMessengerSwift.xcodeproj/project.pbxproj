@@ -15,8 +15,7 @@
 		3EA48FB51E38998C00492966 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 3EA48FB31E38998C00492966 /* LaunchScreen.storyboard */; };
 		3EA490001E389AA700492966 /* ProfileViewerController.m in Sources */ = {isa = PBXBuildFile; fileRef = 3EA48FE01E389AA700492966 /* ProfileViewerController.m */; };
 		3EA490031E389AA700492966 /* CommonAppUtils.m in Sources */ = {isa = PBXBuildFile; fileRef = 3EA48FE41E389AA700492966 /* CommonAppUtils.m */; };
-		3EA490041E389AA700492966 /* SampleAPI.m in Sources */ = {isa = PBXBuildFile; fileRef = 3EA48FE71E389AA700492966 /* SampleAPI.m */; };
-		3EA490061E389AA700492966 /* EditSelfProfileViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 3EA48FE91E389AA700492966 /* EditSelfProfileViewController.m */; };
+		3EA490061E389AA700492966 /* EditProfileController.m in Sources */ = {isa = PBXBuildFile; fileRef = 3EA48FE91E389AA700492966 /* EditProfileController.m */; };
 		3EA490071E389AA700492966 /* settings.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 3EA48FEA1E389AA700492966 /* settings.storyboard */; };
 		3EA490081E389AA700492966 /* profile.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 3EA48FEB1E389AA700492966 /* profile.storyboard */; };
 		3EA490091E389AA700492966 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 3EA48FEC1E389AA700492966 /* Assets.xcassets */; };
@@ -32,7 +31,6 @@
 		3EA490561E38A00C00492966 /* AVFoundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3EA490551E38A00C00492966 /* AVFoundation.framework */; };
 		3EA490581E38A01400492966 /* GLKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3EA490571E38A01400492966 /* GLKit.framework */; };
 		3EA4905A1E38A01D00492966 /* CoreData.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3EA490591E38A01D00492966 /* CoreData.framework */; };
-		3EA4905C1E38A02B00492966 /* libsqlite3.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = 3EA4905B1E38A02B00492966 /* libsqlite3.tbd */; };
 		3EA4905E1E38A03B00492966 /* libz.1.1.3.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = 3EA4905D1E38A03B00492966 /* libz.1.1.3.tbd */; };
 		3EA490601E38A04500492966 /* ImageIO.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3EA4905F1E38A04500492966 /* ImageIO.framework */; };
 		3EA490621E38A05200492966 /* CoreLocation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3EA490611E38A05200492966 /* CoreLocation.framework */; };
@@ -70,11 +68,12 @@
 		88B4F35F1EBF67890032E9F2 /* contactutils.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 88B4F35E1EBF67890032E9F2 /* contactutils.framework */; };
 		88B6A0531EA736080051A873 /* opensource_ios.png in Resources */ = {isa = PBXBuildFile; fileRef = 88B6A0521EA736080051A873 /* opensource_ios.png */; };
 		88C4EC1521EE3D8C0066F405 /* mesibo.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 88C4EC1421EE3D8C0066F405 /* mesibo.framework */; };
+		88D671F42686C3FB004B1570 /* AppUIManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 88D671F32686C3FB004B1570 /* AppUIManager.m */; };
 		88DE780A21EDA35000A1876A /* mesibocall.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 88DE780921EDA35000A1876A /* mesibocall.framework */; };
 		88DE781D21EDAAA400A1876A /* MesiboUIResource.bundle in Resources */ = {isa = PBXBuildFile; fileRef = 88DE781C21EDAAA400A1876A /* MesiboUIResource.bundle */; };
 		88F30B531F7D0BB700803AA8 /* Contacts.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 88F30B521F7D0BB700803AA8 /* Contacts.framework */; };
 		88F39D602436428500361C78 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 88F39D5F2436428500361C78 /* AppDelegate.swift */; };
-		88F39D862436F93200361C78 /* BackendAPI.swift in Sources */ = {isa = PBXBuildFile; fileRef = 88F39D852436F93200361C78 /* BackendAPI.swift */; };
+		88F39D862436F93200361C78 /* SampleAPI.swift in Sources */ = {isa = PBXBuildFile; fileRef = 88F39D852436F93200361C78 /* SampleAPI.swift */; };
 		88F39D892438C13800361C78 /* MesiboUIManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 88F39D882438C13800361C78 /* MesiboUIManager.swift */; };
 		88F39D8C2439898100361C78 /* SampleAppListeners.swift in Sources */ = {isa = PBXBuildFile; fileRef = 88F39D8B2439898100361C78 /* SampleAppListeners.swift */; };
 		88F39D8E2439A61B00361C78 /* SampleAppFileTransferHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = 88F39D8D2439A61B00361C78 /* SampleAppFileTransferHandler.swift */; };
@@ -128,15 +127,13 @@
 		3EA48FE01E389AA700492966 /* ProfileViewerController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ProfileViewerController.m; sourceTree = "<group>"; };
 		3EA48FE41E389AA700492966 /* CommonAppUtils.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CommonAppUtils.m; sourceTree = "<group>"; };
 		3EA48FE51E389AA700492966 /* CommonAppUtils.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CommonAppUtils.h; sourceTree = "<group>"; };
-		3EA48FE61E389AA700492966 /* SampleAPI.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SampleAPI.h; sourceTree = "<group>"; };
-		3EA48FE71E389AA700492966 /* SampleAPI.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SampleAPI.m; sourceTree = "<group>"; };
-		3EA48FE91E389AA700492966 /* EditSelfProfileViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = EditSelfProfileViewController.m; sourceTree = "<group>"; };
+		3EA48FE91E389AA700492966 /* EditProfileController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = EditProfileController.m; sourceTree = "<group>"; };
 		3EA48FEA1E389AA700492966 /* settings.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = settings.storyboard; sourceTree = "<group>"; };
 		3EA48FEB1E389AA700492966 /* profile.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = profile.storyboard; sourceTree = "<group>"; };
 		3EA48FEC1E389AA700492966 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		3EA48FED1E389AA700492966 /* UIColors.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UIColors.h; sourceTree = "<group>"; };
 		3EA48FF01E389AA700492966 /* AppAlert.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AppAlert.m; sourceTree = "<group>"; };
-		3EA48FF11E389AA700492966 /* EditSelfProfileViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EditSelfProfileViewController.h; sourceTree = "<group>"; };
+		3EA48FF11E389AA700492966 /* EditProfileController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EditProfileController.h; sourceTree = "<group>"; };
 		3EA48FF21E389AA700492966 /* ProfileViewerController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ProfileViewerController.h; sourceTree = "<group>"; };
 		3EA48FF31E389AA700492966 /* AppAlert.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AppAlert.h; sourceTree = "<group>"; };
 		3EA48FF41E389AA700492966 /* Includes.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Includes.h; sourceTree = "<group>"; };
@@ -203,12 +200,14 @@
 		88B4F35E1EBF67890032E9F2 /* contactutils.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = contactutils.framework; sourceTree = "<group>"; };
 		88B6A0521EA736080051A873 /* opensource_ios.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = opensource_ios.png; sourceTree = "<group>"; };
 		88C4EC1421EE3D8C0066F405 /* mesibo.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = mesibo.framework; sourceTree = "<group>"; };
+		88D671F22686C3FB004B1570 /* AppUIManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AppUIManager.h; sourceTree = "<group>"; };
+		88D671F32686C3FB004B1570 /* AppUIManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AppUIManager.m; sourceTree = "<group>"; };
 		88DE780921EDA35000A1876A /* mesibocall.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = mesibocall.framework; sourceTree = "<group>"; };
 		88DE781C21EDAAA400A1876A /* MesiboUIResource.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; name = MesiboUIResource.bundle; path = mesiboui.framework/Versions/A/Resources/MesiboUIResource.bundle; sourceTree = "<group>"; };
 		88F30B521F7D0BB700803AA8 /* Contacts.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Contacts.framework; path = System/Library/Frameworks/Contacts.framework; sourceTree = SDKROOT; };
 		88F39D5E2436428400361C78 /* MesiboMessengerSwift-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "MesiboMessengerSwift-Bridging-Header.h"; sourceTree = "<group>"; };
 		88F39D5F2436428500361C78 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
-		88F39D852436F93200361C78 /* BackendAPI.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BackendAPI.swift; sourceTree = "<group>"; };
+		88F39D852436F93200361C78 /* SampleAPI.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SampleAPI.swift; sourceTree = "<group>"; };
 		88F39D882438C13800361C78 /* MesiboUIManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MesiboUIManager.swift; sourceTree = "<group>"; };
 		88F39D8B2439898100361C78 /* SampleAppListeners.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SampleAppListeners.swift; sourceTree = "<group>"; };
 		88F39D8D2439A61B00361C78 /* SampleAppFileTransferHandler.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SampleAppFileTransferHandler.swift; sourceTree = "<group>"; };
@@ -247,7 +246,6 @@
 				883F3E4021A9B0520090D7B9 /* mesibouihelper.framework in Frameworks */,
 				88B4F35F1EBF67890032E9F2 /* contactutils.framework in Frameworks */,
 				3EA4905E1E38A03B00492966 /* libz.1.1.3.tbd in Frameworks */,
-				3EA4905C1E38A02B00492966 /* libsqlite3.tbd in Frameworks */,
 				887B95DB21F0347E00264A74 /* mesiboui.framework in Frameworks */,
 				3EA4905A1E38A01D00492966 /* CoreData.framework in Frameworks */,
 				3EA490561E38A00C00492966 /* AVFoundation.framework in Frameworks */,
@@ -352,14 +350,12 @@
 		3EA48FDD1E389A7E00492966 /* Sources */ = {
 			isa = PBXGroup;
 			children = (
-				88F39D852436F93200361C78 /* BackendAPI.swift */,
+				88F39D852436F93200361C78 /* SampleAPI.swift */,
 				3EA48FF41E389AA700492966 /* Includes.h */,
 				88F39D882438C13800361C78 /* MesiboUIManager.swift */,
 				8844A9A121AA601D00489277 /* logs.h */,
 				88F6C039243ADAB0003767D6 /* ProgressIndicator.swift */,
 				88F6C036243AD22C003767D6 /* PushKitNotify.swift */,
-				3EA48FE61E389AA700492966 /* SampleAPI.h */,
-				3EA48FE71E389AA700492966 /* SampleAPI.m */,
 				88F39D8D2439A61B00361C78 /* SampleAppFileTransferHandler.swift */,
 				88F39D8B2439898100361C78 /* SampleAppListeners.swift */,
 				88F39D8F243A3ED800361C78 /* SampleAppNotify.swift */,
@@ -504,10 +500,12 @@
 		88F6C03B243ADD7A003767D6 /* ProfileViews */ = {
 			isa = PBXGroup;
 			children = (
+				88D671F22686C3FB004B1570 /* AppUIManager.h */,
+				88D671F32686C3FB004B1570 /* AppUIManager.m */,
 				3EA48FF21E389AA700492966 /* ProfileViewerController.h */,
 				3EA48FE01E389AA700492966 /* ProfileViewerController.m */,
-				3EA48FF11E389AA700492966 /* EditSelfProfileViewController.h */,
-				3EA48FE91E389AA700492966 /* EditSelfProfileViewController.m */,
+				3EA48FF11E389AA700492966 /* EditProfileController.h */,
+				3EA48FE91E389AA700492966 /* EditProfileController.m */,
 			);
 			name = ProfileViews;
 			sourceTree = "<group>";
@@ -635,20 +633,20 @@
 			buildActionMask = 2147483647;
 			files = (
 				88F39D602436428500361C78 /* AppDelegate.swift in Sources */,
+				88D671F42686C3FB004B1570 /* AppUIManager.m in Sources */,
 				88F39D90243A3ED800361C78 /* SampleAppNotify.swift in Sources */,
 				3EA4900B1E389AA700492966 /* AppAlert.m in Sources */,
 				88F39D8E2439A61B00361C78 /* SampleAppFileTransferHandler.swift in Sources */,
 				3EA490101E389AA700492966 /* UIColors.m in Sources */,
 				88F6C037243AD22C003767D6 /* PushKitNotify.swift in Sources */,
 				3EA490211E389B4C00492966 /* SettingsViewController.m in Sources */,
-				88F39D862436F93200361C78 /* BackendAPI.swift in Sources */,
+				88F39D862436F93200361C78 /* SampleAPI.swift in Sources */,
 				88F39D892438C13800361C78 /* MesiboUIManager.swift in Sources */,
 				88F39D8C2439898100361C78 /* SampleAppListeners.swift in Sources */,
 				3EA4901E1E389B4C00492966 /* DataUsageViewController.m in Sources */,
 				88F6C03A243ADAB0003767D6 /* ProgressIndicator.swift in Sources */,
 				3E595B671E3CE313005E1396 /* AboutViewController.m in Sources */,
-				3EA490061E389AA700492966 /* EditSelfProfileViewController.m in Sources */,
-				3EA490041E389AA700492966 /* SampleAPI.m in Sources */,
+				3EA490061E389AA700492966 /* EditProfileController.m in Sources */,
 				88B4F3481EBDF3960032E9F2 /* NSLayoutConstraint+Visibiltiy.m in Sources */,
 				88B4F3491EBDF3960032E9F2 /* UIView+Visibility.m in Sources */,
 				3EA490031E389AA700492966 /* CommonAppUtils.m in Sources */,
@@ -800,6 +798,8 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_ENTITLEMENTS = MesiboApplication/MesiboApplication.entitlements;
+				CURRENT_PROJECT_VERSION = 0;
+				DEFINES_MODULE = YES;
 				DEVELOPMENT_TEAM = HXKDD24ZQ6;
 				ENABLE_BITCODE = NO;
 				FRAMEWORK_SEARCH_PATHS = (
@@ -820,7 +820,7 @@
 					"$(PROJECT_DIR)/Frameworks/MesiboUIHelper",
 					"$(PROJECT_DIR)",
 				);
-				MARKETING_VERSION = 1.0.45;
+				MARKETING_VERSION = 1.5.0;
 				PRODUCT_BUNDLE_IDENTIFIER = org.mesibo.messenger;
 				PRODUCT_NAME = MesiboMessenger;
 				SWIFT_OBJC_BRIDGING_HEADER = "MesiboApplication/MesiboMessengerSwift-Bridging-Header.h";
@@ -835,6 +835,8 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_ENTITLEMENTS = MesiboApplication/MesiboApplication.entitlements;
+				CURRENT_PROJECT_VERSION = 0;
+				DEFINES_MODULE = YES;
 				DEVELOPMENT_TEAM = HXKDD24ZQ6;
 				ENABLE_BITCODE = NO;
 				FRAMEWORK_SEARCH_PATHS = (
@@ -855,7 +857,7 @@
 					"$(PROJECT_DIR)/Frameworks/MesiboUIHelper",
 					"$(PROJECT_DIR)",
 				);
-				MARKETING_VERSION = 1.0.45;
+				MARKETING_VERSION = 1.5.0;
 				PRODUCT_BUNDLE_IDENTIFIER = org.mesibo.messenger;
 				PRODUCT_NAME = MesiboMessenger;
 				SWIFT_OBJC_BRIDGING_HEADER = "MesiboApplication/MesiboMessengerSwift-Bridging-Header.h";

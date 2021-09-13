@@ -26,7 +26,7 @@ import Photos
         var post: [AnyHashable : Any] = [:]
         
         post["op"] = "upload"
-        post["token"] = BackendAPI.getInstance().getToken()
+        post["token"] = SampleAPI.getInstance().getToken()
         post["mid"] = String(params!.mid)
         post["profile"] = "0"
         
@@ -72,7 +72,7 @@ import Photos
             } as Mesibo_onHTTPProgress
         
         let http = MesiboHttp()
-        http.url = BackendAPI.getInstance().getUploadUrl()
+        http.url = SampleAPI.getInstance().getUploadUrl()
         http.uploadPhAsset = file?.asset
         http.uploadLocalIdentifier = file?.localIdentifier
         http.uploadFile = file?.getPath()
@@ -88,7 +88,7 @@ import Photos
     func mesibo_(onStartDownload file: MesiboFileInfo?) -> Bool {
         let type = Mesibo.getInstance().getNetworkConnectivity()
         
-        if !BackendAPI.getInstance().getMediaAutoDownload() && MESIBO_CONNECTIVITY_WIFI != type && file?.userInteraction == nil {
+        if !SampleAPI.getInstance().getMediaAutoDownload() && MESIBO_CONNECTIVITY_WIFI != type && file?.userInteraction == nil {
             return false
         }
         
@@ -101,7 +101,7 @@ import Photos
         var url = file?.getUrl()
         
         if !(url?.hasPrefix("http://") ?? false) && !(url?.hasPrefix("https://") ?? false) {
-            url = BackendAPI.getInstance().getDownloadUrl()! + (url!)
+            url = SampleAPI.getInstance().getDownloadUrl()! + (url!)
         }
         
         let handler = { (http: MesiboHttp?, state: Int32, progress: Int32) -> Bool in

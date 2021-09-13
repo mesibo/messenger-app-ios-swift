@@ -2,7 +2,7 @@
 //  PushKitNotify.swift
 //  MesiboMessengerSwift
 //
-//  Copyright © 2020 Mesibo. All rights reserved.
+//  Copyright © 2021 Mesibo. All rights reserved.
 //
 
 import Foundation
@@ -45,6 +45,7 @@ import PushKit
         }
 
         SampleAPI.getInstance().setPushToken(sbuf)
+
     }
 
     public func pushRegistry(_ registry: PKPushRegistry, didReceiveIncomingPushWith payload: PKPushPayload, for type: PKPushType, completion: @escaping () -> Void) {

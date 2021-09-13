@@ -100,7 +100,7 @@ typedef void (^MesiboMediaFilesBlock)(UIImage *image);
 
 
 
-@interface ImagePicker : NSObject
+@interface ImagePicker : NSObject <UIDocumentPickerDelegate>
 {
     void (^_completionHandler)(ImagePickerFile * file);
     

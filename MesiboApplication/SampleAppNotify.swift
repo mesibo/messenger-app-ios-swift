@@ -76,7 +76,7 @@ import UserNotificationsUI
                 return
             }
             
-            name = params!.profile.name
+            name = params!.profile.getName()
         }
         
         if nil == name {
@@ -88,7 +88,7 @@ import UserNotificationsUI
                 return
             }
             
-            if let name1 = params!.groupProfile.name {
+            if let name1 = params!.groupProfile.getName() {
                 name = "\(name ?? "") @ \(name1)"
             }
         }

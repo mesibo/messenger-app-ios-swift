@@ -1,14 +1,10 @@
 //
 //  DataUsageViewController.m
 //  MesiboUIHelper
-//
-//  Created by Mesibo on 02/12/18.
-//  Copyright © 2018 Mesibo. All rights reserved.
-//
 
 #import "DataUsageViewController.h"
 #import "CommonAppUtils.h"
-#import "SampleAPI.h"
+#import "MesiboMessengerSwift-Bridging-Header.h"
 #import "MesiboMessenger-Swift.h"
 
 
@@ -27,8 +23,7 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    mAutoMediaFlag =  [SampleAPIInstance getMediaAutoDownload];
-    //mAutoMediaFlag = [BackendAPI.getInstance getMediaAutoDownload];
+    mAutoMediaFlag =  [SampleAPIInstance getMediaAutoDownload]; 
     
     [_mAutoDownloadSwitch addTarget:self action:@selector(mediaAutoDownloadActionChanged:) forControlEvents:UIControlEventValueChanged];
     

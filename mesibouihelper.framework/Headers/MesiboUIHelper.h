@@ -43,6 +43,13 @@
 @property (strong,nonatomic) NSString *mAppTag;
 @property (strong,nonatomic) NSString *mAppUrl;
 @property (strong,nonatomic) NSString *mAppWriteUp;
+@property (strong,nonatomic) NSString *mLoginTitle;
+@property (strong,nonatomic) NSString *mLoginDesc;
+@property (strong,nonatomic) NSString *mLoginBottomDesc;
+@property (strong,nonatomic) NSString *mOtpTitle;
+@property (strong,nonatomic) NSString *mOtpDesc;
+@property (strong,nonatomic) NSString *mOtpBottomDesc;
+
 @property (nonatomic) uint32_t mBackgroundColor;
 @property (nonatomic) uint32_t mButtonBackgroundColor;
 @property (nonatomic) uint32_t mTextColor;
@@ -51,6 +58,11 @@
 @property (nonatomic) uint32_t mBannerTitleColor;
 @property (nonatomic) uint32_t mBannerDescColor;
 @property (nonatomic) uint32_t mErrorTextColor;
+@property (nonatomic) uint32_t mLoginTitleColor;
+@property (nonatomic) uint32_t mLoginDescColor;
+@property (nonatomic) uint32_t mLoginBottomDescColor;
+
+
 
 @property (strong,nonatomic) NSArray *mBanners;
 @end

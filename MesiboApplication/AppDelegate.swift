@@ -86,7 +86,7 @@ import UIKit
         })
         
         
-        // If token is not nil, SampleAPI will start Mesibo as well
+        // If token is not nil, BackendAPI will start Mesibo as well
         if nil != SampleAPI.getInstance().getToken() {
             launchMainUI()
         } else {
@@ -121,12 +121,12 @@ import UIKit
         // NSLog(@"My token is: %@", deviceToken);
         let deviceTokenString = deviceToken.description.replacingOccurrences(of: "<", with: "").replacingOccurrences(of: ">", with: "").replacingOccurrences(of: " ", with: "")
         //Log("the generated device token string is : %@", deviceTokenString)
-        SampleAPI.getInstance()?.setAPNToken(deviceTokenString)
+        SampleAPI.getInstance().setAPNToken(deviceTokenString)
     }
     
     public func application(_ application: UIApplication, performFetchWithCompletionHandler completionHandler: @escaping (UIBackgroundFetchResult) -> Void) {
         
-        SampleAPI.getInstance()?.setAPNCompletionHandler(completionHandler)
+        SampleAPI.getInstance().setAPNCompletionHandler(completionHandler: completionHandler)
     }
     
     public func application(_ application: UIApplication, didReceiveRemoteNotification userInfo: [AnyHashable : Any], fetchCompletionHandler completionHandler: @escaping (UIBackgroundFetchResult) -> Void) {
@@ -136,7 +136,7 @@ import UIKit
         } else {
         }
         
-        SampleAPI.getInstance()?.setAPNCompletionHandler(completionHandler)
+        SampleAPI.getInstance().setAPNCompletionHandler(completionHandler: completionHandler)
         
     }
     
@@ -222,7 +222,7 @@ import UIKit
     func launchMainUI() {
         
         let sp = Mesibo.getInstance().getSelfProfile()
-        if SampleAPI.isEmpty(sp?.name) {
+        if SampleAPI.isEmpty(sp?.getName()) {
             Mesibo.getInstance().run(inThread: true, handler: {
                 self.launchEditProfile()
             })
@@ -240,12 +240,12 @@ import UIKit
                 return
             }
             
-            SampleAPI.getInstance().startSync()
+
             Mesibo.getInstance().run(inThread: true, handler: {
                 self.launchMesiboUI()
             })
         }, onChange: {
-            SampleAPI.getInstance().onContactsChanged() //<#code#>
+            SampleAPI.getInstance().startContactSync()
         })
     }
     
@@ -298,6 +298,17 @@ import UIKit
         mAppLaunchData!.mAppUrl = "https://www.mesibo.com"
         mAppLaunchData!.mAppWriteUp = ""
         
+        mAppLaunchData!.mLoginTitle = "welcome To mesibo";
+        mAppLaunchData!.mLoginDesc = "Enter a valid phone number to begin";
+        mAppLaunchData!.mLoginBottomDesc = "IMPORTANT: We will NOT send OTP.  Instead, you can generate OTP from the mesibo console. Sign up at https://mesibo.com/console";
+        mAppLaunchData!.mOtpTitle = "Enter OTP";
+        mAppLaunchData!.mOtpDesc = "Enter OTP for %@";
+        mAppLaunchData!.mOtpBottomDesc = mAppLaunchData!.mLoginBottomDesc;
+        
+        mAppLaunchData!.mLoginTitleColor = 0xFF00868b;
+        mAppLaunchData!.mLoginDescColor = 0xFF444444;
+        mAppLaunchData!.mLoginBottomDescColor = 0xAAFF0000;
+        
         mAppLaunchData!.mTextColor = 0xff172727
         mAppLaunchData!.mBackgroundColor = 0xffffffff
         mAppLaunchData!.mButtonBackgroundColor = 0xff00868b
@@ -343,7 +354,7 @@ import UIKit
     
     func launchEditProfile() {
         let storybord = UIStoryboard(name: "Main", bundle: Bundle.main)
-        let editSelfProfileController = storybord.instantiateViewController(withIdentifier: "EditSelfProfileViewController") as? EditSelfProfileViewController
+        let editSelfProfileController = storybord.instantiateViewController(withIdentifier: "EditSelfProfileViewController") as? EditProfileController
         
         editSelfProfileController?.setLaunchMesiboCallback({
             self.launchMainUI() //don't launch mesibo ui directly
@@ -352,7 +363,7 @@ import UIKit
         setRootController(editSelfProfileController)
     }
     
-    public func mesibo_(onGetMenu parent: Any!, type: Int32, profile: MesiboUserProfile!) -> [Any]! {
+    public func mesibo_(onGetMenu parent: Any!, type: Int32, profile: MesiboProfile!) -> [Any]! {
         
         var btns: [AnyHashable]? = nil
         
@@ -369,7 +380,7 @@ import UIKit
             
             btns = [button, button1]
         } else {
-            if profile != nil && profile?.groupid == 0 {
+            if profile != nil && profile?.getGroupId() == 0 {
                 let button = UIButton(type: .custom)
                 button.setImage(UIImage(named: "ic_call_white"), for: .normal)
                 button.frame = CGRect(x: 0, y: 0, width: 44, height: 44)
@@ -388,7 +399,7 @@ import UIKit
         
     }
     
-    public func mesibo_(onMenuItemSelected parent: Any!, type: Int32, profile: MesiboUserProfile!, item: Int32) -> Bool {
+    public func mesibo_(onMenuItemSelected parent: Any!, type: Int32, profile: MesiboProfile!, item: Int32) -> Bool {
         
         // userlist menu are active
         if type == 0 {
@@ -401,10 +412,10 @@ import UIKit
             // MESSAGEBOX
             if item == 0 {
                 print("Menu btn from messagebox pressed")
-                MesiboCall.getInstance().callUi(parent, address: (profile?.address)!, video: false)
+                MesiboCall.getInstance().callUi(parent, address: (profile?.getAddress())!, video: false)
             } else if item == 1 {
                 DispatchQueue.main.async(execute: {
-                    MesiboCall.getInstance().callUi(parent, address: (profile?.address)!, video: true)
+                    MesiboCall.getInstance().callUi(parent, address: (profile?.getAddress())!, video: true)
                     
                 })
             }
@@ -412,12 +423,12 @@ import UIKit
         return true
     }
     
-    @objc public func mesibo_(onShowProfile parent: Any?, profile: MesiboUserProfile?) {
+    @objc public func mesibo_(onShowProfile parent: Any?, profile: MesiboProfile?) {
         MesiboUIManager.launchProfile(parent, profile: profile)
         
     }
     
-    @objc public func mesibo_(onDeleteProfile parent: Any?, profile: MesiboUserProfile?, handler: Mesibo_onSetGroupHandler) {
+    @objc public func mesibo_(onDeleteProfile parent: Any?, profile: MesiboProfile?, handler: Mesibo_onSetGroupHandler) {
     }
     
     @objc func logout(fromApplication sender: UIViewController?) {

@@ -34,6 +34,21 @@
     
     [_mVersion setText:v];
 
+    /*
+    for (NSString* family in [UIFont familyNames])
+    {
+        NSLog(@"%@", family);
+        
+        for (NSString* name in [UIFont fontNamesForFamilyName: family])
+        {
+            NSLog(@"  %@", name);
+            if([name rangeOfString:@"mesibo"].location != NSNotFound ) {
+                NSLog(@"  %@", name);
+            }
+        }
+    }
+     
+     */
 }
 - (void) backButtonPressed {
     [self.navigationController popViewControllerAnimated:YES];
@@ -43,5 +58,15 @@
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
 }
+
+/*
+#pragma mark - Navigation
+
+// In a storyboard-based application, you will often want to do a little preparation before navigation
+- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
+    // Get the new view controller using [segue destinationViewController].
+    // Pass the selected object to the new view controller.
+}
+*/
 
 @end

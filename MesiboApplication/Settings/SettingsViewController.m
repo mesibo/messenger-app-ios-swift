@@ -1,17 +1,15 @@
 //
 //  SettingsViewController.m
-//
-//  Created by Anuradha on 28/11/17.
-//  Copyright © 2018 Mesibo. All rights reserved.
-//
+
 
 #import "SettingsViewController.h"
 #import "CommonAppUtils.h"
-#import "EditSelfProfileViewController.h"
-#import "SampleAPI.h"
+#import "EditProfileController.h"
 #import <mesibo/mesibo.h>
+#import "MesiboMessengerSwift-Bridging-Header.h"
 #import "MesiboMessenger-Swift.h"
 
+//#import "AppUIManager.h"
 
 @interface SettingsViewController ()
 
@@ -74,19 +72,15 @@
             imageView.layer.cornerRadius = imageView.layer.frame.size.width/2;
             imageView.layer.masksToBounds = YES;
             
-            MesiboUserProfile *up = [MesiboInstance getSelfProfile];
-            
-            NSString *imagePath = [MesiboInstance getProfilePicture:up type:MESIBO_FILETYPE_AUTO];
-            if([MesiboInstance fileExists:imagePath]) {
-                imageView.image = [UIImage imageWithContentsOfFile:imagePath];
-            } else {
-                imageView.image = [MesiboUIManager getDefaultImage:NO];
-            }
+            MesiboProfile *up = [MesiboInstance getSelfProfile];
+            imageView.image = [up getImageOrThumbnail];
+            if(!imageView.image) imageView.image = [MesiboUI getDefaultImage:NO];
+    
             
             UILabel *nameLabel = [cell viewWithTag:101];
-            nameLabel.text = up.name;
+            nameLabel.text = [up getName];
             UILabel *statusLabel = [cell viewWithTag:102];
-            statusLabel.text = up.status;
+            statusLabel.text = [up getStatus];
             
         }
         break;
@@ -116,7 +110,7 @@
     UITableViewCell *theCellClicked = [tableView cellForRowAtIndexPath:indexPath];
     if (theCellClicked == _mProfileCell) {
         UIStoryboard *storyboard  = [UIStoryboard storyboardWithName:@"Main" bundle:[NSBundle mainBundle]];
-        EditSelfProfileViewController *epc = [storyboard instantiateViewControllerWithIdentifier:@"EditSelfProfileViewController"];
+        EditProfileController *epc = [storyboard instantiateViewControllerWithIdentifier:@"EditSelfProfileViewController"];
         [self.navigationController pushViewController:epc animated:YES];
     } else if(theCellClicked == _mLogoutCell) {
         //[self.delegate logoutFromApplication:self];

@@ -1,20 +1,22 @@
 //
 //  ViewController.m
 //  ProfileView
-//
-//  Created by Mesibo on 06/11/17.
-//  Copyright © 2018 Mesibo. All rights reserved.
-//
+
 
 #import <QuartzCore/QuartzCore.h>
 #import "ProfileViewerController.h"
 #import "Includes.h"
 #import "CommonAppUtils.h"
 #import <MobileCoreServices/MobileCoreServices.h>
-#import "SampleAPI.h"
-#import "MesiboMessenger-Swift.h"
 #import "AppAlert.h"
+//#import "UIManager.h"
+#import "AppUIManager.h"
 //#import "UIView+Visibility.h"
+//#import "AddressBookViewController.h"
+#import "MesiboMessengerSwift-Bridging-Header.h"
+#import "MesiboMessenger-Swift.h"
+
+
 
 // do not change it .........................
 #define MINIMUM_PROFILE_PICTURE_HEIGHT 0
@@ -72,7 +74,6 @@
 @property (weak, nonatomic) IBOutlet UIButton *mAddtoExistingBtn;
 @property (weak, nonatomic) IBOutlet UIButton *meditBtn;
 
-
 @end
 
 
@@ -91,20 +92,22 @@
     AlbumsData *mVideoAlbum;
     AlbumsData *mDocumentAlbum;
     MesiboParams *mMesiboParam;
-    NSMutableArray *mProfiles ;
+    NSMutableArray<MesiboGroupMember *> *mProfiles ;
     BOOL mAdmin;
     int mAdminCount;
     int mHeightOFModifyGroup;
-    MesiboUserProfile *mUserProfile ;
+    MesiboProfile *mUserProfile ;
     BOOL mExpandMembers;
     MesiboReadSession *mReadSession;
+    MesiboGroupMember *mSelfMember;
 }
 
 
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do any additional setup after loading the view, typically from a nib.
-    mUserProfile = [MesiboInstance getProfile:_mUserData.address groupid:_mUserData.groupid];
+    mSelfMember = nil;
+    mUserProfile = [MesiboInstance getProfile:[_mUserData getAddress] groupid:[_mUserData getGroupId]];
     mAdmin = NO;
     mAdminCount = 1;
     
@@ -156,10 +159,10 @@
     [MesiboInstance addListener:self ];
     mMesiboParam = [[MesiboParams alloc] init];
 
-    if(mUserProfile.groupid)
-       [mMesiboParam setGroup:mUserProfile.groupid];
+    if([mUserProfile getGroupId])
+       [mMesiboParam setGroup:[mUserProfile getGroupId]];
     else
-        [mMesiboParam setPeer:mUserProfile.address];
+        [mMesiboParam setPeer:[mUserProfile getAddress]];
   
     
     mReadSession = [MesiboReadSession new];
@@ -168,14 +171,13 @@
     [mReadSession read:100];
     
     
-    [MesiboInstance startProfilePictureTransfer:mUserProfile listener:self];
-    NSString *getFullPath = [MesiboInstance getProfilePicture:mUserProfile type:MESIBO_FILETYPE_AUTO];
+    NSString *getFullPath =  [mUserProfile getImageOrThumbnailPath];
     
     UIImage *profileImage = nil;
     if(getFullPath)
         profileImage = [UIImage imageWithContentsOfFile:getFullPath];
     else
-        profileImage = [MesiboUIManager getDefaultImage:(mUserProfile.groupid > 0)];
+        profileImage = [AppUIManager getDefaultImage:([mUserProfile getGroupId] > 0)];
     
     [_mProfileImageView setImage:profileImage];
     _mProfileImageView.contentMode = UIViewContentModeScaleAspectFit;
@@ -233,9 +235,7 @@
     
     [_mMuteSwitch setOn:[mUserProfile isMuted]];
     
-    if(mUserProfile.groupid > 0) {
-        
-        // hides user status card and show
+    if([mUserProfile getGroupId] > 0) {
         
         _mAddToContactsHeightConstraint.constant = 0;
         [_mNewContactBtn setHidden:YES];
@@ -259,12 +259,9 @@
                                                                        constant:0]];
         //_mModifyGroup.hidden = NO;
         _mStatusPhoneCard.alpha = 0.0;
-        
         _mMembersTable.delegate = self;
         _mMembersTable.dataSource = self;
-        [_mMembersTable reloadData];
-        _mMembersTableHeight.constant = _mMembersTable.contentSize.height;
-        _mGroupMemberCardHeight.constant = _mMembersTableHeight.constant+170;
+        
         
         UITapGestureRecognizer *addMemeberTap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(editGroupAndMemebers)];
         linkTap.numberOfTapsRequired=1;
@@ -272,12 +269,12 @@
         
     }else {
         
-        // profile is for user so remove group details
+        // profile is for user so remove group functionalities
         //_mModifyGroup.hidden = YES;
         _mGroupMemberCardHeight.constant = 0;
         _mGroupMembersCard.hidden = YES;
         
-        if (![mUserProfile.name isEqual:mUserProfile.address] && mUserProfile.name != nil) {
+        if (![[mUserProfile getName] isEqual:[mUserProfile getAddress]] && [mUserProfile getName] != nil) {
             _mAddToContactsHeightConstraint.constant = 46;
             [_mNewContactBtn setHidden:YES];
             [_mAddtoExistingBtn setHidden:YES];
@@ -295,9 +292,7 @@
     mHeightOFModifyGroup = _mEditMemberHeight.constant ;
     _mEditMemberHeight.constant = 0;
     _mAddMemberView.alpha = 0;
-    
-    [[ProgressIndicator getInstance] addProgress:self.view];
-    
+        
 }
 
 -(BOOL) Mesibo_onFileTransferProgress:(MesiboFileInfo *)file {
@@ -340,14 +335,48 @@
     
 }
 
--(void) Mesibo_onUserProfileUpdated:(MesiboUserProfile *)profile action:(int)action refresh:(BOOL)refresh {
+-(void) reloadMembersTable {
     [MesiboInstance runInThread:YES handler:^{
         [_mMembersTable reloadData];
         _mMembersTableHeight.constant = _mMembersTable.contentSize.height;
         _mGroupMemberCardHeight.constant = _mMembersTableHeight.constant+170;
     }];
+}
+
+-(void) Mesibo_onProfileUpdated:(MesiboProfile *)profile  {
+    
     
 }
+
+-(void) Mesibo_onGroupMembers:(MesiboProfile *) groupProfile members:(NSArray *)members {
+    [self parseGroupMembers:members];
+}
+
+-(void) Mesibo_onGroupMembersJoined:(MesiboProfile *) groupProfile members:(NSArray *)members {
+    for(MesiboGroupMember *m in members) {
+        int i;
+        for(i=0; i < mProfiles.count; i++) {
+            MesiboGroupMember *p = mProfiles[i];
+            if([SampleAPI equals:[m getAddress] old:[p getAddress]]) {
+                [mProfiles removeObject:p];
+                break;
+            }
+        }
+        
+        [mProfiles insertObject:m atIndex:i];
+    }
+    
+    [self reloadMembersTable];
+}
+
+-(void) Mesibo_onGroupJoined:(MesiboProfile *)groupProfile {
+    
+}
+
+-(void) Mesibo_onGroupError:(MesiboProfile *)groupProfile error:(uint32_t)error {
+    
+}
+
 
 -(void) Mesibo_OnMessage:(MesiboMessage *)message {
     
@@ -390,16 +419,11 @@
 }
 
 - (void) openProfileImage:(UITapGestureRecognizer *)sender{
-    // respond to touch action
-    NSString *imagePath = [MesiboInstance getProfilePicture:mUserProfile type:MESIBO_FILETYPE_AUTO];
+    UIImage *image = [mUserProfile getImageOrThumbnail];
     
-    UIImage *image = nil;
-    if(imagePath)
-        image = [UIImage imageWithContentsOfFile:imagePath];
-    
-    if (image != nil) {
+    if (image) {
         
-        [MesiboUIManager showImageFile:[ImagePicker sharedInstance] parent:self image:image title:mUserProfile.name];
+        [AppUIManager showImageFile:[ImagePicker sharedInstance] withParentController:self withImage:image withTitle:[mUserProfile getName]];
     } else {
         //[AppAlert showDialogue:@"Profile image not found" withTitle:@"Missing Image"];
     }
@@ -415,17 +439,15 @@
         if(albumData.mPhotoGList.count==0)
             [mAlbumGalleryData removeObjectAtIndex:i];
     }
-    
-    if(mAlbumGalleryData.count >0) {
-        [MesiboUIManager showEntireAlbum:im parent:self album:mAlbumGalleryData title:mUserProfile.name];
-    }
+    if(mAlbumGalleryData.count >0)
+        [AppUIManager showEntireAlbum:im withParentController:self withAlbum:mAlbumGalleryData withTitle:[mUserProfile getName]];
     
 }
 
 - (void) fillUserData{
     
     // fill other user data like status, profile image and all
-    NSString *imagePath = [MesiboInstance getProfilePicture:mUserProfile type:MESIBO_FILETYPE_AUTO];
+    NSString *imagePath = [mUserProfile getImageOrThumbnailPath];
     
     UIImage *profileImage = [UIImage imageWithContentsOfFile:imagePath];
     if(nil != profileImage ) {
@@ -433,16 +455,16 @@
         
     }
     
-    _mUserName.text = mUserProfile.name;
+    _mUserName.text = [mUserProfile getName];
     
     // check userstatus api in testing //
-    uint64_t lastSeen = [MesiboInstance getTimestamp] - mUserProfile.lastActiveTime;
+    uint64_t lastSeen = [MesiboInstance getTimestamp] - [mUserProfile getLastActiveTime];
     NSString *onlineStatus = @"Online";
     
     _mUserActivityStatus.hidden = NO;
     if(lastSeen > 60000) {
         lastSeen = lastSeen/60000; //miutes
-        if(mUserProfile.groupid > 0 || 0 == mUserProfile.lastActiveTime) {
+        if([mUserProfile getGroupId] > 0 || 0 == [mUserProfile getLastActiveTime]) {
             //userstatus.setVisibility(View.GONE);
             _mUserActivityStatus.hidden = YES;
         }
@@ -475,12 +497,12 @@
     _mUserActivityStatus.text = onlineStatus;
     _mMediaFileCounter.text = [NSString stringWithFormat:@"%d", (int) [mFavMediaFiles count]];
     
-    _mUserMobile.text= [NSString stringWithFormat:@"+%@",mUserProfile.address];
+    _mUserMobile.text= [NSString stringWithFormat:@"+%@",[mUserProfile getAddress]];
     //_mUserPhoneType.text=_mUserData.mUSerMobileType;
     _mUserPhoneType.text=@"Mobile";
     
-    if(mUserProfile.status != nil || mUserProfile.status.length != 0) {
-        _mUserCurrentStatus.text=mUserProfile.status;
+    if([mUserProfile getStatus] != nil || [mUserProfile getStatus].length != 0) {
+        _mUserCurrentStatus.text= [mUserProfile getStatus];
         _mUserCurrentStatus.numberOfLines = 4;
         //_mUserCurrentStausUpdateTime.text=_mUserData.mUserProfileStatusUpdated;
         //_mUserCurrentStausUpdateTime.text=@"10 hours before";
@@ -514,12 +536,11 @@
 - (void) viewWillAppear:(BOOL)animated {
     [super viewWillAppear:animated];
     [self.navigationController setNavigationBarHidden:YES animated:NO];
-    if(mUserProfile.groupid > 0) {
-        mUserProfile = [MesiboInstance getGroupProfile:mUserProfile.groupid];
+    if([mUserProfile getGroupId] > 0) {
         
-        _mUserName.text = mUserProfile.name;
+        _mUserName.text = [mUserProfile getName];
         
-        NSString *imagePath = [MesiboInstance getProfilePicture:mUserProfile type:MESIBO_FILETYPE_AUTO];
+        NSString *imagePath = [mUserProfile getImageOrThumbnailPath];
         
         UIImage *profileImage = [UIImage imageWithContentsOfFile:imagePath];
         if(nil != profileImage ) {
@@ -527,11 +548,7 @@
             
         }
         
-        [self parseGroupMembers];
-        
-        [_mMembersTable reloadData];
-        _mMembersTableHeight.constant = _mMembersTable.contentSize.height;
-        _mGroupMemberCardHeight.constant = _mMembersTableHeight.constant+170;
+        [[mUserProfile getGroupProfile] getMembers:100 restart:0 listener:self];
         
     }
 }
@@ -541,77 +558,45 @@
     [self.navigationController setNavigationBarHidden:NO animated:animated];
 }
 
--(void) parseGroupMembers {
-    if([SampleAPI isEmpty:mUserProfile.groupMembers])
-        return;
-    
-    NSArray *s = [mUserProfile.groupMembers componentsSeparatedByString: @":"];
-    if(!s || s.count < 2)
-        return;
-    
-    mAdminCount = atoi([s[0] UTF8String]);
-    
-    NSArray *users = [s[1] componentsSeparatedByString: @","];
-    if(!users)
-        return;
+-(void) parseGroupMembers:(NSArray *)members {
     
     [mProfiles removeAllObjects];
-        
-    NSMutableArray *unknownProfiles = [NSMutableArray new];
-    
-    MesiboUserProfile *sp = [MesiboInstance getSelfProfile];
+           
     NSInteger count;
     if (mExpandMembers) {
-        count = users.count;
+        count = members.count;
         _mShowMoreHeightConstrain.constant = 0;
         [_mShowMore setHidden:YES];
     }
     else {
-        if (users.count > 10) {
+        if (members.count > 10) {
             count = 10;
             [_mShowMore setHidden:NO];
             _mShowMoreHeightConstrain.constant = 30;
         }
         else {
-            count = users.count;
+            count = members.count;
             [_mShowMore setHidden:YES];
             _mShowMoreHeightConstrain.constant = 0;
             
         }
     }
+    
+    NSString *phone = [SampleAPIInstance getPhone];
     for(int i=0; i < count; i++) {
-        MesiboUserProfile *mu = [MesiboInstance getUserProfile:users[i]];
-        if(!mu) {
-            if([SampleAPI equals:users[i] old:sp.address]) {
-                mu = sp;
-                if(i < mAdminCount) {
-                    mAdmin = YES;
-                    [self uiChangeForAdmin];
-                }
-            }
-            
-            if(!mu) {
-                /*
-                mu = [[MesiboUserProfile alloc]init];
-                mu.address = users[i];
-                mu.name = users[i];
-                 */
-                mu = [MesiboInstance createProfile:users[i]  groupid:0 name:users[i]];
-            }
-            
-        }
+        MesiboGroupMember *m = members[i];
         
-        if(mu.flag&MESIBO_USERFLAG_TEMPORARY) {
-            [unknownProfiles addObject:mu];
+        if([SampleAPI equals:phone old:[m getAddress]]) {
+            mSelfMember = m;
+            if([m isAdmin])
+                [self uiChangeForAdmin];
         }
-
+          
         
-        [mProfiles addObject:mu];
+        [mProfiles addObject:m];
     }
     
-    if(unknownProfiles.count > 0) {
-        [SampleAPIInstance addContacts:unknownProfiles hidden:YES];
-    }
+    [self reloadMembersTable];
 }
 
 - (IBAction)backButtonPressed:(id)sender {
@@ -623,7 +608,7 @@
 
 - (IBAction)onMute:(id)sender {
     [mUserProfile toggleMute];
-    [MesiboInstance setProfile:mUserProfile refresh:NO];
+    [mUserProfile toggleMute];
 }
 
 
@@ -642,12 +627,9 @@
 
 - (IBAction)showMore:(id)sender {
     mExpandMembers = YES;
-    [self parseGroupMembers];
-    [_mMembersTable reloadData];
-    _mMembersTableHeight.constant = _mMembersTable.contentSize.height;
-    _mGroupMemberCardHeight.constant = _mMembersTableHeight.constant+170;
+    //[self parseGroupMembers];
+    [self reloadMembersTable];
     _mContentScrollView.contentSize = CGSizeMake(_mContentScrollView.frame.size.width, _mGroupMemberCardHeight.constant+EXTRA_SPACE_FOR_SCROLLING+_mMediaCardHeight.constant);
-    
 }
 
 - (IBAction)createNewContact:(id)sender {
@@ -655,11 +637,11 @@
 }
 
 - (IBAction)addToExistingContact:(id)sender {
-   
+
 }
 
 - (IBAction)editContact:(id)sender {
-   
+
 }
 
 - (void) viewDidAppear:(BOOL)animated {
@@ -672,7 +654,7 @@
         [_mTopScrollerDetailVu setContentOffset:CGPointMake(0, halfScreenwidth) animated:YES];
         CGFloat contentSize = 0;
         
-        if(mUserProfile.groupid ==0)
+        if([mUserProfile getGroupId] ==0)
             contentSize = CGRectGetMaxY(_mStatusPhoneCard.frame) + EXTRA_SPACE_FOR_SCROLLING;
         else
             contentSize = CGRectGetMaxY(_mGroupMembersCard.frame) + EXTRA_SPACE_FOR_SCROLLING;
@@ -821,7 +803,10 @@
         return;
     }
     
-    [MesiboUIManager showImagesInViewer:im parent:self images:mFavMediaFiles index:index title:mUserProfile.name];
+    [AppUIManager showImagesInViewer:im withParentController:self withImages:mFavMediaFiles withStartIndex:index withTitle:[mUserProfile getName]];
+    
+    //
+    
 }
 
 + (UIViewController*) topMostController {
@@ -853,6 +838,8 @@
     
     [actionSheet addAction:[UIAlertAction actionWithTitle:@"Block Contact" style:UIAlertActionStyleDestructive handler:^(UIAlertAction *action) {
         [actionSheet removeFromParentViewController];
+        //[AddressBookViewController launchNewContact:self phone:@"+123333333333333"];
+        
     }]];
     // Present action sheet.
     [[ProfileViewerController topMostController] presentViewController:actionSheet animated:YES completion:nil];
@@ -884,16 +871,17 @@
                   initWithStyle:UITableViewCellStyleDefault
                   reuseIdentifier:resueIdentifier];
     }
-    MesiboUserProfile *mp = [mProfiles objectAtIndex:indexPath.row];
+    MesiboGroupMember *gm = [mProfiles objectAtIndex:indexPath.row];
+    MesiboProfile *mp = [gm getProfile];
     
     UIImageView *profileImageView =(UIImageView *) [cell viewWithTag:105];
     [profileImageView layoutIfNeeded];
     
     
-    NSString *imagePath = [MesiboInstance getProfilePicture:mp type:MESIBO_FILETYPE_AUTO];
+    NSString *imagePath = [mp getImageOrThumbnailPath];
     UIImage *profileImage = [UIImage imageWithContentsOfFile:imagePath];
     if(!profileImage)
-        profileImage = [MesiboUIManager getDefaultImage:NO];
+        profileImage = [AppUIManager getDefaultImage:NO];
     
     profileImageView.image = profileImage;
     
@@ -901,13 +889,13 @@
     profileImageView.layer.masksToBounds = YES;
     
     UILabel *name = (UILabel *)[cell viewWithTag:101];
-    name.text = mp.name;
+    name.text = [mp getName];
     
     UILabel *status = (UILabel*) [cell viewWithTag:102];
-    status.text = mp.status;
+    status.text = [mp getStatus];
     UILabel *adminLabel = (UILabel*) [cell viewWithTag:103];
     
-    if(indexPath.row < mAdminCount)
+    if([gm isAdmin])
         adminLabel.alpha = 1;
     else
         adminLabel.alpha = 0;
@@ -916,20 +904,20 @@
     adminLabel.layer.cornerRadius = 7.0;
     adminLabel.layer.masksToBounds = YES;
     
-    
-    
     return cell;
 }
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
     
-    MesiboUserProfile *memberProfile =[mProfiles objectAtIndex:indexPath.row];
+    MesiboGroupMember *gm = [mProfiles objectAtIndex:indexPath.row];
+
+    MesiboProfile *memberProfile =[gm getProfile];
     
     //if(memberProfile == sp)
       //  return;
     
     // selected user is owner or non-admin, don't show menu
-    if(!mAdmin || 0 == indexPath.row) {
+    if(![mSelfMember isAdmin]) {
         if([memberProfile isSelfProfile])
             return;
         
@@ -941,10 +929,8 @@
     NSMutableArray *numbersArrayList = [NSMutableArray new];
     
     
-    BOOL makeAdmin = NO;
-    if(indexPath.row >= mAdminCount) {
+    if(![gm isAdmin]) {
         [numbersArrayList addObject:@"Make Admin"];
-        makeAdmin = YES;
     } else {
         [numbersArrayList addObject:@"Remove Admin"];
     }
@@ -961,32 +947,17 @@
     for (int j =0 ; j<numbersArrayList.count; j++){
         NSString *titleString = numbersArrayList[j];
         
-        UIAlertAction *action = [UIAlertAction actionWithTitle:titleString style:UIAlertActionStyleDefault handler:^(UIAlertAction *action){
-            NSLog(@"Selected Value: %@",numbersArrayList[j]);
-            //MesiboUserProfile *memberProfile =[mProfiles objectAtIndex:indexPath.row];
-            NSArray *member = @[memberProfile.address];
+        UIAlertAction *action = [UIAlertAction actionWithTitle:titleString style:UIAlertActionStyleDefault handler:^(UIAlertAction *action) {
+            NSArray *member = @[[memberProfile getAddress]];
             
-            if(j == 1) {
-                
-                [[ProgressIndicator getInstance] showProgress];
-                [SampleAPIInstance editMemebers:mUserProfile.groupid removegroup:YES members:member handler:^(int result, NSDictionary *response) {
-                    [[ProgressIndicator getInstance] hideProgress];
-                    if(result == SAMPLEAPP_RESULT_OK) {
-                        [mProfiles removeObjectAtIndex:indexPath.row];
-                        [_mMembersTable reloadData];
-                    }
-                    
-                }];
-            } else if(0 == j) {
-                [[ProgressIndicator getInstance] showProgress];
-                [SampleAPIInstance setAdmin:mUserProfile.groupid members:memberProfile.address admin:makeAdmin handler:^(int result, NSDictionary *response) {
-                    [[ProgressIndicator getInstance] hideProgress];
-                    if(result == SAMPLEAPP_RESULT_OK) {
-                        [self parseGroupMembers];
-                        [_mMembersTable reloadData];
-                    }
-                    
-                }];
+            // toggle admin
+            if(0 == j) {
+                [[mUserProfile getGroupProfile] addMembers:member permissions:MESIBO_MEMBERFLAG_ALL adminPermissions:[gm isAdmin]?0:MESIBO_ADMINFLAG_ALL];
+            }
+            else if(j == 1) {
+                [[mUserProfile getGroupProfile] removeMembers:member];
+                [mProfiles removeObjectAtIndex:indexPath.row];
+                [_mMembersTable reloadData];
             } else if(2 == j) {
                 [MesiboUI launchMessageViewController:self profile:memberProfile];
             }
@@ -1010,24 +981,13 @@
 
 - (void) editGroupAndMemebers {
     
-    [MesiboUI launchEditGroupDetails:self groupid:mUserProfile.groupid];
+    [MesiboUI launchEditGroupDetails:self groupid:[mUserProfile getGroupId]];
     return;
     
 }
 
 - (IBAction)deleteGroup:(id)sender {
-    [[ProgressIndicator getInstance] showProgress];
-    
-    [SampleAPIInstance deleteGroup:mUserProfile.groupid handler:^(int result, NSDictionary *response) {
-        NSString *results = (NSString *)[response objectForKey:@"result"];
-        [[ProgressIndicator getInstance] hideProgress];
-        if(SAMPLEAPP_RESULT_OK == result &&  [results isEqualToString:@"OK"]) {
-            
-            NSMutableArray *allViewControllers = [NSMutableArray arrayWithArray:[self.navigationController viewControllers]];
-            [self.navigationController setNavigationBarHidden:NO animated:NO];
-            [self.navigationController popToViewController:((UIViewController *)[allViewControllers objectAtIndex:0]) animated:YES];
-        }
-    }];
+    [[mUserProfile getGroupProfile] deleteGroup];
     
 }
 
