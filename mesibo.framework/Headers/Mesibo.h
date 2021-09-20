@@ -290,6 +290,17 @@
 #define MESIBO_GROUPERROR_ACCESSDENIED    4
 #define MESIBO_GROUPERROR_GENERAL         10
 
+#define MESIBO_RESOLUTION_DEFAULT          0
+#define MESIBO_RESOLUTION_QVGA             1
+#define MESIBO_RESOLUTION_VGA              2
+#define MESIBO_RESOLUTION_HD               3
+#define MESIBO_RESOLUTION_FHD              4
+#define MESIBO_RESOLUTION_4K               5
+#define MESIBO_RESOLUTION_QQVGA            8
+#define MESIBO_RESOLUTION_180P             9
+#define MESIBO_RESOLUTION_NHD              10
+#define MESIBO_RESOLUTION_MAX              10
+
 @interface MesiboGroupSettings : NSObject
 @property (nonatomic) NSString *name;
 @property (nonatomic) uint32_t flags;
