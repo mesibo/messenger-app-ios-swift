@@ -286,7 +286,9 @@ typedef void (^MesiboPermissionBlock)(BOOL granted);
 
 -(MesiboGroupCall * _Nullable) getActiveGroupCall;
 -(MesiboGroupCall * _Nullable) groupCall:(id _Nonnull)controller groupid:(uint32_t) groupid;
--(BOOL) groupCallDemo:(id _Nonnull)parent gid:(uint32_t)gid video:(BOOL)video publish:(BOOL)publish;
+
+-(BOOL) groupCallJoinRoomUi:(id _Nonnull)parent;
+-(BOOL) groupCallUi:(id _Nonnull)parent gid:(uint32_t)gid video:(BOOL)video publish:(BOOL)publish;
 
 @end
 
@@ -350,6 +352,7 @@ typedef void (^MesiboPermissionBlock)(BOOL granted);
 -(NSString * _Nullable) getName;
 -(void) setName:(NSString * _Nonnull) name;
 -(NSString * _Nonnull) getAddress;
+-(MesiboProfile * _Nonnull) getProfile;
 -(BOOL) isMe;
 @end
 
