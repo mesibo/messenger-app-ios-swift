@@ -421,6 +421,7 @@
 -(NSString *) getImageOrThumbnailPath;
 -(UIImage *) getImageOrThumbnail;
 
+
 -(void) setAddress:(NSString *)addr gid:(uint32_t)gid ;
 -(MesiboProfile *) cloneProfile;
 
@@ -1039,6 +1040,9 @@ typedef void (^Mesibo_onRunHandler)(void);
 -(int) getDeviceType;
 -(uint32_t) getUid;
 -(NSString *) getAddress;
+-(void) setAppName:(NSString *)name ;
+-(NSString *) getAppName;
+
 
 //********************** Database **********************************************
 -(BOOL) setDatabase:(NSString *)name resetTables:(uint32_t)resetTables;
