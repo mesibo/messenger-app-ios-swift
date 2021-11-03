@@ -264,6 +264,8 @@
 #define MESIBO_ADMINFLAG_REMADMIN     0x80
 #define MESIBO_ADMINFLAG_REMOWNER     0x100
 #define MESIBO_ADMINFLAG_REMGROUP     0x200
+#define MESIBO_ADMINFLAG_CALLCONTROL  0x400
+#define MESIBO_ADMINFLAG_HANGUP       0x800
 #define MESIBO_ADMINFLAG_OWNER        0x1000
 #define MESIBO_ADMINFLAG_ADDPIN       0x2000
 #define MESIBO_ADMINFLAG_REMOVEPIN    0x4000
@@ -796,6 +798,7 @@ typedef MesiboProfile MesiboAddress;
 -(BOOL) isReading:(MesiboParams *)params ;
 
 -(id) getDelegate:(uint64_t)flags;
+-(int) start;
 -(void) stop ;
 -(void) restart ;
 
@@ -972,7 +975,7 @@ typedef void (^Mesibo_onRunHandler)(void);
 -(void) Mesibo_onServer:(int)type url:(NSString *)url username:(NSString *)username credential:(NSString *)credential;
 
 -(void) Mesibo_onConfParitcipant:(uint32_t)uid sid:(uint32_t)sid address:(NSString *)address name:(NSString *)name role:(uint32_t) role flags:(uint32_t) flags;
--(void) Mesibo_onConfCall:(uint32_t)uid sid:(uint32_t)sid op:(int)op resolution:(uint32_t)resolution fps:(int)fps bw:(uint32_t)bw flags:(uint32_t)flags sdp:(NSString *)sdp mid:(NSString *)mid mline:(int) mline;
+-(void) Mesibo_onConfCall:(uint32_t)uid sid:(uint32_t)sid op:(int)op source:(uint32_t)source resolution:(uint32_t)resolution fps:(int)fps bw:(uint32_t)bw flags:(uint32_t)flags sdp:(NSString *)sdp mid:(NSString *)mid mline:(int) mline;
 
 -(BOOL) Mesibo_onStartFileTransfer:(MesiboFileInfo *)file;
 -(BOOL) Mesibo_onStopFileTransfer:(MesiboFileInfo *) file;
@@ -1208,6 +1211,8 @@ typedef void (^Mesibo_onRunHandler)(void);
 -(int) groupcall_set_media:(uint32_t)peer sid:(uint32_t)sid resolution:(uint32_t)resolution screen:(BOOL)screen;
 -(int) groupcall_mute:(uint32_t)peer sid:(uint32_t)sid video:(BOOL)video audio:(BOOL)audio mute:(BOOL)mute;
 -(int) groupcall_sdp:(uint32_t)peer sid:(uint32_t)sid resolutioon:(uint32_t)resolution type:(int)type sdp:(NSString *)sdp mid:(NSString *)mid mline:(int) mline;
+-(void) groupcall_admin:(uint16_t)o flags:(uint16_t)flags source:(uint32_t)source index:(uint16_t)index tuid:(uint32_t)tuid tsid:(uint32_t)tsid us:(uint32_t *)us ss:(uint32_t *)ss count:(int)count;
+-(void) groupcall_fyi:(uint32_t)sid source:(uint32_t)source status:(NSString *)status;
 
 /*
  

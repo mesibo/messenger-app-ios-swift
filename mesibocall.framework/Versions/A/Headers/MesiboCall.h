@@ -289,10 +289,22 @@ typedef void (^MesiboPermissionBlock)(BOOL granted);
 
 -(BOOL) groupCallJoinRoomUi:(id _Nonnull)parent;
 -(BOOL) groupCallUi:(id _Nonnull)parent gid:(uint32_t)gid video:(BOOL)video publish:(BOOL)publish;
-
 @end
 
 
+@protocol MesiboGroupCallIncomingListener
+-(void) MesiboGroupcall_OnIncoming:(MesiboProfile * _Nonnull)groupProfile count:(int)count profile:(MesiboProfile * _Nonnull)profile;
+@end
+
+@protocol MesiboGroupCallAdminListener
+-(BOOL) MesiboGroupcallAdmin_OnStartPublishing:(MesiboProfile * _Nonnull)requester isAdmin:(BOOL)isAdmin sid:(uint32_t)sid audio:(BOOL)audio video:(BOOL)video source:(uint32_t)source index:(uint16_t)sindex;
+-(BOOL) MesiboGroupcallAdmin_OnStopPublishing:(MesiboProfile * _Nonnull)requester isAdmin:(BOOL)isAdmin participant:(MesiboParticipant * _Nonnull)participant;
+-(BOOL) MesiboGroupcallAdmin_OnSubscribe:(MesiboProfile * _Nonnull)requester isAdmin:(BOOL)isAdmin participant:(MesiboParticipant * _Nonnull)participant audio:(BOOL)audio video:(BOOL)video;
+-(BOOL) MesiboGroupcallAdmin_OnMakeFullScreen:(MesiboProfile * _Nonnull)requester isAdmin:(BOOL)isAdmin participant:(MesiboParticipant * _Nonnull)participant;
+-(BOOL) MesiboGroupcallAdmin_OnMute:(MesiboProfile * _Nonnull)requester isAdmin:(BOOL)isAdmin participant:(MesiboParticipant * _Nonnull)participant audio:(BOOL)audio video:(BOOL)video enable:(BOOL)enable;
+-(BOOL) MesiboGroupcallAdmin_OnLeave:(MesiboProfile * _Nonnull)requester isAdmin:(BOOL)isAdmin;
+
+@end
 
 
 @protocol MesiboGroupCallListener
@@ -309,6 +321,23 @@ typedef void (^MesiboPermissionBlock)(BOOL granted);
 -(void) MesiboGroupcall_OnVideoSourceChanged:(MesiboParticipant * _Nonnull)p source:(int)source index:(int) index;
 -(void) MesiboGroupcall_OnVideo:(MesiboParticipant * _Nonnull)p aspectRatio:(float)aspectRatio landscape:(BOOL)landscape;
 -(void) MesiboGroupcall_OnAudio:(MesiboParticipant * _Nonnull)p;
+@end
+
+@interface MesiboParticipantAdmin : NSObject
+-(void) mute:(BOOL) audio video:(BOOL) video enable:(BOOL) enable;
+-(BOOL) toggleAudioMute;
+-(BOOL) toggleVideoMute;
+-(void) hangup;
+-(void) publish:(uint32_t)sid source:(uint32_t)source index:(uint16_t)index audio:(BOOL)audio video:(BOOL)video;
+-(void) subscribe:(MesiboParticipant * _Nonnull)publisher audio:(BOOL)audio video:(BOOL)video;
+@end
+
+@interface MesiboGroupCallAdmin : NSObject
+-(void) mute:(NSArray<MesiboParticipant *> * _Nullable)participants audio:(BOOL)audio video:(BOOL) video enable:(BOOL) enable;
+-(void) muteAll:(BOOL) audio video:(BOOL) video enable:(BOOL) enable;
+-(void) hangup:(NSArray<MesiboParticipant *> * _Nullable)participants;
+-(void) hangupAll;
+-(void) fullscreen:(MesiboParticipant * _Nonnull) participant;
 @end
 
 @interface MesiboParticipant : NSObject
@@ -328,6 +357,9 @@ typedef void (^MesiboPermissionBlock)(BOOL granted);
 -(BOOL) toggleVideoMute;
 -(BOOL) getMuteStatus:(BOOL) video;
 
+-(void) adminMute:(BOOL) audio video:(BOOL) video enabled:(BOOL) enabled;
+-(MesiboParticipantAdmin * _Nullable) getAdmin;
+
 -(void) setVideoView:(MesiboVideoView * _Nullable)v;
 -(MesiboVideoView * _Nullable) getVideoView;
 
@@ -345,6 +377,7 @@ typedef void (^MesiboPermissionBlock)(BOOL granted);
 
 -(uint64_t) getId;
 -(uint32_t) getSid;
+-(uint32_t) getUid;
 
 -(id _Nullable) getUserData;
 -(void) setUserData:(id _Nullable) data;
@@ -354,6 +387,7 @@ typedef void (^MesiboPermissionBlock)(BOOL granted);
 -(NSString * _Nonnull) getAddress;
 -(MesiboProfile * _Nonnull) getProfile;
 -(BOOL) isMe;
+-(BOOL) isPublisher;
 @end
 
 
@@ -380,8 +414,12 @@ typedef void (^MesiboPermissionBlock)(BOOL granted);
 @interface MesiboGroupCall : NSObject
 -(MesiboParticipant * _Nullable) createPublisher:(uint32_t)sid;
 
+-(void) join:(id<MesiboGroupCallListener> _Nonnull) listener adminListener:(id<MesiboGroupCallAdminListener> _Nullable) adminListener;
 -(void) join:(id<MesiboGroupCallListener> _Nonnull) listener;
 -(void) leave;
+
+-(BOOL) hasAdminPermissions:(BOOL)hangup;
+-(MesiboGroupCallAdmin * _Nullable) getAdmin;
 
 -(void) setAudioDevice:(int)device enable:(BOOL)enable;
 
