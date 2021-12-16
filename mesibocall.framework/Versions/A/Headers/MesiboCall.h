@@ -77,11 +77,13 @@
 @property (nonatomic) NSString * _Nullable title;
 @property (nonatomic) UIImage * _Nullable userImage;
 @property (nonatomic) UIImage * _Nullable userImageSmall;
+@property (nonatomic) uint32_t backgroundColor;
 @property (nonatomic) BOOL showScreenSharing;
 @property (nonatomic) BOOL autoHideControls;
 @property (nonatomic) BOOL autoSwapVideoViews;
 @property (nonatomic) BOOL useMetalKit;
 @property (nonatomic) id _Nullable inProgressListener; // only a few listeners will be invoked
+@property (nonatomic) NSString * _Nullable callStatusText;
 
 @end
 
@@ -197,7 +199,7 @@
 -(BOOL) isAnswered;
 -(BOOL) getMuteStatus:(BOOL)audio video:(BOOL)video remote:(BOOL)remote;
 
--(void) playInCallSound:(NSURL * _Nonnull)url volume:(float)volume loops:(int)loops;
+-(void) playInCallSound:(NSURL * _Nullable)url volume:(float)volume loops:(int)loops;
 -(void) stopInCallSound;
 
 

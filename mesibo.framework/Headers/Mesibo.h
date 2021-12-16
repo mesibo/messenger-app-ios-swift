@@ -530,6 +530,7 @@
 @interface MesiboParams : NSObject
 @property (nonatomic) NSString *peer;
 @property (nonatomic) uint64_t mid;
+@property (nonatomic) uint64_t refid;
 @property (nonatomic) uint64_t ts;
 @property (nonatomic) int expiry;
 @property (nonatomic) uint32_t groupid;
@@ -553,6 +554,8 @@
 -(int) getType;
 -(void) setType:(int)type;
 -(void) setFlag:(uint64_t) flag;
+-(void) setInReplyTo:(uint64_t) messageid;
+-(uint64_t) getInReplyTo;
 
 -(void) setPeer:(NSString *)peer;
 -(void) setGroup:(uint32_t) group;
@@ -579,6 +582,24 @@
 
 -(BOOL) isMessageStatusFailed;
 -(BOOL) isMessageStatusInProgress;
+
+-(void) setAge:(uint32_t) age;
+-(void) setAgeAfterDelivered:(uint32_t) age;
+-(void) setAgeAfterRead:(uint32_t) age;
+-(uint32_t) getAge;
+-(uint32_t) getAgeAfterDelivered;
+-(uint32_t) getAgeAfterRead;
+
+-(void) setUserData:(uint64_t) data;
+-(uint64_t) getUserData;
+
+-(void) setThreadId:(uint64_t) tid;
+-(uint64_t) getThreadId;
+        
+-(void) setSensitivity:(uint32_t) val;
+-(uint32_t) getSensitivity;
+
+
 
 
 // WARNING - not to be used directly - (private function)
@@ -804,6 +825,7 @@ typedef MesiboProfile MesiboAddress;
 
 -(int) read:(int)count;
 -(void)sync:(int)count listener:(id)listener ;
+-(void) setThreadId:(uint64_t) tid;
 
 -(void) enableReadReceipt:(BOOL) enable ;
 
@@ -812,6 +834,7 @@ typedef MesiboProfile MesiboAddress;
 -(void) enableFifo:(BOOL) enable ;
 
 -(void) enableFiles:(BOOL) enable ;
+-(void) enableThreads:(BOOL) enable;
 
 -(void) enableMessages:(BOOL) enable ;
 
