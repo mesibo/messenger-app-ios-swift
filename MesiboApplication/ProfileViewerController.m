@@ -233,7 +233,7 @@
     //_mCustomNotification.hidden = YES;
    // _mViewBetweenMuteAndCustom.hidden = YES;
     
-    [_mMuteSwitch setOn:[mUserProfile isMuted]];
+    [_mMuteSwitch setOn:[mUserProfile isBlocked]];
     
     if([mUserProfile getGroupId] > 0) {
         
@@ -607,8 +607,8 @@
 }
 
 - (IBAction)onMute:(id)sender {
-    [mUserProfile toggleMute];
-    [mUserProfile toggleMute];
+    [mUserProfile toggleBlock];
+    [mUserProfile save];
 }
 
 

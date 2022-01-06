@@ -20,7 +20,7 @@
 #define MESIBO_FLAG_PRESENCE           0x8
 #define MESIBO_FLAG_BROADCAST           0x20
 
-//#define MESIBO_FLAG_QUEUE            0x40000
+#define MESIBO_FLAG_MODIFY            0x40000
 #define MESIBO_FLAG_NONBLOCKING         0x80000
 #define MESIBO_FLAG_DONTSEND            0x200000
 #define MESIBO_FLAG_LASTMESSAGE                 0x800000ULL
@@ -30,9 +30,11 @@
 #define MESIBO_FLAG_FILETRANSFERRED     (1ULL << 58)
 #define MESIBO_FLAG_FILEFAILED          (1ULL << 59)
 
-
+#if 0
 #define MESIBO_FLAG_DEFAULT             (MESIBO_FLAG_DELIVERYRECEIPT | MESIBO_FLAG_READRECEIPT)
-
+#else
+#define MESIBO_FLAG_DEFAULT             3
+#endif
 
 
 
@@ -66,6 +68,13 @@
 #define MESIBO_MSGSTATUS_CALLINCOMING   0x16
 #define MESIBO_MSGSTATUS_CALLOUTGOING   0x17
 #define MESIBO_MSGSTATUS_CUSTOM         0x20
+
+#define MESIBO_MSGSTATUS_DELETED         0x21
+#define MESIBO_MSGSTATUS_WIPED           0x22
+
+
+
+
 
 // ONLY FOR UI USAGE
 #define MESIBO_MSGSTATUS_TIMESTAMP      0x30
@@ -160,6 +169,7 @@
 #define MESIBO_CALLSTATUS_NOCALLS               0x48
 #define MESIBO_CALLSTATUS_NOVIDEOCALLS          0x49
 #define MESIBO_CALLSTATUS_NOTALLOWED            0x4A
+#define MESIBO_CALLSTATUS_BLOCKED               0x4B
 
 //TringMe specific errir
 #define MESIBO_CALLSTATUS_AUTHFAIL              0x50
@@ -182,11 +192,6 @@
 #define MESIBO_CALLFLAG_SLOWNETWORK             0x20
 #define MESIBO_CALLFLAG_MISSED                  0x1000
 
-#define MESIBO_DELETE_DEFAULT   -1
-#define MESIBO_DELETE_LOCAL     0
-#define MESIBO_DELETE_RECALL    1
-#define MESIBO_DELETE_REMOVE    2
-
 //Following CALL_STATUS_ are for internal use and for notifications
 #define MESIBO_CALLSTATUS_DUREXCEED             19
 #define MESIBO_CALLSTATUS_SRCRINGING            20
@@ -199,6 +204,15 @@
 #define MESIBO_MUTESTATUS_AUDIO   1
 #define MESIBO_MUTESTATUS_VIDEO   2
 #define MESIBO_MUTESTATUS_HOLD    4
+
+#define MESIBO_RETRACT_MODIFY       1
+#define MESIBO_RETRACT_WIPE     2
+#define MESIBO_RETRACT_DELETE   4
+#define MESIBO_RETRACT_DELUNREAD   0x10
+#define MESIBO_RETRACT_DELREAD   0x20
+#define MESIBO_RETRACT_DELMEDIA   0x40
+#define MESIBO_RETRACT_DELTHREAD   0x80
+#define MESIBO_RETRACT_DELALL  0x100
 
 #define MESIBO_CONTACT_UPDATE           0
 #define MESIBO_CONTACT_DELETE           1
@@ -255,7 +269,18 @@
 #define MESIBO_MEMBERFLAG_SHAREDPIN      0x8000
 
 #define MESIBO_MEMBERFLAG_DELETE  0x80000000
+
+/* C macros that are more complex than simple constant definitions have no counterpart in Swift.
+ Currently, Swift does not support MACRO with more than two vars.
+ A|B supported, A|B|C not supported
+ https://developer.apple.com/documentation/swift/imported_c_and_objective-c_apis/using_imported_c_macros_in_swift
+ */
+#if 0
 #define MESIBO_MEMBERFLAG_ALL    (MESIBO_MEMBERFLAG_SEND|MESIBO_MEMBERFLAG_RECV|MESIBO_MEMBERFLAG_PUBL|MESIBO_MEMBERFLAG_SUBS|MESIBO_MEMBERFLAG_LIST)
+#else
+#define MESIBO_MEMBERFLAG_ALL    0x1F
+#endif
+
 
 #define MESIBO_ADMINFLAG_MODIFY       1
 #define MESIBO_ADMINFLAG_ADDUSER      0x10
@@ -325,7 +350,12 @@
 #define MESIBO_GROUPCALLFLAG_FIXEDRESOLUTION        0x20000
 #define MESIBO_GROUPCALLFLAG_FIXEDFRAMERATE  0x40000
 #define MESIBO_GROUPCALLFLAG_PREFER264       0x80000
+
+#if 0
 #define MESIBO_GROUPCALLFLAG_DEFAULT          (MESIBO_GROUPCALLFLAG_AUDIO|MESIBO_GROUPCALLFLAG_VIDEO|MESIBO_GROUPCALLFLAG_VIDEO|MESIBO_GROUPCALLFLAG_TALKING)
+#else
+#define MESIBO_GROUPCALLFLAG_DEFAULT 0x8107
+#endif
 
 #define MESIBO_GROUP_SUBSCRIBERS                 2
 #define MESIBO_GROUP_KNOWNSUBSCRIBERS            3
@@ -380,12 +410,36 @@
 -(BOOL) isMarked;
 -(void) setMark:(BOOL) enable;
 -(BOOL) isSelfProfile;
+-(BOOL) isGroup;
 -(BOOL) isLookedup;
 -(void) setLookedup:(BOOL)enable;
 
--(BOOL) isBlocked;
+-(BOOL) isProfileSynced;
+-(BOOL) isSyncedProfileRecent;
+
+-(BOOL) isDeleted;
+-(void) setDeleted;
+
+-(BOOL) isReading;
+-(BOOL) isOnline;
+-(BOOL) isTyping;
+-(BOOL) isTypingInGroup:(uint32_t)gid;
+-(BOOL) isChatting;
+-(BOOL) isChattingInGroup:(uint32_t)gid;
+
+-(BOOL) toggleBlock;
+-(void) block:(BOOL) enable;
 -(void) blockMessages:(BOOL) enable;
 -(void) blockCalls:(BOOL) enable;
+-(void) blockVideoCalls:(BOOL) enable;
+-(void) blockGroupMessages:(BOOL) enable;
+-(void) blockProfileSubscription:(BOOL) enable;
+-(BOOL) isBlocked;
+-(BOOL) isMessageBlocked;
+-(BOOL) isCallBlocked;
+-(BOOL) isGroupMessageBlocked;
+-(BOOL) isVideoCallBlocked;
+-(BOOL) isProfileSubscriptionBlocked;
 
 -(uint32_t) getGroupId;
 -(NSString *) getAddress;
@@ -412,10 +466,6 @@
 -(id) getUserData ;
 
 
--(BOOL) isProfileSynced ;
--(BOOL) isSyncedProfileRecent ;
-
-
 -(void) setImageUrl:(NSString *) url ;
 -(NSString *) getImageUrl ;
 -(UIImage *) getImage ;
@@ -436,6 +486,7 @@
 -(void) setImage:(UIImage *)image;
 -(BOOL) setImageFromFile:(NSString *)path;
 -(NSString *) getImagePath;
+
 -(BOOL) isContact;
 -(BOOL) isSubscribed;
 -(void) setContact:(BOOL) enable visiblity:(int) visibility ;
@@ -463,13 +514,7 @@
 -(BOOL)deleteMessages:(uint64_t)ts;
 -(MesiboReadSession *) createReadSession:(id) delegate;
 -(int) subscribeTransient:(uint32_t)type activity:(uint32_t)activity duration:(uint32_t) duration;
--(BOOL) isReading;
--(BOOL) isOnline;
--(BOOL) isTyping;
--(BOOL) isTypingInGroup:(uint32_t)gid;
--(BOOL) isChatting;
--(BOOL) isChattingInGroup:(uint32_t)gid;
--(BOOL) isGroup;
+
 @end
 
 @interface MesiboGroupMember : NSObject
@@ -560,10 +605,17 @@
 -(void) setPeer:(NSString *)peer;
 -(void) setGroup:(uint32_t) group;
 
+-(void) enablePresence:(BOOL) enable;
+-(void) enableReadReceipt:(BOOL) enable;
+-(void) enableDeliveryReceipt:(BOOL) enable;
+-(void) enableModify:(BOOL) enable;
+-(void) enableBroadcast:(BOOL) enable;
+
 -(BOOL) isIncoming;
 -(BOOL) isOutgoing;
 -(BOOL) isSavedMessage;
 -(BOOL) isDeleted;
+-(BOOL) isModified;
 -(BOOL) isForwarded;
 -(BOOL) isPresence;
 -(BOOL) isMissedCall;
@@ -1111,13 +1163,20 @@ typedef void (^Mesibo_onRunHandler)(void);
 -(void) setOnlinestatusTarget:(uint32_t) gid;
 -(void) setOnlineStatusPrivacy:(int) privacy;
 
+-(int) setMessageRetractionInterval:(uint32_t) interval;
+-(int) getMessageRetractionInterval;
+-(int) setMessageRetractionPolicy:(uint32_t) policy;
 
-//TBD, need to change to match with android
+-(BOOL) wipeAndRecallMessages:(uint64_t *)msgids count:(int)count;
+-(BOOL) wipeAndRecallMessage:(uint64_t)msgid;
+-(BOOL) wipeMessages:(uint64_t *)msgids count:(int)count remote:(BOOL)remote;
+-(BOOL) wipeMessages:(uint64_t *)msgids count:(int)count;
+-(BOOL) wipeMessage:(uint64_t)msgid;
+-(BOOL) deleteMessages:(uint64_t *)msgids count:(int)count remote:(BOOL)remote;
+-(BOOL) deleteMessages:(uint64_t *)msgids count:(int)count;
+-(BOOL) deleteMessage:(uint64_t)msgid remote:(BOOL)remote;
+-(BOOL) deleteMessage:(uint64_t)msgid;
 
--(int) deletePolicy:(int)maxRemoteDeleteInterval deleteType:(int)deleteType;
--(BOOL) deleteMessages:(uint64_t *)msgids count:(int)count deleteType:(int)deleteType;
--(BOOL) deleteMessage:(uint64_t)msgid deleteType:(int)deleteType;
--(BOOL) deleteMessage:(uint64_t)msgid ;
 -(BOOL) deleteMessages:(NSString *)sender groupid:(uint32_t)groupid ts:(uint64_t)ts;
 -(BOOL) deleteZombieMessages:(BOOL) groupOnly;
 //-(void)setEnableReadReceipt:(BOOL)enable sendLastReceipt:(BOOL)sendLastReceipt;
@@ -1155,6 +1214,9 @@ typedef void (^Mesibo_onRunHandler)(void);
 -(void) syncContacts:(NSArray<NSString *> *)addresses addContact:(BOOL)addContact subscribe:(BOOL)subscribe visibility:(int)visibility syncNow:(BOOL) syncNow;
 -(void) syncContact:(NSString *)address addContact:(BOOL)addContact subscribe:(BOOL)subscribe visibility:(int)visibility syncNow:(BOOL) syncNow;
 -(void) syncContacts;
+-(void) syncAndUpdateContacts:(NSArray<NSString *> *)addresses addContact:(BOOL)addContact subscribe:(BOOL)subscribe visibility:(int)visibility syncNow:(BOOL) syncNow;
+-(void) syncAndUpdateContact:(NSString *)address addContact:(BOOL)addContact subscribe:(BOOL)subscribe visibility:(int)visibility syncNow:(BOOL) syncNow;
+
 -(BOOL) createGroup:(NSString *)name flags:(uint32_t) flags listener:(id)listener;
 -(BOOL) createGroup:(MesiboGroupSettings *)settings listener:(id)listener;
 
