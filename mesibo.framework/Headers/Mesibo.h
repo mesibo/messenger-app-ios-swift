@@ -85,6 +85,7 @@
 #define MESIBO_MSGSTATUS_INVALIDDEST    0x83
 #define MESIBO_MSGSTATUS_EXPIRED        0x84
 #define MESIBO_MSGSTATUS_BLOCKED        0x88
+#define MESIBO_MSGSTATUS_GROUPPAUSED    0x90
 
 
 #define MESIBO_RESULT_OK                0
@@ -315,6 +316,7 @@
 #define MESIBO_GROUPFLAG_LISTBYANYONE        0x20000
     //members can't delete themselves
 #define MESIBO_GROUPFLAG_NOSELFDELETE        0x40000
+#define MESIBO_GROUPFLAG_PAUSE               0x8000000
     // these flags are not to be saved in database but sent by group_set request in profile_t
 #define MESIBO_GROUPFLAG_DELETE              0x80000000
 
