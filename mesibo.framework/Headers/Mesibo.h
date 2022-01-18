@@ -881,6 +881,12 @@ typedef MesiboProfile MesiboAddress;
 -(void)sync:(int)count listener:(id)listener ;
 -(void) setThreadId:(uint64_t) tid;
 
+-(int) getMessageCount:(int) status;
+-(int) getTotalMessageCount;
+-(int) getSentMessageCount;
+-(int) getReceivedMessageCount;
+-(int) getUnreadMessageCount;
+
 -(void) enableReadReceipt:(BOOL) enable ;
 
 -(void) enableSummary:(BOOL) enable ;
