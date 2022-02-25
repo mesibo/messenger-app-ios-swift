@@ -72,10 +72,6 @@
 #define MESIBO_MSGSTATUS_DELETED         0x21
 #define MESIBO_MSGSTATUS_WIPED           0x22
 
-
-
-
-
 // ONLY FOR UI USAGE
 #define MESIBO_MSGSTATUS_TIMESTAMP      0x30
 
@@ -86,6 +82,7 @@
 #define MESIBO_MSGSTATUS_EXPIRED        0x84
 #define MESIBO_MSGSTATUS_BLOCKED        0x88
 #define MESIBO_MSGSTATUS_GROUPPAUSED    0x90
+#define MESIBO_MSGSTATUS_NOTMEMBER      0x91
 
 
 #define MESIBO_RESULT_OK                0
@@ -326,6 +323,7 @@
 #define MESIBO_GROUPERROR_ACCESSDENIED    4
 #define MESIBO_GROUPERROR_NOTSHAREDPIN    5
 #define MESIBO_GROUPERROR_GENERAL         10
+#define MESIBO_GROUPERROR_DELETED         11
 
 #define MESIBO_RESOLUTION_DEFAULT          0
 #define MESIBO_RESOLUTION_QVGA             1
@@ -403,11 +401,18 @@
 
 @interface MesiboProfile : NSObject
 
+-(BOOL) isActive;
 
--(void) toggleMute;
--(BOOL) isMuted;
+-(void) setArchived:(BOOL)enable;
+-(void) setHidden:(BOOL) enable;
+-(void) setMuted:(BOOL) enable;
 -(void) toggleArchive;
--(BOOL) isArchieved;
+-(void) toggleHidden;
+-(void) toggleMute;
+-(BOOL) isArchived;
+-(BOOL) isMuted;
+-(BOOL) isHidden;
+
 -(void) toggleMark;
 -(BOOL) isMarked;
 -(void) setMark:(BOOL) enable;
@@ -1230,6 +1235,7 @@ typedef void (^Mesibo_onRunHandler)(void);
 
 -(int) subscribeTransient:(NSArray<NSString *> *) addresses type:(uint32_t)type activity:(uint32_t)activity duration:(uint32_t)duration;
 
+-(void) hideInactiveGroupProfiles:(BOOL) reset;
 -(NSArray *) getSortedProfiles;
 -(NSArray *) getRecentProfiles;
 
@@ -1251,6 +1257,7 @@ typedef void (^Mesibo_onRunHandler)(void);
 
 -(BOOL) isUiThread;
 -(void) runInThread:(BOOL)uiThread handler:(Mesibo_onRunHandler) handler;
+-(void) queueInThread:(BOOL)uiThread handler:(Mesibo_onRunHandler) handler;
 -(UIImage *) loadImage:(UIImage *)image filePath:(NSString *)path maxside:(int)maxside;
 
 //********************** Network.HTTP(S) Functions *********************************************
