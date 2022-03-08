@@ -59,6 +59,8 @@
 		8880D8491EA4D128004D5121 /* plug_play.png in Resources */ = {isa = PBXBuildFile; fileRef = 8880D8481EA4D128004D5121 /* plug_play.png */; };
 		88811C4F21A80BE000AECB33 /* mediapicker.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 88811C4E21A80BE000AECB33 /* mediapicker.framework */; };
 		88811C5521A80C2400AECB33 /* MesiboCallBundle.bundle in Resources */ = {isa = PBXBuildFile; fileRef = 88811C5421A80C2400AECB33 /* MesiboCallBundle.bundle */; };
+		888E0D3A27D79B87007A98ED /* Metal.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 888E0D3827D79B81007A98ED /* Metal.framework */; };
+		888E0D3B27D79B87007A98ED /* MetalKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 888E0D3927D79B86007A98ED /* MetalKit.framework */; };
 		889963561E93BB7600FE21EB /* appicon.png in Resources */ = {isa = PBXBuildFile; fileRef = 889963551E93BB7600FE21EB /* appicon.png */; };
 		889963711E93CC6100FE21EB /* ImagePickerBundle.bundle in Resources */ = {isa = PBXBuildFile; fileRef = 889963701E93CC6100FE21EB /* ImagePickerBundle.bundle */; };
 		88AD47B22602155C00829724 /* Network.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 88AD47B12602155C00829724 /* Network.framework */; };
@@ -187,6 +189,8 @@
 		8880D8481EA4D128004D5121 /* plug_play.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = plug_play.png; sourceTree = "<group>"; };
 		88811C4E21A80BE000AECB33 /* mediapicker.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = mediapicker.framework; sourceTree = "<group>"; };
 		88811C5421A80C2400AECB33 /* MesiboCallBundle.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; name = MesiboCallBundle.bundle; path = mesibocall.framework/Versions/A/Resources/MesiboCallBundle.bundle; sourceTree = "<group>"; };
+		888E0D3827D79B81007A98ED /* Metal.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Metal.framework; path = System/Library/Frameworks/Metal.framework; sourceTree = SDKROOT; };
+		888E0D3927D79B86007A98ED /* MetalKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MetalKit.framework; path = System/Library/Frameworks/MetalKit.framework; sourceTree = SDKROOT; };
 		889963551E93BB7600FE21EB /* appicon.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = appicon.png; sourceTree = "<group>"; };
 		889963701E93CC6100FE21EB /* ImagePickerBundle.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; name = ImagePickerBundle.bundle; path = mediapicker.framework/Versions/A/Resources/ImagePickerBundle.bundle; sourceTree = "<group>"; };
 		88AD36741E433E0600A0241E /* GoogleMaps.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; name = GoogleMaps.bundle; path = Frameworks/Google/GoogleMaps.framework/Versions/A/Resources/GoogleMaps.bundle; sourceTree = "<group>"; };
@@ -222,6 +226,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				8817FE921FF92CFD00ABB3F4 /* PushKit.framework in Frameworks */,
+				888E0D3A27D79B87007A98ED /* Metal.framework in Frameworks */,
 				8817FE831FF91A5F00ABB3F4 /* CallKit.framework in Frameworks */,
 				3EA490581E38A01400492966 /* GLKit.framework in Frameworks */,
 				8839B07A21ADB50B00B55B85 /* WebRTC.framework in Frameworks */,
@@ -247,6 +252,7 @@
 				88B4F35F1EBF67890032E9F2 /* contactutils.framework in Frameworks */,
 				3EA4905E1E38A03B00492966 /* libz.1.1.3.tbd in Frameworks */,
 				887B95DB21F0347E00264A74 /* mesiboui.framework in Frameworks */,
+				888E0D3B27D79B87007A98ED /* MetalKit.framework in Frameworks */,
 				3EA4905A1E38A01D00492966 /* CoreData.framework in Frameworks */,
 				3EA490561E38A00C00492966 /* AVFoundation.framework in Frameworks */,
 				3EA490541E38A00300492966 /* CoreTelephony.framework in Frameworks */,
@@ -401,6 +407,8 @@
 		3EA490231E389C5F00492966 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				888E0D3827D79B81007A98ED /* Metal.framework */,
+				888E0D3927D79B86007A98ED /* MetalKit.framework */,
 				88AD47B12602155C00829724 /* Network.framework */,
 				8817FE911FF92CFC00ABB3F4 /* PushKit.framework */,
 				8817FE821FF91A5F00ABB3F4 /* CallKit.framework */,
