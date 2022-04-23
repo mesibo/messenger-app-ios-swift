@@ -127,6 +127,8 @@ let CC_KEY = "cc"
         initAutoDownload()
         
         Mesibo.getInstance().setSecureConnection(true)
+        // Uncomment to enable end-to-end encryption
+        //Mesibo.getInstance()?.e2ee()?.enable(true)
         Mesibo.getInstance().start()
         
     }

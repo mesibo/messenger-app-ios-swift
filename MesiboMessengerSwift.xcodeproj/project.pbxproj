@@ -50,6 +50,8 @@
 		8839B07C21ADB51F00B55B85 /* WebRTC.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 8839B07921ADB50B00B55B85 /* WebRTC.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		883F3E4021A9B0520090D7B9 /* mesibouihelper.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 883F3E3F21A9B0520090D7B9 /* mesibouihelper.framework */; };
 		883F3E4221A9B0700090D7B9 /* MesiboUIHelperResource.bundle in Resources */ = {isa = PBXBuildFile; fileRef = 883F3E4121A9B0700090D7B9 /* MesiboUIHelperResource.bundle */; };
+		885A99A22814024C00FA7A0C /* MesiboCallBundle.bundle in Resources */ = {isa = PBXBuildFile; fileRef = 885A99A12814024C00FA7A0C /* MesiboCallBundle.bundle */; };
+		885A99A42814026000FA7A0C /* MesiboUIResource.bundle in Resources */ = {isa = PBXBuildFile; fileRef = 885A99A32814026000FA7A0C /* MesiboUIResource.bundle */; };
 		887B4C201E46071B000C4556 /* AVKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 887B4C1F1E46071B000C4556 /* AVKit.framework */; };
 		887B4C221E460AFF000C4556 /* MapKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 887B4C211E460AFF000C4556 /* MapKit.framework */; };
 		887B95DB21F0347E00264A74 /* mesiboui.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 887B95DA21F0347E00264A74 /* mesiboui.framework */; };
@@ -58,7 +60,6 @@
 		8880D8471EA4CF84004D5121 /* welcome.png in Resources */ = {isa = PBXBuildFile; fileRef = 8880D8461EA4CF84004D5121 /* welcome.png */; };
 		8880D8491EA4D128004D5121 /* plug_play.png in Resources */ = {isa = PBXBuildFile; fileRef = 8880D8481EA4D128004D5121 /* plug_play.png */; };
 		88811C4F21A80BE000AECB33 /* mediapicker.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 88811C4E21A80BE000AECB33 /* mediapicker.framework */; };
-		88811C5521A80C2400AECB33 /* MesiboCallBundle.bundle in Resources */ = {isa = PBXBuildFile; fileRef = 88811C5421A80C2400AECB33 /* MesiboCallBundle.bundle */; };
 		888E0D3A27D79B87007A98ED /* Metal.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 888E0D3827D79B81007A98ED /* Metal.framework */; };
 		888E0D3B27D79B87007A98ED /* MetalKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 888E0D3927D79B86007A98ED /* MetalKit.framework */; };
 		889963561E93BB7600FE21EB /* appicon.png in Resources */ = {isa = PBXBuildFile; fileRef = 889963551E93BB7600FE21EB /* appicon.png */; };
@@ -72,7 +73,6 @@
 		88C4EC1521EE3D8C0066F405 /* mesibo.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 88C4EC1421EE3D8C0066F405 /* mesibo.framework */; };
 		88D671F42686C3FB004B1570 /* AppUIManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 88D671F32686C3FB004B1570 /* AppUIManager.m */; };
 		88DE780A21EDA35000A1876A /* mesibocall.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 88DE780921EDA35000A1876A /* mesibocall.framework */; };
-		88DE781D21EDAAA400A1876A /* MesiboUIResource.bundle in Resources */ = {isa = PBXBuildFile; fileRef = 88DE781C21EDAAA400A1876A /* MesiboUIResource.bundle */; };
 		88F30B531F7D0BB700803AA8 /* Contacts.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 88F30B521F7D0BB700803AA8 /* Contacts.framework */; };
 		88F39D602436428500361C78 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 88F39D5F2436428500361C78 /* AppDelegate.swift */; };
 		88F39D862436F93200361C78 /* SampleAPI.swift in Sources */ = {isa = PBXBuildFile; fileRef = 88F39D852436F93200361C78 /* SampleAPI.swift */; };
@@ -180,6 +180,8 @@
 		883F3E3F21A9B0520090D7B9 /* mesibouihelper.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = mesibouihelper.framework; sourceTree = "<group>"; };
 		883F3E4121A9B0700090D7B9 /* MesiboUIHelperResource.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; name = MesiboUIHelperResource.bundle; path = mesibouihelper.framework/Resources/MesiboUIHelperResource.bundle; sourceTree = "<group>"; };
 		8844A9A121AA601D00489277 /* logs.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = logs.h; sourceTree = "<group>"; };
+		885A99A12814024C00FA7A0C /* MesiboCallBundle.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; name = MesiboCallBundle.bundle; path = mesibocall.framework/Resources/MesiboCallBundle.bundle; sourceTree = "<group>"; };
+		885A99A32814026000FA7A0C /* MesiboUIResource.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; name = MesiboUIResource.bundle; path = mesiboui.framework/Resources/MesiboUIResource.bundle; sourceTree = "<group>"; };
 		887B4C1F1E46071B000C4556 /* AVKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AVKit.framework; path = System/Library/Frameworks/AVKit.framework; sourceTree = SDKROOT; };
 		887B4C211E460AFF000C4556 /* MapKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MapKit.framework; path = System/Library/Frameworks/MapKit.framework; sourceTree = SDKROOT; };
 		887B95DA21F0347E00264A74 /* mesiboui.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = mesiboui.framework; sourceTree = "<group>"; };
@@ -188,7 +190,6 @@
 		8880D8461EA4CF84004D5121 /* welcome.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = welcome.png; sourceTree = "<group>"; };
 		8880D8481EA4D128004D5121 /* plug_play.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = plug_play.png; sourceTree = "<group>"; };
 		88811C4E21A80BE000AECB33 /* mediapicker.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = mediapicker.framework; sourceTree = "<group>"; };
-		88811C5421A80C2400AECB33 /* MesiboCallBundle.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; name = MesiboCallBundle.bundle; path = mesibocall.framework/Versions/A/Resources/MesiboCallBundle.bundle; sourceTree = "<group>"; };
 		888E0D3827D79B81007A98ED /* Metal.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Metal.framework; path = System/Library/Frameworks/Metal.framework; sourceTree = SDKROOT; };
 		888E0D3927D79B86007A98ED /* MetalKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MetalKit.framework; path = System/Library/Frameworks/MetalKit.framework; sourceTree = SDKROOT; };
 		889963551E93BB7600FE21EB /* appicon.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = appicon.png; sourceTree = "<group>"; };
@@ -207,7 +208,6 @@
 		88D671F22686C3FB004B1570 /* AppUIManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AppUIManager.h; sourceTree = "<group>"; };
 		88D671F32686C3FB004B1570 /* AppUIManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AppUIManager.m; sourceTree = "<group>"; };
 		88DE780921EDA35000A1876A /* mesibocall.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = mesibocall.framework; sourceTree = "<group>"; };
-		88DE781C21EDAAA400A1876A /* MesiboUIResource.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; name = MesiboUIResource.bundle; path = mesiboui.framework/Versions/A/Resources/MesiboUIResource.bundle; sourceTree = "<group>"; };
 		88F30B521F7D0BB700803AA8 /* Contacts.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Contacts.framework; path = System/Library/Frameworks/Contacts.framework; sourceTree = SDKROOT; };
 		88F39D5E2436428400361C78 /* MesiboMessengerSwift-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "MesiboMessengerSwift-Bridging-Header.h"; sourceTree = "<group>"; };
 		88F39D5F2436428500361C78 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
@@ -453,7 +453,7 @@
 			isa = PBXGroup;
 			children = (
 				887B95DA21F0347E00264A74 /* mesiboui.framework */,
-				88DE781C21EDAAA400A1876A /* MesiboUIResource.bundle */,
+				885A99A32814026000FA7A0C /* MesiboUIResource.bundle */,
 			);
 			name = MesiboUI;
 			sourceTree = "<group>";
@@ -463,7 +463,7 @@
 			children = (
 				88C4EC1421EE3D8C0066F405 /* mesibo.framework */,
 				88DE780921EDA35000A1876A /* mesibocall.framework */,
-				88811C5421A80C2400AECB33 /* MesiboCallBundle.bundle */,
+				885A99A12814024C00FA7A0C /* MesiboCallBundle.bundle */,
 				88B4F35E1EBF67890032E9F2 /* contactutils.framework */,
 			);
 			name = MesiboCore;
@@ -618,17 +618,17 @@
 				8880D83A1EA0E0AD004D5121 /* users.png in Resources */,
 				3EA48FB51E38998C00492966 /* LaunchScreen.storyboard in Resources */,
 				8880D8471EA4CF84004D5121 /* welcome.png in Resources */,
-				88DE781D21EDAAA400A1876A /* MesiboUIResource.bundle in Resources */,
 				3EA490071E389AA700492966 /* settings.storyboard in Resources */,
 				3EA4900F1E389AA700492966 /* n.png in Resources */,
 				3EA4900C1E389AA700492966 /* prof.jpg in Resources */,
 				88B6A0531EA736080051A873 /* opensource_ios.png in Resources */,
+				885A99A42814026000FA7A0C /* MesiboUIResource.bundle in Resources */,
+				885A99A22814024C00FA7A0C /* MesiboCallBundle.bundle in Resources */,
 				889963561E93BB7600FE21EB /* appicon.png in Resources */,
 				8880D8491EA4D128004D5121 /* plug_play.png in Resources */,
 				3EA490091E389AA700492966 /* Assets.xcassets in Resources */,
 				8880D83D1EA22E8A004D5121 /* videocall.png in Resources */,
 				3EA48FB01E38998C00492966 /* Main.storyboard in Resources */,
-				88811C5521A80C2400AECB33 /* MesiboCallBundle.bundle in Resources */,
 				889963711E93CC6100FE21EB /* ImagePickerBundle.bundle in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
