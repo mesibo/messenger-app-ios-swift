@@ -18,9 +18,10 @@
 #define MESIBO_FLAG_READRECEIPT         0x2
 #define MESIBO_FLAG_TRANSIENT           0x4
 #define MESIBO_FLAG_PRESENCE           0x8
-#define MESIBO_FLAG_BROADCAST           0x20
+#define MESIBO_FLAG_ENCRYPTED          0x80
 
-#define MESIBO_FLAG_MODIFY            0x40000
+#define MESIBO_FLAG_MODIFY              0x40000
+#define MESIBO_FLAG_BROADCAST           0x80000
 #define MESIBO_FLAG_NONBLOCKING         0x80000
 #define MESIBO_FLAG_DONTSEND            0x200000
 #define MESIBO_FLAG_LASTMESSAGE                 0x800000ULL
@@ -93,6 +94,7 @@
 #define MESIBO_RESULT_BADREQ            0x85
 #define MESIBO_RESULT_OVERCAPACITY      0x86
 #define MESIBO_RESULT_RETRYLATER        0x87
+#define MESIBO_RESULT_E2EERROR          0x8A
 
 #define MESIBO_RESULT_TIMEOUT           0xB0
 #define MESIBO_RESULT_CONNECTFAIL       0xB1
@@ -368,6 +370,58 @@
 #define MESIBO_GROUP_SUBSCRIBED                  10
 #define MESIBO_GROUP_PROVSUBSCRIBED              11
 
+#define MESIBO_E2ECIPHER_AESGCM 1
+#define MESIBO_E2ECIPHER_CHACHAPOLY1305 2
+//#define MESIBO_E2ECIPHER_AESCBCHMAC 8
+#define MESIBO_E2ECIPHER_AESCBC 0x20
+#define MESIBO_E2ECIPHER_CHACHA20 0x40
+
+#define MESIBO_E2ESTATUS_NONE 0
+#define MESIBO_E2ESTATUS_ACTIVE 1
+#define MESIBO_E2ESTATUS_INACTIVE 2
+#define MESIBO_E2ESTATUS_IDENTITYCHANGED 3
+#define MESIBO_E2ESTATUS_FAILED 0x80
+#define MESIBO_E2ESTATUS_IDENTITYFAILED 0x81
+#define MESIBO_E2ESTATUS_SUSPICIOUS 0x82
+
+@interface MesiboEndToEndEncryption : NSObject
+-(void) enable:(BOOL) enable;
+-(void) enableSecureOnly:(BOOL) enable;
+-(BOOL) reset:(NSString *) address;
+-(int) getStatus:(NSString *) address;
+-(BOOL) isActive:(NSString *) address;
+-(int) setLevel:(int) level;
+-(int) setCiphers:(uint32_t)supported preferred:(uint32_t) preferred;
+-(BOOL) setPassword:(NSString *) address password:(NSString *) password;
+-(BOOL) setPassword:(NSString *) password;
+-(int) setAuthenticationTaglen:(int) len;
+-(BOOL) setAuthenticationData:(NSString *) address  add:(NSString *) aad;
+-(BOOL) setAuthenticationData:(NSString *) aad;
+-(NSString *) getPublicCertificate;
+-(BOOL) setPrivateCertificate:(NSString *) filename;
+-(BOOL) setPeerCertificate:(NSString *) address filename:(NSString *) filename;
+-(NSString *) getPeerCertificateOrg:(NSString *) address;
+-(NSString *) getPeerCertificateCommonName:(NSString *) address;
+-(NSString *) getFingerprint:(NSString *) address;
+-(NSString *) getUserFingerprint:(NSString *) address;
+-(NSString *) getFingerprintPart:(NSString *) fingerprint part:(int) part;
+-(int) setConfig:(int)level minopns:(uint32_t) minops maxops:(uint32_t) maxops;
+
+@end
+
+@interface MesiboProfileEndToEndEncryption : NSObject
+-(BOOL) reset;
+-(int) getStatus;
+-(BOOL) isActive;
+-(BOOL) setPassword:(NSString *) password;
+-(BOOL) setAuthenticationData:(NSString *) aad;
+-(BOOL) setPeerCertificate:(NSString *) filename;
+-(NSString *) getPeerCertificateOrg;
+-(NSString *) getPeerCertificateCommonName;
+-(NSString *) getFingerprint;
+-(NSString *) getUserFingerprint;
+@end
+
 @interface MesiboGroupSettings : NSObject
 @property (nonatomic) NSString *name;
 @property (nonatomic) uint32_t flags;
@@ -461,6 +515,8 @@
 
 -(NSString *) getName ;
 -(NSString *) getNameOrAddress:(NSString *)prefix;
+-(NSString *) getFirstName ;
+-(NSString *) getFirstNameOrAddress:(NSString *)prefix;
 -(void) setStatus:(NSString *)val ;
 -(NSString *) getStatus ;
 -(void) setInfo:(NSString *)val ;
@@ -483,6 +539,8 @@
 
 -(void) setAddress:(NSString *)addr gid:(uint32_t)gid ;
 -(MesiboProfile *) cloneProfile;
+
+-(MesiboProfileEndToEndEncryption *) e2ee;
 
 -(BOOL) addListener:(id<MesiboProfileDelegate>) delegate ;
 -(void) removeListener:(id<MesiboProfileDelegate>) delegate ;
@@ -576,6 +634,7 @@
 @protocol MesiboProfileDelegate <NSObject>
 @required
 -(void) MesiboProfile_onUpdate:(MesiboProfile *)profile;
+-(void) MesiboProfile_onEndToEndEncryption:(MesiboProfile *)profile status:(int) status;
 @end
 
 
@@ -624,6 +683,7 @@
 -(BOOL) isDeleted;
 -(BOOL) isModified;
 -(BOOL) isForwarded;
+-(BOOL) isEndToEndEncrypted;
 -(BOOL) isPresence;
 -(BOOL) isMissedCall;
 -(BOOL) isCall;
@@ -831,6 +891,7 @@ typedef MesiboProfile MesiboAddress;
 -(BOOL) isCustom;
 -(BOOL) isDeleted;
 -(BOOL) isForwarded;
+-(BOOL) isEndToEndEncrypted;
 -(BOOL) isPresence;
 -(BOOL) isMissedCall;
 -(BOOL) isCall;
@@ -1083,6 +1144,7 @@ typedef void (^Mesibo_onRunHandler)(void);
 -(void) Mesibo_onGroupSettings:(MesiboProfile *) groupProfile settings:(MesiboGroupSettings *)settings permissions:(MesiboMemberPermissions *)permissions pins:(NSArray<MesiboGroupPin *> *) pins;
 -(void) Mesibo_onGroupError:(MesiboProfile *) groupProfile error:(uint32_t)error;
 
+-(void) Mesibo_onEndToEndEncryption:(MesiboProfile *)profile status:(int)status;
 
 //UI helper
 //-(void) Mesibo_onShowProfilesList;
@@ -1096,6 +1158,9 @@ typedef void (^Mesibo_onRunHandler)(void);
 @end
 
 #define MesiboInstance [Mesibo getInstance]
+#define MesiboE2EInstance [[Mesibo getInstance] e2ee]
+#define MesiboE2EEInstance [[Mesibo getInstance] e2ee]
+
 
 
 @interface Mesibo : NSObject
@@ -1133,7 +1198,7 @@ typedef void (^Mesibo_onRunHandler)(void);
 -(NSString *) getAddress;
 -(void) setAppName:(NSString *)name ;
 -(NSString *) getAppName;
-
+-(MesiboEndToEndEncryption *) e2ee;
 
 //********************** Database **********************************************
 -(BOOL) setDatabase:(NSString *)name resetTables:(uint32_t)resetTables;
@@ -1258,6 +1323,7 @@ typedef void (^Mesibo_onRunHandler)(void);
 -(BOOL) isUiThread;
 -(void) runInThread:(BOOL)uiThread handler:(Mesibo_onRunHandler) handler;
 -(void) queueInThread:(BOOL)uiThread handler:(Mesibo_onRunHandler) handler;
+-(void) queueInThread:(BOOL)uiThread delay:(int64_t)delay_ms handler:(Mesibo_onRunHandler) handler;
 -(UIImage *) loadImage:(UIImage *)image filePath:(NSString *)path maxside:(int)maxside;
 
 //********************** Network.HTTP(S) Functions *********************************************
