@@ -60,6 +60,10 @@
 @property (copy, nonatomic) NSString *groupDeletedTitle;
 @property (copy, nonatomic) NSString *groupNotMemberTitle;
 
+@property (copy, nonatomic) NSString *e2eeActive;
+@property (copy, nonatomic) NSString *e2eeIdentityChanged;
+@property (copy, nonatomic) NSString *e2eeInactive;
+
 
 @property (copy, nonatomic) NSString *emptyUserListMessage;
 @property (copy, nonatomic) UIFont *emptyUserListMessageFont;
