@@ -387,6 +387,7 @@
 
 @interface MesiboEndToEndEncryption : NSObject
 -(void) enable:(BOOL) enable;
+-(BOOL) isEnabled;
 -(void) enableSecureOnly:(BOOL) enable;
 -(BOOL) reset:(NSString *) address;
 -(int) getStatus:(NSString *) address;
