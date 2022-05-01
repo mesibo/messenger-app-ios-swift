@@ -36,7 +36,6 @@ let CC_KEY = "cc"
     private var mApnTokenSent = false
     private var mSyncStarted = false
     private var mInitPhonebook = false
-    private var mAPNCompletionHandler: ((UIBackgroundFetchResult) -> Void)?
     
     static var getInstanceMyInstance: SampleAPI? = nil
     
@@ -564,41 +563,8 @@ let CC_KEY = "cc"
         sendAPNToken()
     }
     
-    func executeAPNCompletion(delayInSeconds: Double) {
-        if mAPNCompletionHandler == nil {
-            return
-        }
-        
-        if delayInSeconds < 0.01 {
-            let lockQueue = DispatchQueue(label: "self")
-            lockQueue.sync {
-                if nil != mAPNCompletionHandler! {
-                    mAPNCompletionHandler!(UIBackgroundFetchResult.newData)
-                }
-                mAPNCompletionHandler = nil
-            }
-            return
-        }
-        
-        let popTime = DispatchTime.now() + Double(delayInSeconds * Double(NSEC_PER_SEC))
-        DispatchQueue.main.asyncAfter(deadline: popTime, execute: {
-            SampleAPI.getInstance().executeAPNCompletion(delayInSeconds: 0)
-        })
-        
-    }
-    
-    func setAPNCompletionHandler(completionHandler: @escaping (UIBackgroundFetchResult) -> Void) -> Bool {
-        executeAPNCompletion(delayInSeconds: 0)
-        
-        mAPNCompletionHandler = completionHandler
-        Mesibo.getInstance().setAppInForeground(nil, screenId: -1, foreground: true)
-        executeAPNCompletion(delayInSeconds: 10.0)
-        return true
-    }
-    
     func startOnlineAction() {
         sendAPNToken()
-        executeAPNCompletion(delayInSeconds: 3.0)
     }
     
     func resetDB() {

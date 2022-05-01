@@ -1202,6 +1202,10 @@ typedef void (^Mesibo_onRunHandler)(void);
 -(NSString *) getAppName;
 -(MesiboEndToEndEncryption *) e2ee;
 
+//********************** Push Handler **************************************
+-(void) didReceiveRemoteNotification:(NSDictionary *)userInfo fetchCompletionHandler:(void (^)(UIBackgroundFetchResult))completionHandler;
+//-(void) didReceiveIncomingPushWithPayload:(PKPushPayload *)payload forType:(PKPushType)type withCompletionHandler:(void (^)(void))completion;
+
 //********************** Database **********************************************
 -(BOOL) setDatabase:(NSString *)name resetTables:(uint32_t)resetTables;
 -(void) resetDatabase:(uint32_t) tables;

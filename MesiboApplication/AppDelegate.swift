@@ -126,17 +126,11 @@ import UIKit
     
     public func application(_ application: UIApplication, performFetchWithCompletionHandler completionHandler: @escaping (UIBackgroundFetchResult) -> Void) {
         
-        SampleAPI.getInstance().setAPNCompletionHandler(completionHandler: completionHandler)
     }
     
     public func application(_ application: UIApplication, didReceiveRemoteNotification userInfo: [AnyHashable : Any], fetchCompletionHandler completionHandler: @escaping (UIBackgroundFetchResult) -> Void) {
         
-        if application.applicationState == .inactive {
-        } else if application.applicationState == .background {
-        } else {
-        }
-        
-        SampleAPI.getInstance().setAPNCompletionHandler(completionHandler: completionHandler)
+        Mesibo.getInstance()?.didReceiveRemoteNotification(userInfo, fetchCompletionHandler: completionHandler)
         
     }
     
