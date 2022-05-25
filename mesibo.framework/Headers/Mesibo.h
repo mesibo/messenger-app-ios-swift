@@ -215,6 +215,7 @@
 #define MESIBO_RETRACT_DELMEDIA   0x40
 #define MESIBO_RETRACT_DELTHREAD   0x80
 #define MESIBO_RETRACT_DELALL  0x100
+#define MESIBO_RETRACT_DELCONTACT  0x1000
 
 #define MESIBO_CONTACT_UPDATE           0
 #define MESIBO_CONTACT_DELETE           1
@@ -564,6 +565,8 @@
 -(void) removeLocalProfile;
 -(void) removeSyncedProfile;
 -(void) remove;
+
+-(BOOL) requestRemoval;
 
 -(BOOL) save;
 
@@ -1264,6 +1267,7 @@ typedef void (^Mesibo_onRunHandler)(void);
 -(int) setMessageRetractionInterval:(uint32_t) interval;
 -(int) getMessageRetractionInterval;
 -(int) setMessageRetractionPolicy:(uint32_t) policy;
+-(int) setRemoteRetractionPolicy:(uint32_t) policy;
 
 -(BOOL) wipeAndRecallMessages:(uint64_t *)msgids count:(int)count;
 -(BOOL) wipeAndRecallMessage:(uint64_t)msgid;
@@ -1308,6 +1312,9 @@ typedef void (^Mesibo_onRunHandler)(void);
 -(MesiboProfile *) getGroupProfileIfExists:(uint32_t)groupid;
 
 -(MesiboProfile *) getSelfProfile;
+
+-(BOOL) isAutoSyncContactsEnabled;
+-(void) enableAutoSyncContacts:(BOOL) enabled;
 
 -(void) syncContacts:(NSArray<NSString *> *)addresses addContact:(BOOL)addContact subscribe:(BOOL)subscribe visibility:(int)visibility syncNow:(BOOL) syncNow;
 -(void) syncContact:(NSString *)address addContact:(BOOL)addContact subscribe:(BOOL)subscribe visibility:(int)visibility syncNow:(BOOL) syncNow;
