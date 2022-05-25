@@ -171,6 +171,7 @@
 #define MESIBO_CALLSTATUS_NOVIDEOCALLS          0x49
 #define MESIBO_CALLSTATUS_NOTALLOWED            0x4A
 #define MESIBO_CALLSTATUS_BLOCKED               0x4B
+#define MESIBO_CALLSTATUS_DURATIONEXCEEDED      0x4C
 
 //TringMe specific errir
 #define MESIBO_CALLSTATUS_AUTHFAIL              0x50
@@ -508,7 +509,7 @@
 -(NSString *) getAddress;
 
 -(int) getUnreadCount;
--(uint64_t) getLastActiveTime;
+-(int) getLastSeen;
 
 -(NSString *) getAdmin ;
 
@@ -681,6 +682,8 @@
 
 -(BOOL) isIncoming;
 -(BOOL) isOutgoing;
+-(BOOL) isRead;
+-(BOOL) isUnread;
 -(BOOL) isSavedMessage;
 -(BOOL) isDeleted;
 -(BOOL) isModified;
@@ -688,6 +691,8 @@
 -(BOOL) isEndToEndEncrypted;
 -(BOOL) isPresence;
 -(BOOL) isMissedCall;
+-(BOOL) isIncomingCall;
+-(BOOL) isOutgoingCall;
 -(BOOL) isCall;
 -(BOOL) isVoiceCall;
 -(BOOL) isVideoCall;
@@ -1193,6 +1198,7 @@ typedef void (^Mesibo_onRunHandler)(void);
 -(int) stop;
 -(BOOL) reconnect:(int) inFocus;
 -(BOOL) isAccountSuspended;
+-(BOOL) isAccountPaid;
 -(int) getConnectionStatus;
 -(void)setNetwork:(int)connectivity;
 -(int) getDeviceType;
@@ -1209,6 +1215,14 @@ typedef void (^Mesibo_onRunHandler)(void);
 //********************** Database **********************************************
 -(BOOL) setDatabase:(NSString *)name resetTables:(uint32_t)resetTables;
 -(void) resetDatabase:(uint32_t) tables;
+-(NSString *) getDatabasePath;
+-(NSString *) getDatabaseBackupPath:(NSString *)path;
+-(NSString *) backupDatabase:(NSString *)path;
+-(int) restoreDatabase:(NSString *)path;
+-(int) databaseAge;
+-(int) backupAge;
+-(BOOL) isFirstInstall;
+
 -(BOOL) setKey:(NSString *)key value:(NSString *)value;
 -(NSString *) readKey:(NSString *)key;
 -(BOOL) deleteKey:(NSString *)key;

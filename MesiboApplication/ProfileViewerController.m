@@ -457,31 +457,29 @@
     
     _mUserName.text = [mUserProfile getName];
     
-    // check userstatus api in testing //
-    uint64_t lastSeen = [MesiboInstance getTimestamp] - [mUserProfile getLastActiveTime];
+    uint64_t lastSeen = [mUserProfile getLastSeen];
     NSString *onlineStatus = @"Online";
-    
     _mUserActivityStatus.hidden = NO;
-    if(lastSeen > 60000) {
-        lastSeen = lastSeen/60000; //miutes
-        if([mUserProfile getGroupId] > 0 || 0 == [mUserProfile getLastActiveTime]) {
-            //userstatus.setVisibility(View.GONE);
-            _mUserActivityStatus.hidden = YES;
-        }
-        else if(lastSeen >= 2*24*60) {
+    
+    if(lastSeen < 0) {
+        _mUserActivityStatus.hidden = YES;
+    } else if(lastSeen > 0) {
+
+        if(lastSeen >= 2*24*3600) {
             onlineStatus = @"days ago";
-            lastSeen = lastSeen/(24*60);
-        } else if(lastSeen >= 24*60) {
+            lastSeen = lastSeen/(24*3600);
+        } else if(lastSeen >= 24*3600) {
             onlineStatus = @"yesterday";
             lastSeen = 0;
-        } else if(lastSeen >= 120 ){
+        } else if(lastSeen >= 7200 ){
             onlineStatus = @"hours ago";
-            lastSeen = lastSeen/(60);
-        } else if(lastSeen >= 60) {
+            lastSeen = lastSeen/(3600);
+        } else if(lastSeen >= 3600) {
             onlineStatus = @"an hour ago";
             lastSeen = 0;
-        } else if(lastSeen >= 2) {
+        } else if(lastSeen >= 120) {
             onlineStatus = @"minutes ago";
+            lastSeen = lastSeen/(60);
         } else {
             onlineStatus = @"a few moments before";
             lastSeen = 0;

@@ -63,8 +63,8 @@
 		888E0D3A27D79B87007A98ED /* Metal.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 888E0D3827D79B81007A98ED /* Metal.framework */; };
 		888E0D3B27D79B87007A98ED /* MetalKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 888E0D3927D79B86007A98ED /* MetalKit.framework */; };
 		889963561E93BB7600FE21EB /* appicon.png in Resources */ = {isa = PBXBuildFile; fileRef = 889963551E93BB7600FE21EB /* appicon.png */; };
-		889963711E93CC6100FE21EB /* ImagePickerBundle.bundle in Resources */ = {isa = PBXBuildFile; fileRef = 889963701E93CC6100FE21EB /* ImagePickerBundle.bundle */; };
 		88AD47B22602155C00829724 /* Network.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 88AD47B12602155C00829724 /* Network.framework */; };
+		88B3BAA1283DEB0E00345213 /* ImagePickerBundle.bundle in Resources */ = {isa = PBXBuildFile; fileRef = 88B3BAA0283DEB0E00345213 /* ImagePickerBundle.bundle */; };
 		88B4F3291EBB617F0032E9F2 /* mesibo-Regular.otf in Resources */ = {isa = PBXBuildFile; fileRef = 88B4F3281EBB61690032E9F2 /* mesibo-Regular.otf */; };
 		88B4F3481EBDF3960032E9F2 /* NSLayoutConstraint+Visibiltiy.m in Sources */ = {isa = PBXBuildFile; fileRef = 88B4F3451EBDF3960032E9F2 /* NSLayoutConstraint+Visibiltiy.m */; };
 		88B4F3491EBDF3960032E9F2 /* UIView+Visibility.m in Sources */ = {isa = PBXBuildFile; fileRef = 88B4F3471EBDF3960032E9F2 /* UIView+Visibility.m */; };
@@ -193,10 +193,10 @@
 		888E0D3827D79B81007A98ED /* Metal.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Metal.framework; path = System/Library/Frameworks/Metal.framework; sourceTree = SDKROOT; };
 		888E0D3927D79B86007A98ED /* MetalKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MetalKit.framework; path = System/Library/Frameworks/MetalKit.framework; sourceTree = SDKROOT; };
 		889963551E93BB7600FE21EB /* appicon.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = appicon.png; sourceTree = "<group>"; };
-		889963701E93CC6100FE21EB /* ImagePickerBundle.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; name = ImagePickerBundle.bundle; path = mediapicker.framework/Versions/A/Resources/ImagePickerBundle.bundle; sourceTree = "<group>"; };
 		88AD36741E433E0600A0241E /* GoogleMaps.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; name = GoogleMaps.bundle; path = Frameworks/Google/GoogleMaps.framework/Versions/A/Resources/GoogleMaps.bundle; sourceTree = "<group>"; };
 		88AD36781E433ECE00A0241E /* GooglePlaces.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; name = GooglePlaces.bundle; path = Frameworks/Google/GooglePlaces.framework/Versions/A/Resources/GooglePlaces.bundle; sourceTree = "<group>"; };
 		88AD47B12602155C00829724 /* Network.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Network.framework; path = System/Library/Frameworks/Network.framework; sourceTree = SDKROOT; };
+		88B3BAA0283DEB0E00345213 /* ImagePickerBundle.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; name = ImagePickerBundle.bundle; path = mediapicker.framework/Resources/ImagePickerBundle.bundle; sourceTree = "<group>"; };
 		88B4F3281EBB61690032E9F2 /* mesibo-Regular.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "mesibo-Regular.otf"; sourceTree = "<group>"; };
 		88B4F3441EBDF3960032E9F2 /* NSLayoutConstraint+Visibiltiy.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSLayoutConstraint+Visibiltiy.h"; sourceTree = "<group>"; };
 		88B4F3451EBDF3960032E9F2 /* NSLayoutConstraint+Visibiltiy.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSLayoutConstraint+Visibiltiy.m"; sourceTree = "<group>"; };
@@ -443,8 +443,8 @@
 		3EA490251E389CA900492966 /* MediaPicker */ = {
 			isa = PBXGroup;
 			children = (
+				88B3BAA0283DEB0E00345213 /* ImagePickerBundle.bundle */,
 				88811C4E21A80BE000AECB33 /* mediapicker.framework */,
-				889963701E93CC6100FE21EB /* ImagePickerBundle.bundle */,
 			);
 			name = MediaPicker;
 			sourceTree = "<group>";
@@ -624,12 +624,12 @@
 				88B6A0531EA736080051A873 /* opensource_ios.png in Resources */,
 				885A99A42814026000FA7A0C /* MesiboUIResource.bundle in Resources */,
 				885A99A22814024C00FA7A0C /* MesiboCallBundle.bundle in Resources */,
+				88B3BAA1283DEB0E00345213 /* ImagePickerBundle.bundle in Resources */,
 				889963561E93BB7600FE21EB /* appicon.png in Resources */,
 				8880D8491EA4D128004D5121 /* plug_play.png in Resources */,
 				3EA490091E389AA700492966 /* Assets.xcassets in Resources */,
 				8880D83D1EA22E8A004D5121 /* videocall.png in Resources */,
 				3EA48FB01E38998C00492966 /* Main.storyboard in Resources */,
-				889963711E93CC6100FE21EB /* ImagePickerBundle.bundle in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

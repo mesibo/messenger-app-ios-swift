@@ -78,6 +78,7 @@
 @property (assign, nonatomic) uint32_t mToolbarTextColor;
 @property (assign, nonatomic) uint32_t mUserListTypingIndicationColor;
 @property (assign, nonatomic) uint32_t mUserListStatusColor;
+@property (assign, nonatomic) uint32_t mUserListMaxRows;
 @property (assign, nonatomic) uint32_t messageBackgroundColorForMe;
 @property (assign, nonatomic) uint32_t messageBackgroundColorForPeer;
 @property (assign, nonatomic) uint32_t messagingBackgroundColor;
@@ -104,14 +105,17 @@
 
 +(UIViewController *) getMesiboUIViewController ;
 + (UIViewController *) getMesiboUIViewController:(id)uidelegate;
++(void) launchMesiboUIViewController:(UIViewController *)parent uidelegate:(id)uidelegate back:(BOOL)back;
 
 +(UIImage *) getDefaultImage:(BOOL) group;
 
-+(void) launchMessageViewController:(UIViewController *) parent profile:(MesiboProfile*)profile ;
+
 
 +(MesiboUiOptions *) getUiOptions;
 +(void) setUiOptions:(MesiboUiOptions *)options;
 
++(void) launchMessageViewControllerWithNavigation:(UIViewController *)parent profile:(id)profile uidelegate:(id)uidelegate;
++(void) launchMessageViewController:(UIViewController *) parent profile:(MesiboProfile*)profile ;
 +(void) launchMessageViewController:(UIViewController *) parent profile:(MesiboProfile*)profile uidelegate:(id)uidelegate;
 
 +(void) showEndToEncEncryptionInfo:(UIViewController *) parent profile:(MesiboProfile*)profile;
