@@ -223,21 +223,25 @@ import UIKit
             return
         }
         
+        Mesibo.getInstance().run(inThread: true, handler: {
+            self.launchMesiboUI()
+        })
+        
         let syncedContacts = SampleAPI.getInstance().getSyncedContacts()
         
         ContactUtils.getInstance().initPhonebook(syncedContacts, onPermission: { result in
             if !result {
                 //permission denied
-                AppAlert.showDialogue("Mesibo requires contact permission so that you can communicate with your contacts. You MUST restart App and grant necessary permissions to continue!", withTitle: "Permission Required", handler: {
-                    //
+                AppAlert.showDialogue("You have not granted contact permission. Mesibo requires contact permission so that you can communicate with your contacts. Go to phone Settings -> Mesibo to grant the necessary permissions to continue! Alternatively, you can reinstall, restart, and then grant permissions.", withTitle: "Permission Required", handler: {
+                    
+                    // change to something more useful depening on your requirements
+                    exit(0);
                 })
                 return
             }
             
 
-            Mesibo.getInstance().run(inThread: true, handler: {
-                self.launchMesiboUI()
-            })
+            
         }, onChange: {
             SampleAPI.getInstance().startContactSync()
         })

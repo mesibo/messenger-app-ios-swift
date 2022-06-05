@@ -1,12 +1,8 @@
 //
 //  UIAlerts.m
-//  Mesibo
-//
-//  Created by rkb on 10/15/17.
-//  Copyright © 2018 Mesibo. All rights reserved.
-//
 
 #import "AppAlert.h"
+#import <mesibo/mesibo.h>
 
 @implementation AppAlert
 
@@ -21,7 +17,7 @@
     return topController;
 }
 
-+ (void)showDialogue:(NSString*)message withTitle:(NSString *)title handler:(void (^) (void)) handler {
++ (void)showDialogue_ui:(NSString*)message withTitle:(NSString *)title handler:(void (^) (void)) handler {
     UIAlertController* alert = [UIAlertController
                                 alertControllerWithTitle:title
                                 message:message
@@ -53,6 +49,13 @@
         [vc presentViewController:alert animated:YES completion:nil];
     });
     
+    
+}
+
++ (void)showDialogue:(NSString*)message withTitle:(NSString *)title handler:(void (^) (void)) handler {
+    [MesiboInstance runInThread:YES handler:^{
+        [AppAlert showDialogue_ui:message withTitle:title handler:handler];
+    }];
     
 }
 
