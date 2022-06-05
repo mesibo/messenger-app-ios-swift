@@ -682,7 +682,7 @@
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "128"
             endingLineNumber = "128"
-            landmarkName = "mesibo_(onMessageFilter:direction:data:)"
+            landmarkName = "mesibo_(onForeground:screenId:foreground:)"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
@@ -778,7 +778,7 @@
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "134"
             endingLineNumber = "134"
-            landmarkName = "mesibo_(onMessageFilter:direction:data:)"
+            landmarkName = "mesiboCall_(onNotifyIncoming:profile:video:)"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
@@ -794,7 +794,7 @@
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "135"
             endingLineNumber = "135"
-            landmarkName = "mesibo_(onMessageFilter:direction:data:)"
+            landmarkName = "mesiboCall_(onNotifyIncoming:profile:video:)"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
@@ -810,7 +810,7 @@
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "121"
             endingLineNumber = "121"
-            landmarkName = "mesibo_(onGetProfile:)"
+            landmarkName = "mesibo_(onShowProfile:profile:)"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>

@@ -506,6 +506,8 @@
 -(BOOL) isVideoCallBlocked;
 -(BOOL) isProfileSubscriptionBlocked;
 
+-(void) requestProfileRemoval:(BOOL) enable;
+
 -(uint32_t) getGroupId;
 -(NSString *) getAddress;
 
@@ -559,6 +561,7 @@
 -(BOOL) isContact;
 -(BOOL) isSubscribed;
 -(void) setContact:(BOOL) enable visiblity:(int) visibility ;
+-(void) setContact:(BOOL) enable;
 -(void) subscribe:(BOOL) enable;
 
 -(uint32_t) getLocalFields;
@@ -566,7 +569,7 @@
 -(void) removeSyncedProfile;
 -(void) remove;
 
--(BOOL) requestRemoval;
+
 
 -(BOOL) save;
 
@@ -1221,6 +1224,8 @@ typedef void (^Mesibo_onRunHandler)(void);
 -(NSString *) getDatabasePath;
 -(NSString *) getDatabaseBackupPath:(NSString *)path;
 -(NSString *) backupDatabase:(NSString *)path;
+-(NSString *) backupDatabase:(NSString *)path age:(uint32_t)age;
+
 -(int) restoreDatabase:(NSString *)path;
 -(int) databaseAge;
 -(int) backupAge;
