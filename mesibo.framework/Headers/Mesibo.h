@@ -498,6 +498,7 @@
 -(void) blockCalls:(BOOL) enable;
 -(void) blockVideoCalls:(BOOL) enable;
 -(void) blockGroupMessages:(BOOL) enable;
+-(void) blockProfile:(BOOL) enable;
 -(void) blockProfileSubscription:(BOOL) enable;
 -(BOOL) isBlocked;
 -(BOOL) isMessageBlocked;
@@ -731,7 +732,7 @@
 -(void) setSensitivity:(uint32_t) val;
 -(uint32_t) getSensitivity;
 
-
+-(int) getCallDuration;
 
 
 // WARNING - not to be used directly - (private function)
@@ -756,10 +757,11 @@ typedef MesiboProfile MesiboAddress;
 #define MESIBO_FILETYPE_IMAGE             1
 #define MESIBO_FILETYPE_VIDEO             2
 #define MESIBO_FILETYPE_AUDIO             3
-#define MESIBO_FILETYPE_LOCATION          4
 #define MESIBO_FILETYPE_PROFILEIMAGE      5
 #define MESIBO_FILETYPE_PROFILETHUMBNAIL  6
 #define MESIBO_FILETYPE_OTHER             10
+#define MESIBO_FILETYPE_LOCATION          200
+
 
 #define MESIBO_FILESOURCE_MESSAGE         0
 #define MESIBO_FILESOURCE_PROFILE         1
@@ -833,6 +835,8 @@ typedef MesiboProfile MesiboAddress;
 @property (nonatomic) NSString *message;
 @property (nonatomic) uint64_t mid;
 @property (nonatomic) UIImage *image;
+@property (nonatomic) NSString *imageUrl;
+@property (nonatomic) NSData *imageData;
 
 -(void) setData:(NSObject *)data;
 -(NSObject *) getData;
@@ -1341,11 +1345,13 @@ typedef void (^Mesibo_onRunHandler)(void);
 //********************** Utility Functions *********************************************
 
 -(uint32_t) random;
+-(uint32_t) getSenderMessageId:(uint64_t)mid;
 
 -(BOOL) createFile:(NSString *)path fileName:(NSString *)fileName data:(NSData *)data overwrite:(BOOL)overwrite;
 -(BOOL) createPath:(NSString *)path;
 -(BOOL) fileExists:(NSString *)fileName;
 -(BOOL) deleteFile:(NSString *)path;
+-(NSString *) getFileName:(NSString *) path;
 -(BOOL) renameFile:(NSString *)srcFile destFile:(NSString *)destFile forced:(BOOL) forced ;
 
 // phone functions, used in demo app

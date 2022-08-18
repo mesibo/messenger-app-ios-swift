@@ -128,4 +128,6 @@ typedef void (^MesiboMediaFilesBlock)(UIImage *image);
 -(void) showMediaFilesInViewer:(UIViewController *)presentController withInitialIndex:(int)index withData : (NSArray*) filesArray withTitle:(NSString*) title;
 
 +(void) showFile:(UIViewController *)parent path:(NSString *)path title:(NSString *)title type:(int)type;
+
++(void) mapSnapShot:(double)lat lon:(double)lon handler:(void(^)(ImagePickerFile *file)) handler;
 @end

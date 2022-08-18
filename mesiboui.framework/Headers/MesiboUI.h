@@ -49,6 +49,7 @@
 @property (copy, nonatomic) NSString *selectContactTitle;
 @property (copy, nonatomic) NSString *selectGroupContactsTitle;
 @property (copy, nonatomic) NSString *forwardTitle;
+@property (copy, nonatomic) NSString *forwardedTitle;
 
 @property (copy, nonatomic) NSString *userOnlineIndicationTitle;
 @property (copy, nonatomic) NSString *onlineIndicationTitle;
@@ -56,6 +57,9 @@
 @property (copy, nonatomic) NSString *connectingIndicationTitle;
 @property (copy, nonatomic) NSString *noNetworkIndicationTitle;
 @property (copy, nonatomic) NSString *suspendedIndicationTitle;
+
+@property (copy, nonatomic) NSString *typingIndicationTitle;
+@property (copy, nonatomic) NSString *joinedIndicationTitle;
 
 @property (copy, nonatomic) NSString *groupDeletedTitle;
 @property (copy, nonatomic) NSString *groupNotMemberTitle;
@@ -66,6 +70,8 @@
 
 
 @property (copy, nonatomic) NSString *emptyUserListMessage;
+@property (copy, nonatomic) NSString *emptyMessageListMessage;
+@property (copy, nonatomic) NSString *emptySearchListMessage;
 @property (copy, nonatomic) UIFont *emptyUserListMessageFont;
 @property (assign, nonatomic) int emptyUserListMessageColor;
 
@@ -83,6 +89,40 @@
 @property (assign, nonatomic) uint32_t messageBackgroundColorForPeer;
 @property (assign, nonatomic) uint32_t messagingBackgroundColor;
 @property (assign, nonatomic) uint32_t messageInputBackgroundColor;
+@property (assign, nonatomic) uint32_t messageInputButtonsColor;
+@property (assign, nonatomic) uint32_t messageInputBorderColor;
+@property (assign, nonatomic) uint32_t messageInputTextColor;
+@property (assign, nonatomic) uint32_t messageInputTextBackgroundColor;
+@property (assign, nonatomic) int messageInputTextCornerRadiusRatio;
+
+
+
+@property (assign, nonatomic) int customFontSize;
+@property (assign, nonatomic) uint32_t customTextColor;
+@property (assign, nonatomic) uint32_t customBackgroundColor;
+@property (assign, nonatomic) uint32_t e2eeBackgroundColor;
+
+@property (assign, nonatomic) int dateFontSize;
+@property (assign, nonatomic) uint32_t dateTextColor;
+@property (assign, nonatomic) uint32_t dateBackgroundColor;
+
+@property (assign, nonatomic) uint32_t titleTextColor;
+@property (assign, nonatomic) int titleFontSize;
+@property (assign, nonatomic) UIFont *titleFont;
+
+@property (assign, nonatomic) UIFont *headingFont;
+@property (assign, nonatomic) int headingFontSize;
+@property (assign, nonatomic) uint32_t headingTextColor;
+
+@property (assign, nonatomic) uint32_t timeTextColor;
+
+@property (assign, nonatomic) uint32_t messageTextColor;
+@property (assign, nonatomic) uint32_t messageDeletedTextColor;
+@property (assign, nonatomic) uint32_t messagePictureTextColor;
+@property (assign, nonatomic) uint32_t messageReplyTextColor;
+
+
+
 @property (assign, nonatomic) uint32_t searchBarBackgroundColor;
 
 @property (assign, nonatomic) int mediaButtonPosition;
@@ -95,6 +135,39 @@
 @property (assign, nonatomic) uint64_t mMaxVideoFileSize;
 
 @property (assign, nonatomic) BOOL mEnableNotificationBadge;
+
+@property (copy, nonatomic) NSString *recentUsersTitle;
+@property (copy, nonatomic) NSString *allUsersTitle;
+@property (copy, nonatomic) NSString *groupMembersTitle;
+
+@property (copy, nonatomic) NSString *today;
+@property (copy, nonatomic) NSString *yesterday;
+@property (copy, nonatomic) NSString *at;
+
+@property (copy, nonatomic) NSString *shareMediaTitle;
+@property (copy, nonatomic) NSString *shareMediaSubTitle;
+@property (copy, nonatomic) NSString *shareMediaCameraTitle;
+@property (copy, nonatomic) NSString *shareMediaGalleryTitle;
+@property (copy, nonatomic) NSString *shareMediaAudioTitle;
+@property (copy, nonatomic) NSString *shareMediaLocationTitle;
+@property (copy, nonatomic) NSString *shareMediaDocumentTitle;
+@property (copy, nonatomic) NSString *cancelTitle;
+
+@property (copy, nonatomic) NSString *missedVoiceCallTitle;
+@property (copy, nonatomic) NSString *missedVideoCallTitle;
+@property (copy, nonatomic) NSString *deletedMessageTitle;
+
+@property (copy, nonatomic) NSString *deleteMessagesTitle;
+@property (copy, nonatomic) NSString *deleteForEveryoneTitle;
+@property (copy, nonatomic) NSString *deleteForMeTitle;
+@property (copy, nonatomic) NSString *deleteTitle;
+@property (copy, nonatomic) NSString *deleteAlertTitle;
+
+
+
+
+
+
 
 
 @end
