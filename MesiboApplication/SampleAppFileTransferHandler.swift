@@ -14,39 +14,23 @@ import Photos
         Mesibo.getInstance().addListener(self)
     }
     
-    func mesibo_(onStartUpload file: MesiboFileInfo?) -> Bool {
-        let type = Mesibo.getInstance().getNetworkConnectivity()
-        
-        if MESIBO_CONNECTIVITY_WIFI != type && file?.userInteraction == nil {
-            return false
-        }
-        
-        let params = file?.getParams()
-        
+    func mesibo_(onStartUpload file: MesiboFileTransfer) -> Bool {
+               
         var post: [AnyHashable : Any] = [:]
         
         post["op"] = "upload"
-        post["token"] = SampleAPI.getInstance().getToken()
-        post["mid"] = String(params!.mid)
+        post["auth"] = SampleAPI.getInstance().getToken()
+        post["mid"] = String(file.mid)
         post["profile"] = "0"
         
-        let handler = { (http: MesiboHttp?, state: Int32, httpprogress: Int32) -> Bool in
+        let handler = { (http: MesiboHttp, state: Int32, httpprogress: Int32) -> Bool in
             
             var progress: Int32 = httpprogress
-            
-            var status = file?.getStatus() ?? 0
-            
-            if MESIBO_FILESTATUS_RETRYLATER != status {
-                status = MESIBO_FILESTATUS_INPROGRESS
-                if progress < 0 {
-                    status = MESIBO_FILESTATUS_FAILED
-                }
-            }
-            
+                       
             if 100 == progress && MESIBO_HTTPSTATE_DOWNLOAD == state {
                 var jsonerror: Error? = nil
                 
-                let data = http?.getDataString().data(using: .utf8)
+                let data = http.getDataString()?.data(using: .utf8)
                 var jsonObject: Any? = nil
                 do {
                     if let data = data {
@@ -55,93 +39,91 @@ import Photos
                 } catch let jsonerror {
                 }
                 let returnedDict = jsonObject as? [AnyHashable : Any]
-                let fileUrl = returnedDict?["file"] as? String
+                let fileUrl = returnedDict?["url"] as? String
                 
                 if fileUrl != nil {
-                    file!.setUrl(fileUrl)
+                    file.setResult(true, url: fileUrl)
                 } else {
-                    progress = -1
-                    status = MESIBO_FILESTATUS_FAILED
+                    file.setResult(false, url: nil)
                 }
-            }
-            if progress < 100 || (100 == progress && MESIBO_HTTPSTATE_DOWNLOAD == state) {
-                Mesibo.getInstance().updateFileTransferProgress(file, progress: progress, status: status)
+                return true;
             }
             
-            return (100 == progress && MESIBO_HTTPSTATE_DOWNLOAD == state) || MESIBO_FILESTATUS_RETRYLATER != status
+            if (progress < 0 ) {
+                file.setResult(false, url: nil)
+                return true;
+            }
+            
+            file.progress = progress;
+            return true;
+            
             } as Mesibo_onHTTPProgress
         
         let http = MesiboHttp()
         http.url = SampleAPI.getInstance().getUploadUrl()
-        http.uploadPhAsset = file?.asset
-        http.uploadLocalIdentifier = file?.localIdentifier
-        http.uploadFile = file?.getPath()
+        http.uploadPhAsset = file.getPHAsset()
+        http.uploadLocalIdentifier = file.getLocalIdentifier()
+        http.uploadFile = file.getPath()
         http.postBundle = post
         http.uploadFileField = "photo"
         http.listener = handler
         
-        file?.fileTransferContext = http
+        file.setFileTransferContext(obj: http);
         
         return http.execute()
+        
+       
     }
     
-    func mesibo_(onStartDownload file: MesiboFileInfo?) -> Bool {
-        let type = Mesibo.getInstance().getNetworkConnectivity()
-        
-        if !SampleAPI.getInstance().getMediaAutoDownload() && MESIBO_CONNECTIVITY_WIFI != type && file?.userInteraction == nil {
+    func mesibo_(onStartDownload file: MesiboFileTransfer) -> Bool {
+   
+        if MESIBO_ORIGIN_REALTIME != file.origin && file.priority == 0 {
             return false
         }
         
-        let params = file?.getParams()
+        var url = file.getUrl()
         
-        if MESIBO_ORIGIN_REALTIME != params?.origin && file?.userInteraction == nil {
-            return false
-        }
-        
-        var url = file?.getUrl()
-        
-        if !(url?.hasPrefix("http://") ?? false) && !(url?.hasPrefix("https://") ?? false) {
-            url = SampleAPI.getInstance().getDownloadUrl()! + (url!)
-        }
-        
-        let handler = { (http: MesiboHttp?, state: Int32, progress: Int32) -> Bool in
-            var status = file?.getStatus() ?? 0
+        let handler = { (http: MesiboHttp, state: Int32, progress: Int32) -> Bool in
             
-            if MESIBO_FILESTATUS_RETRYLATER != status {
-                status = MESIBO_FILESTATUS_INPROGRESS
-                if progress < 0 {
-                    status = MESIBO_FILESTATUS_FAILED
-                }
+            if(100 == progress) {
+                file.setResult(false, url: nil)
+                return true;
             }
             
-            Mesibo.getInstance().updateFileTransferProgress(file, progress: progress, status: status)
-            return 100 == progress || MESIBO_FILESTATUS_RETRYLATER != status
+            if (progress < 0 ) {
+                file.setResult(false, url: nil)
+                return true;
+            }
+            
+            file.progress = progress;
+            return true;
+            
             } as Mesibo_onHTTPProgress
         
         let http = MesiboHttp()
         http.url = url
-        http.downloadFile = file?.getPath()
+        http.downloadFile = file.getPath()
         http.resume = true
         http.listener = handler
         
-        file?.fileTransferContext = http
+        file.setFileTransferContext(obj: http);
         
         return http.execute()
         
     }
     
-    public func mesibo_(onStartFileTransfer file: MesiboFileInfo?) -> Bool {
+    public func Mesibo_onStartFileTransfer(ft: MesiboFileTransfer) -> Bool {
         
-        if MESIBO_FILEMODE_DOWNLOAD == file?.mode {
-            return mesibo_(onStartDownload: file)
+        if (!ft.upload) {
+            return mesibo_(onStartDownload: ft)
         }
         
-        return mesibo_(onStartUpload: file)
+        return mesibo_(onStartUpload: ft)
         
     }
     
-    public func mesibo_(onStopFileTransfer file: MesiboFileInfo?) -> Bool {
-        let http = file!.getFileTransferContext() as? MesiboHttp
+    public func Mesibo_onStopFileTransfer(ft: MesiboFileTransfer) -> Bool {
+        let http = ft.getFileTransferContext() as? MesiboHttp
         if http != nil {
             http!.cancel()
         }

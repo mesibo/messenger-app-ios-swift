@@ -15,7 +15,7 @@ import MesiboUIHelper
 import UIKit
 
 @UIApplicationMain
-@objc public class AppDelegate: UIResponder, UIApplicationDelegate, MesiboDelegate {
+@objc public class AppDelegate: UIResponder, UIApplicationDelegate, MesiboDelegate, MesiboUIDelegate {
     
     private var mMesiboUIHelper: MesiboUIHelper?
     private var mAppLaunchData: MesiboUiHelperConfig?
@@ -66,13 +66,12 @@ import UIKit
         
         UINavigationBar.appearance().titleTextAttributes = attributes
         
-        
-        
         mMesiboUIHelper = MesiboUIHelper()
         mAppLaunchData = MesiboUiHelperConfig()
         
         
-        Mesibo.getInstance().addListener(self)
+        Mesibo.getInstance().addListener(self);
+        MesiboUI.setListener(self)
         
         // just to intitialize
         
@@ -130,7 +129,7 @@ import UIKit
     
     public func application(_ application: UIApplication, didReceiveRemoteNotification userInfo: [AnyHashable : Any], fetchCompletionHandler completionHandler: @escaping (UIBackgroundFetchResult) -> Void) {
         
-        Mesibo.getInstance()?.didReceiveRemoteNotification(userInfo, fetchCompletionHandler: completionHandler)
+        Mesibo.getInstance().didReceiveRemoteNotification(userInfo, fetchCompletionHandler: completionHandler)
         
     }
     
@@ -152,16 +151,6 @@ import UIKit
         return true
     }
     
-    public func mesibo_(onConnectionStatus status: Int32) {
-        //Log("OnConnectionStatus status: %d", status)
-        
-        if status == MESIBO_STATUS_SIGNOUT {
-            logout(fromApplication: nil)
-            AppAlert.showDialogue("You have been loggeed out from this device. Kindly signin to continue", withTitle: "Logged out")
-        } else if status == MESIBO_STATUS_AUTHFAIL {
-            logout(fromApplication: nil)
-        }
-    }
     
     func setRootController(_ controller: UIViewController?) {
         window!.rootViewController = controller
@@ -216,7 +205,7 @@ import UIKit
     func launchMainUI() {
         
         let sp = Mesibo.getInstance().getSelfProfile()
-        if SampleAPI.isEmpty(sp?.getName()) {
+        if SampleAPI.isEmpty(sp.getName()) {
             Mesibo.getInstance().run(inThread: true, handler: {
                 self.launchEditProfile()
             })
@@ -361,7 +350,7 @@ import UIKit
         setRootController(editSelfProfileController)
     }
     
-    public func mesibo_(onGetMenu parent: Any!, type: Int32, profile: MesiboProfile!) -> [Any]! {
+    public func MesiboUI_onGetMenu(parent: Any, type: Int32, profile: MesiboProfile?) -> [Any]? {
         
         var btns: [AnyHashable]? = nil
         
@@ -397,7 +386,7 @@ import UIKit
         
     }
     
-    public func mesibo_(onMenuItemSelected parent: Any!, type: Int32, profile: MesiboProfile!, item: Int32) -> Bool {
+    public func MesiboUI_onMenuItemSelected(parent: Any, type: Int32, profile: MesiboProfile?, item: Int32) -> Bool {
         
         // userlist menu are active
         if type == 0 {
@@ -410,10 +399,10 @@ import UIKit
             // MESSAGEBOX
             if item == 0 {
                 print("Menu btn from messagebox pressed")
-                MesiboCall.getInstance().callUi(parent, address: (profile?.getAddress())!, video: false)
+                MesiboCall.getInstance().callUi(parent, profile: profile!, video: false)
             } else if item == 1 {
                 DispatchQueue.main.async(execute: {
-                    MesiboCall.getInstance().callUi(parent, address: (profile?.getAddress())!, video: true)
+                    MesiboCall.getInstance().callUi(parent, profile: profile!, video: true)
                     
                 })
             }
@@ -421,12 +410,8 @@ import UIKit
         return true
     }
     
-    @objc public func mesibo_(onShowProfile parent: Any?, profile: MesiboProfile?) {
+    public func MesiboUI_onShowProfile(parent: Any, profile: MesiboProfile) {
         MesiboUIManager.launchProfile(parent, profile: profile)
-        
-    }
-    
-    @objc public func mesibo_(onDeleteProfile parent: Any?, profile: MesiboProfile?, handler: Mesibo_onSetGroupHandler) {
     }
     
     @objc func logout(fromApplication sender: UIViewController?) {

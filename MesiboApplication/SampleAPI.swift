@@ -102,11 +102,11 @@ let CC_KEY = "cc"
     
     public func getSavedValue(_ value: String?, key: String?) -> String? {
         if value != nil {
-            Mesibo.getInstance().setKey(value, value: key)
+            Mesibo.getInstance().setKey(value!, value: key!)
             return value
         }
         
-        return Mesibo.getInstance().readKey(key)
+        return Mesibo.getInstance().readKey(key!)
     }
     
     let SYNCEDCONTACTS_KEY = "syncedcontacts"
@@ -138,7 +138,7 @@ let CC_KEY = "cc"
     
     public func saveSyncedContacts(contacts: [AnyHashable]?) {
         let str = ContactUtils.getInstance().synced(contacts, type: CONTACTUTILS_SYNCTYPE_SYNC)
-        Mesibo.getInstance().setKey(SYNCEDCONTACTS_KEY, value: str)
+        Mesibo.getInstance().setKey(SYNCEDCONTACTS_KEY, value: str!)
     }
     
     public func startContactSync() {
@@ -158,8 +158,8 @@ let CC_KEY = "cc"
         }
         
         let phone = getPhone()
-        let cc = Mesibo.getInstance()?.getCountryCode(fromPhone: phone)
-        ContactUtils.getInstance()?.setCountryCode(cc!)
+        let cc = Mesibo.getInstance().getCountryCode(fromPhone: phone!)
+        ContactUtils.getInstance().setCountryCode(cc)
         
         //TBD, we need to fix contact utils to run in this thread
         // We must run in UI thread else contact change is not triggered
@@ -176,8 +176,8 @@ let CC_KEY = "cc"
                     if(c?.phoneNumber == nil) { return true }
                     let profile = Mesibo.getInstance().getProfile(c?.phoneNumber, groupid: 0)
                     if profile != nil {
-                        profile?.setContact(false, visiblity: 0)
-                        profile?.save()
+                        profile.setContact(false, visiblity: 0)
+                        profile.save()
                     }
                     
                     if let phoneNumber = c?.phoneNumber {
@@ -202,7 +202,7 @@ let CC_KEY = "cc"
                 if mContacts.count >= 100 || (nil == c?.phoneNumber && mContacts.count > 0) {
                     
                     if mContacts.count > 0 {
-                        Mesibo.getInstance()?.syncContacts(mContacts, addContact: true, subscribe: true, visibility: 0, syncNow: false)
+                        Mesibo.getInstance().syncContacts(mContacts, addContact: true, subscribe: true, visibility: 0, syncNow: false)
                         self.saveSyncedContacts(contacts: mContacts)
                         mContacts.removeAll()
                     }
@@ -211,12 +211,12 @@ let CC_KEY = "cc"
                 
                 if nil == c?.phoneNumber {
                     if mDeletedContacts.count > 0 {
-                        Mesibo.getInstance()?.syncContacts(mDeletedContacts, addContact: false, subscribe: true, visibility: 0, syncNow: false)
+                        Mesibo.getInstance().syncContacts(mDeletedContacts, addContact: false, subscribe: true, visibility: 0, syncNow: false)
                         ContactUtils.getInstance().synced(mDeletedContacts, type: CONTACTUTILS_SYNCTYPE_DELETE)
                         mDeletedContacts.removeAll()
                     }
                     
-                    Mesibo.getInstance()?.syncContacts()
+                    Mesibo.getInstance().syncContacts()
                     self.mSyncStarted = false
                 }
                 
@@ -230,7 +230,7 @@ let CC_KEY = "cc"
             return mPhone
         }
         
-        mPhone = Mesibo.getInstance()?.getAddress()
+        mPhone = Mesibo.getInstance().getAddress()
         return mPhone
     }
     
@@ -544,7 +544,7 @@ let CC_KEY = "cc"
             mApnTokenSent = true // so that next time it will not be called
         }
         
-        Mesibo.getInstance()?.setPushToken(mApnToken, voip: false)
+        Mesibo.getInstance().setPushToken(mApnToken!, voip: false)
     }
     
     

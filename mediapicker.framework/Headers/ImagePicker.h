@@ -55,6 +55,7 @@
 
 typedef BOOL (^MesiboImageEditorBlock)(UIImage *image, NSString *caption);
 typedef void (^MesiboMediaFilesBlock)(UIImage *image);
+typedef void (^MesiboImageViewerBlock)(UIImageView *image, UILabel *caption);
 
 @interface ImagePickerFile : NSObject
 
@@ -120,6 +121,7 @@ typedef void (^MesiboMediaFilesBlock)(UIImage *image);
 + (ImagePicker *)sharedInstance;
 
 -(void) showPhotoInViewer:(UIViewController *)presentController withImage : (UIImage*) photoImage withTitle:(NSString*) title;
+-(void) showPhotoInViewer:(UIViewController *)presentController withImage : (UIImage*) photoImage withTitle:(NSString*)title handler:(MesiboImageViewerBlock) handler;
 
 -(void) showMediaFiles : (UIViewController *)presentController withMediaData :(NSArray *) data withTitle:(NSString*) title;
 
@@ -130,4 +132,6 @@ typedef void (^MesiboMediaFilesBlock)(UIImage *image);
 +(void) showFile:(UIViewController *)parent path:(NSString *)path title:(NSString *)title type:(int)type;
 
 +(void) mapSnapShot:(double)lat lon:(double)lon handler:(void(^)(ImagePickerFile *file)) handler;
+
++ (UIImage *)getDefaultImageForExt:(NSString *)ext;
 @end

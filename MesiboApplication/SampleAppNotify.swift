@@ -65,36 +65,32 @@ import UserNotificationsUI
         
     }
     
-    func notifyMessage(_ params: MesiboParams?, message: String?) {
-        if MESIBO_ORIGIN_REALTIME != params?.origin || MESIBO_MSGSTATUS_OUTBOX == params?.status {
+    func notifyMessage(_ msg: MesiboMessage) {
+        if (!msg.isRealtimeMessage() || msg.isInOutbox()) {
             return
         }
         
-        var name = params?.peer
-        if params?.profile != nil {
-            if params!.profile.isMuted() {
-                return
-            }
-            
-            name = params!.profile.getName()
+        if(msg.profile!.isMuted()) {
+            return;
         }
+        
+        var name = msg.profile!.getNameOrAddress("+");
         
         if nil == name {
             return
         }
         
-        if params!.groupProfile != nil {
-            if params!.groupProfile.isMuted() {
+        if msg.groupProfile != nil {
+            if msg.groupProfile!.isMuted() {
                 return
             }
             
-            if let name1 = params!.groupProfile.getName() {
+            if let name1 = msg.groupProfile!.getName() {
                 name = "\(name ?? "") @ \(name1)"
             }
         }
         
-        
-        notify(Int(0), subject: name, message: message)
+        notify(Int(0), subject: name, message: msg.message)
         return
         
     }

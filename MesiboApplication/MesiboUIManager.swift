@@ -108,7 +108,7 @@ var shareInProgress: Bool = false
             return
         }
         
-        Mesibo.getInstance()!.run(inThread: true, handler: {
+        Mesibo.getInstance().run(inThread: true, handler: {
             self.launchVC_mainThread(parent, vc: vc)
         })
     }
@@ -175,40 +175,6 @@ var shareInProgress: Bool = false
     class func getDefaultImage(_ group: Bool) -> UIImage? {
         return MesiboUI.getDefaultImage(group)
     }
-    
-    class func getBitmapFromFile(_ checkFile: String?) -> UIImage? {
-        var image: UIImage? = nil
-        let fileExist = Mesibo.getInstance().fileExists(checkFile)
-        if fileExist {
-            if self.isImageFile(checkFile) {
-                image = UIImage(contentsOfFile: checkFile ?? "")
-            } else {
-                let videoUrl = URL(fileURLWithPath: checkFile ?? "")
-                image = MesiboUIManager.profileThumbnailImage(from: videoUrl)
-            }
-        }
-
-        return image
-
-    }
-
-    class func isImageFile(_ filePath: String?) -> Bool {
-
-        var isimage = false
-        let fileExtension = URL(fileURLWithPath: filePath!).pathExtension as CFString?
-        var fileUTI: CFString? = nil
-        if let fileExtension = fileExtension {
-            fileUTI = UTTypeCreatePreferredIdentifierForTag(kUTTagClassFilenameExtension, fileExtension, nil) as! CFString
-        }
-
-        if let fileUTI = fileUTI {
-            if UTTypeConformsTo(fileUTI, kUTTypeImage) {
-                isimage = true
-            }
-        }
-        return isimage
-    }
-    
     
 
     class func profileThumbnailImage(from videoURL: URL?) -> UIImage? {

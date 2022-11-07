@@ -1,5 +1,5 @@
 // Mesibo.h
-// Copyright © 2021 Mesibo. All rights reserved.
+// Copyright © 2022 Mesibo. All rights reserved.
 // https://mesibo.com
 
 #pragma once
@@ -12,32 +12,6 @@
 #define AUDIO_SPEAKER                   1
 #define AUDIO_BLUETOOTH                 2
 #define AUDIO_HEADPHONE                 3
-
-
-#define MESIBO_FLAG_DELIVERYRECEIPT     0x1
-#define MESIBO_FLAG_READRECEIPT         0x2
-#define MESIBO_FLAG_TRANSIENT           0x4
-#define MESIBO_FLAG_PRESENCE           0x8
-#define MESIBO_FLAG_ENCRYPTED          0x80
-
-#define MESIBO_FLAG_MODIFY              0x40000
-#define MESIBO_FLAG_BROADCAST           0x80000
-#define MESIBO_FLAG_NONBLOCKING         0x80000
-#define MESIBO_FLAG_DONTSEND            0x200000
-#define MESIBO_FLAG_LASTMESSAGE                 0x800000ULL
-#define MESIBO_FLAG_EORS                 0x4000000ULL
-
-#define MESIBO_FLAG_SAVECUSTOM                 (1ULL << 56)
-#define MESIBO_FLAG_FILETRANSFERRED     (1ULL << 58)
-#define MESIBO_FLAG_FILEFAILED          (1ULL << 59)
-
-#if 0
-#define MESIBO_FLAG_DEFAULT             (MESIBO_FLAG_DELIVERYRECEIPT | MESIBO_FLAG_READRECEIPT)
-#else
-#define MESIBO_FLAG_DEFAULT             3
-#endif
-
-
 
 #define MESIBO_FORMAT_DEFAULT           0
 #define MESIBO_FORMAT_HEX               1
@@ -106,30 +80,26 @@
 #define MESIBO_RESULT_AUTHFAIL          0xC0
 #define MESIBO_RESULT_DENIED            0xC1
 
+#define MESIBO_ORIGIN_REALTIME        0
+#define MESIBO_ORIGIN_DBMESSAGE    1
+#define MESIBO_ORIGIN_DBSUMMARY    2
+#define MESIBO_ORIGIN_PENDING        3
+
 #define MESIBO_ADDRESSSTRING_MAXLENGTH  63
 
-#define MESIBO_READFLAG_READRECEIPT     1
-#define MESIBO_READFLAG_SENDLAST        2
-#define MESIBO_READFLAG_FIFO            4
-#define MESIBO_READFLAG_SUMMARY         0x10
-#define MESIBO_READFLAG_SENDEOR         0x20
-#define MESIBO_READFLAG_WITHFILES       0x80
 
 
-#define MESIBO_ORIGIN_REALTIME          0
-#define MESIBO_ORIGIN_DBMESSAGE         1
-#define MESIBO_ORIGIN_DBSUMMARY         2
-#define MESIBO_ORIGIN_DBPENDING         3
-#define MESIBO_ORIGIN_FILTER            4
-#define MESIBO_ORIGIN_MESSAGESTATUS     5
+#define MESIBO_PRESENCE_NONE            0
+#define MESIBO_PRESENCE_REQUEST            0
+#define MESIBO_PRESENCE_ONLINE          1
+#define MESIBO_PRESENCE_OFFLINE      2
+#define MESIBO_PRESENCE_TYPING          3
+#define MESIBO_PRESENCE_TYPINGCLEARED   4
+#define MESIBO_PRESENCE_JOINED          10
+#define MESIBO_PRESENCE_LEFT            11
+#define MESIBO_PRESENCE_RESERVED            255
 
-#define MESIBO_ACTIVITY_NONE            0
-#define MESIBO_ACTIVITY_ONLINE          1
-#define MESIBO_ACTIVITY_ONLINERESP      2
-#define MESIBO_ACTIVITY_TYPING          3
-#define MESIBO_ACTIVITY_TYPINGCLEARED   4
-#define MESIBO_ACTIVITY_JOINED          10
-#define MESIBO_ACTIVITY_LEFT            11
+
 
 
 
@@ -273,9 +243,10 @@
 
 #define MESIBO_MEMBERFLAG_DELETE  0x80000000
 
-/* C macros that are more complex than simple constant definitions have no counterpart in Swift.
- Currently, Swift does not support MACRO with more than two vars.
- A|B supported, A|B|C not supported
+/*
+ * C macros that are more complex than simple constant definitions have no counterpart in Swift.
+ * Currently, Swift does not support MACRO with more than two vars.
+ * A|B supported, A|B|C not supported
  https://developer.apple.com/documentation/swift/imported_c_and_objective-c_apis/using_imported_c_macros_in_swift
  */
 #if 0
@@ -387,28 +358,32 @@
 #define MESIBO_E2ESTATUS_IDENTITYFAILED 0x81
 #define MESIBO_E2ESTATUS_SUSPICIOUS 0x82
 
+@class MesiboMessage; // forward declaration
+@class MesiboPresence;
+@class MesiboMessageProperties;
+
 @interface MesiboEndToEndEncryption : NSObject
 -(void) enable:(BOOL) enable;
 -(BOOL) isEnabled;
 -(void) enableSecureOnly:(BOOL) enable;
--(BOOL) reset:(NSString *) address;
--(int) getStatus:(NSString *) address;
--(BOOL) isActive:(NSString *) address;
+-(BOOL) reset:(NSString * _Nonnull) address;
+-(int) getStatus:(NSString * _Nonnull) address;
+-(BOOL) isActive:(NSString * _Nonnull) address;
 -(int) setLevel:(int) level;
 -(int) setCiphers:(uint32_t)supported preferred:(uint32_t) preferred;
--(BOOL) setPassword:(NSString *) address password:(NSString *) password;
--(BOOL) setPassword:(NSString *) password;
+-(BOOL) setPassword:(NSString * _Nullable) address password:(NSString * _Nonnull) password;
+-(BOOL) setPassword:(NSString * _Nonnull) password;
 -(int) setAuthenticationTaglen:(int) len;
--(BOOL) setAuthenticationData:(NSString *) address  add:(NSString *) aad;
--(BOOL) setAuthenticationData:(NSString *) aad;
--(NSString *) getPublicCertificate;
--(BOOL) setPrivateCertificate:(NSString *) filename;
--(BOOL) setPeerCertificate:(NSString *) address filename:(NSString *) filename;
--(NSString *) getPeerCertificateOrg:(NSString *) address;
--(NSString *) getPeerCertificateCommonName:(NSString *) address;
--(NSString *) getFingerprint:(NSString *) address;
--(NSString *) getUserFingerprint:(NSString *) address;
--(NSString *) getFingerprintPart:(NSString *) fingerprint part:(int) part;
+-(BOOL) setAuthenticationData:(NSString * _Nullable) address  add:(NSString * _Nonnull) aad;
+-(BOOL) setAuthenticationData:(NSString * _Nonnull) aad;
+-(NSString * _Nonnull) getPublicCertificate;
+-(BOOL) setPrivateCertificate:(NSString * _Nonnull) filename;
+-(BOOL) setPeerCertificate:(NSString * _Nonnull) address filename:(NSString * _Nonnull) filename;
+-(NSString * _Nonnull) getPeerCertificateOrg:(NSString * _Nonnull) address;
+-(NSString * _Nonnull) getPeerCertificateCommonName:(NSString * _Nonnull) address;
+-(NSString * _Nonnull) getFingerprint:(NSString * _Nonnull) address;
+-(NSString * _Nonnull) getUserFingerprint:(NSString * _Nonnull) address;
+-(NSString * _Nonnull) getFingerprintPart:(NSString * _Nonnull) fingerprint part:(int) part;
 -(int) setConfig:(int)level minopns:(uint32_t) minops maxops:(uint32_t) maxops;
 
 @end
@@ -417,17 +392,17 @@
 -(BOOL) reset;
 -(int) getStatus;
 -(BOOL) isActive;
--(BOOL) setPassword:(NSString *) password;
--(BOOL) setAuthenticationData:(NSString *) aad;
--(BOOL) setPeerCertificate:(NSString *) filename;
--(NSString *) getPeerCertificateOrg;
--(NSString *) getPeerCertificateCommonName;
--(NSString *) getFingerprint;
--(NSString *) getUserFingerprint;
+-(BOOL) setPassword:(NSString * _Nullable) password;
+-(BOOL) setAuthenticationData:(NSString * _Nullable) aad;
+-(BOOL) setPeerCertificate:(NSString * _Nullable) filename;
+-(NSString * _Nonnull) getPeerCertificateOrg;
+-(NSString * _Nonnull) getPeerCertificateCommonName;
+-(NSString * _Nonnull) getFingerprint;
+-(NSString * _Nonnull) getUserFingerprint;
 @end
 
 @interface MesiboGroupSettings : NSObject
-@property (nonatomic) NSString *name;
+@property (nonatomic) NSString * _Nullable name;
 @property (nonatomic) uint32_t flags;
 @property (nonatomic) uint32_t callFlags;
 @property (nonatomic) uint32_t callDuration;
@@ -446,16 +421,15 @@
 
 @interface MesiboGroupPin : NSObject
 @property (nonatomic) uint32_t pin;
-@property (nonatomic) MesiboMemberPermissions *permissions;
+@property (nonatomic, nullable) MesiboMemberPermissions *permissions;
 @end
 
 
 @class MesiboGroupProfile; // foward declaration
 @protocol MesiboProfileDelegate;
-@class MesiboParams;
+@class MesiboMessageProperties;
 @class MesiboReadSession;
-@class MesiboFileInfo;
-@class MesiboLocation;
+@class MesiboFile;
 
 @interface MesiboProfile : NSObject
 
@@ -485,12 +459,15 @@
 -(BOOL) isDeleted;
 -(void) setDeleted;
 
--(BOOL) isReading;
 -(BOOL) isOnline;
 -(BOOL) isTyping;
 -(BOOL) isTypingInGroup:(uint32_t)gid;
 -(BOOL) isChatting;
 -(BOOL) isChattingInGroup:(uint32_t)gid;
+
+-(BOOL) isUpdateRealtime;
+
+-(BOOL) matches:(MesiboMessageProperties * _Nonnull) m;
 
 -(BOOL) toggleBlock;
 -(void) block:(BOOL) enable;
@@ -509,55 +486,55 @@
 
 -(void) requestProfileRemoval:(BOOL) enable;
 
+-(uint32_t) getUid;
 -(uint32_t) getGroupId;
--(NSString *) getAddress;
+-(NSString * _Nullable) getAddress;
 
--(int) getUnreadCount;
 -(int) getLastSeen;
 
--(NSString *) getAdmin ;
+-(NSString * _Nullable) getAdmin ;
 
--(void) setName:(NSString *)val ;
--(void) setOverrideName:(NSString *)val ;
+-(void) setName:(NSString * _Nonnull)val ;
+-(void) setOverrideName:(NSString * _Nonnull)val ;
 
--(NSString *) getName ;
--(NSString *) getNameOrAddress:(NSString *)prefix;
--(NSString *) getFirstName ;
--(NSString *) getFirstNameOrAddress:(NSString *)prefix;
--(void) setStatus:(NSString *)val ;
--(NSString *) getStatus ;
--(void) setInfo:(NSString *)val ;
--(NSString *) getInfo ;
--(void) setCustomProfile:(NSString *)val ;
--(NSString *) getCustomProfile ;
--(void) setDraft:(NSString *)val ;
--(NSString *) getDraft ;
--(void) setUserData:(id)val ;
--(id) getUserData ;
-
-
--(void) setImageUrl:(NSString *) url ;
--(NSString *) getImageUrl ;
--(UIImage *) getImage ;
--(UIImage *) getThumbnail ;
--(NSString *) getImageOrThumbnailPath;
--(UIImage *) getImageOrThumbnail;
+-(NSString * _Nullable) getName ;
+-(NSString * _Nonnull) getNameOrAddress:(NSString * _Nonnull)prefix;
+-(NSString * _Nullable) getFirstName ;
+-(NSString * _Nonnull) getFirstNameOrAddress:(NSString * _Nonnull)prefix;
+-(void) setStatus:(NSString * _Nullable)val ;
+-(NSString * _Nullable) getStatus ;
+-(void) setInfo:(NSString * _Nullable)val ;
+-(NSString * _Nullable) getInfo ;
+-(void) setCustomProfile:(NSString * _Nullable)val ;
+-(NSString * _Nullable) getCustomProfile ;
+-(void) setDraft:(NSString * _Nullable)val ;
+-(NSString * _Nullable) getDraft ;
+-(void) setUserData:(id _Nullable)val ;
+-(id _Nullable) getUserData ;
 
 
--(void) setAddress:(NSString *)addr gid:(uint32_t)gid ;
--(MesiboProfile *) cloneProfile;
+-(void) setImageUrl:(NSString * _Nonnull) url ;
+-(NSString * _Nullable) getImageUrl ;
+-(UIImage * _Nullable) getImage ;
+-(UIImage * _Nullable) getThumbnail ;
+-(NSString * _Nullable) getImageOrThumbnailPath;
+-(UIImage * _Nullable) getImageOrThumbnail;
 
--(MesiboProfileEndToEndEncryption *) e2ee;
 
--(BOOL) addListener:(id<MesiboProfileDelegate>) delegate ;
--(void) removeListener:(id<MesiboProfileDelegate>) delegate ;
+-(void) setAddress:(NSString * _Nullable)addr gid:(uint32_t)gid ;
+-(MesiboProfile * _Nonnull) cloneProfile;
+
+-(MesiboProfileEndToEndEncryption * _Nonnull) e2ee;
+
+-(BOOL) addListener:(id<MesiboProfileDelegate> _Nonnull) delegate ;
+-(void) removeListener:(id<MesiboProfileDelegate> _Nonnull) delegate ;
 
 -(void) setThumbnailProperties:(int)width height:(int)height quality:(int)quality ;
 -(void) setImageProperties:(int)width height:(int)height quality:(int)quality ;
 
--(void) setImage:(UIImage *)image;
--(BOOL) setImageFromFile:(NSString *)path;
--(NSString *) getImagePath;
+-(void) setImage:(UIImage * _Nullable)image;
+-(BOOL) setImageFromFile:(NSString * _Nullable)path;
+-(NSString * _Nullable) getImagePath;
 
 -(BOOL) isContact;
 -(BOOL) isSubscribed;
@@ -570,24 +547,26 @@
 -(void) removeSyncedProfile;
 -(void) remove;
 
-
+-(void) sendTyping;
+-(void) sendJoined;
+-(void) sendLeft;
 
 -(BOOL) save;
 
--(MesiboGroupProfile *) getGroupProfile;
+-(MesiboGroupProfile * _Nullable) getGroupProfile;
 
-/* Messaging Functions */
--(void) setMessageParams:(MesiboParams *)params;
--(MesiboParams *) getMessageParams;
--(int) sendMessage:(uint32_t)msgid data:(NSData *)data;
--(int) sendMessage:(uint32_t)msgid string:(NSString *)string;
--(int) sendFile:(uint32_t)msgid file:(MesiboFileInfo *)file;
--(int) sendLocation:(uint32_t)msgid location:(MesiboLocation *) location;
--(int) sendPresence:(uint32_t)msgid presence:(int)presence interval:(int)interval;
--(int) sendActivity:(uint32_t)msgid activity:(int)activity interval:(int)interval;
--(int) forwardMessage:(uint32_t)msgid forwardid:(uint64_t)forwardid;
 -(BOOL)deleteMessages:(uint64_t)ts;
--(MesiboReadSession *) createReadSession:(id) delegate;
+-(MesiboReadSession * _Nonnull) createReadSession:(id _Nullable) delegate;
+-(MesiboMessage * _Nonnull) newMessage;
+-(MesiboPresence * _Nonnull) newPresence;
+
+-(int) getMessageCount:(uint64_t)threadid status:(int)status;
+-(int) getTotalMessageCount;
+-(int) getSentMessageCount;
+-(int) getReceivedMessageCount;
+-(int) getUnreadMessageCount;
+-(int) getFailedMessageCount;
+
 -(int) subscribeTransient:(uint32_t)type activity:(uint32_t)activity duration:(uint32_t) duration;
 
 @end
@@ -595,8 +574,8 @@
 @interface MesiboGroupMember : NSObject
 -(BOOL) isOwner;
 -(BOOL) isAdmin;
--(MesiboProfile *) getProfile;
--(NSString *) getAddress;
+-(MesiboProfile * _Nonnull) getProfile;
+-(NSString * _Nonnull) getAddress;
 @end
 
 @interface MesiboGroupProfile : MesiboProfile
@@ -608,30 +587,30 @@
 -(BOOL) canRemoveOwner;
 -(BOOL) canRemoveGroup;
 -(uint64_t) getRequestId;
--(MesiboProfile *) getLastAdmin;
+-(MesiboProfile * _Nullable) getLastAdmin;
 
--(int) getSettings:(id) listener;
--(void) setProperties:(MesiboGroupSettings *) settings;
+-(int) getSettings:(id _Nonnull) listener;
+-(void) setProperties:(MesiboGroupSettings * _Nonnull) settings;
 
 
--(int) getMembers:(int)count restart:(BOOL)restart listener:(id)listener;
+-(int) getMembers:(int)count restart:(BOOL)restart listener:(id _Nonnull)listener;
 -(BOOL) deleteGroup;
--(int) addMembers:(NSArray *)addresses permissions:(MesiboMemberPermissions *)permissions pin:(uint32_t)pin;
--(int) addMembers:(NSArray *)addresses permissions:(MesiboMemberPermissions *)permissions;
--(int) addMember:(NSString *)address permissions:(MesiboMemberPermissions *)permissions pin:(uint32_t)pin;
--(int) addMember:(NSString *)address permissions:(MesiboMemberPermissions *)permissions;
--(int) addMembers:(NSArray *)members permissions:(uint32_t)permissions adminPermissions:(uint32_t)adminPermissions;
+-(int) addMembers:(NSArray * _Nonnull)addresses permissions:(MesiboMemberPermissions * _Nonnull)permissions pin:(uint32_t)pin;
+-(int) addMembers:(NSArray * _Nonnull)addresses permissions:(MesiboMemberPermissions * _Nonnull)permissions;
+-(int) addMember:(NSString * _Nonnull)address permissions:(MesiboMemberPermissions * _Nonnull)permissions pin:(uint32_t)pin;
+-(int) addMember:(NSString * _Nonnull)address permissions:(MesiboMemberPermissions * _Nonnull)permissions;
+-(int) addMembers:(NSArray * _Nonnull)members permissions:(uint32_t)permissions adminPermissions:(uint32_t)adminPermissions;
 
--(int) removeMembers:(NSArray *)members;
--(int) removeMember:(NSString *)address;
+-(int) removeMembers:(NSArray * _Nonnull)members;
+-(int) removeMember:(NSString * _Nonnull)address;
 
 
--(void) addPin:(MesiboMemberPermissions *)permissions listener:(id)listener expiry:(uint32_t)expiry count:(uint32_t)count;
--(void) addPin:(MesiboMemberPermissions *)permissions listener:(id)listener;
--(BOOL) editPin:(uint32_t) pin permissions:(MesiboMemberPermissions *)permissions expiry:(uint32_t)expiry count:(uint32_t) count;
+-(void) addPin:(MesiboMemberPermissions *  _Nonnull)permissions listener:(id _Nonnull)listener expiry:(uint32_t)expiry count:(uint32_t)count;
+-(void) addPin:(MesiboMemberPermissions *  _Nonnull)permissions listener:(id _Nonnull)listener;
+-(BOOL) editPin:(uint32_t) pin permissions:(MesiboMemberPermissions *  _Nonnull)permissions expiry:(uint32_t)expiry count:(uint32_t) count;
 -(BOOL) removePin:(uint32_t) pin;
 
--(void) join:(uint32_t) pin listener:(id)listener;
+-(void) join:(uint32_t) pin listener:(id  _Nonnull)listener;
 -(void) leave;
 
 @end
@@ -643,30 +622,43 @@
 
 @protocol MesiboProfileDelegate <NSObject>
 @required
--(void) MesiboProfile_onUpdate:(MesiboProfile *)profile;
--(void) MesiboProfile_onEndToEndEncryption:(MesiboProfile *)profile status:(int) status;
+-(void) MesiboProfile_onUpdate:(MesiboProfile * _Nonnull)profile NS_SWIFT_NAME(MesiboProfile_onUpdate(profile:));
+-(void) MesiboProfile_onEndToEndEncryption:(MesiboProfile * _Nonnull)profile status:(int) status NS_SWIFT_NAME(MesiboProfile_onEndToEndEncryption(profile:status:));
 @end
 
+@interface MesiboMessageDate : NSObject
+@property (nonatomic) int year;
+@property (nonatomic) int month;
+@property (nonatomic) int day;
+@property (nonatomic) int hour;
+@property (nonatomic) int min;
+@property (nonatomic) int sec;
+@property (nonatomic) int daysElapsed;
+@end
 
-@interface MesiboParams : NSObject
-@property (nonatomic) NSString *peer;
+@interface MesiboMessageProperties : NSObject
+@property (nonatomic, nullable) NSString * peer;
 @property (nonatomic) uint64_t mid;
 @property (nonatomic) uint64_t refid;
 @property (nonatomic) uint64_t ts;
 @property (nonatomic) int expiry;
 @property (nonatomic) uint32_t groupid;
-@property (nonatomic) uint64_t flag;
 @property (nonatomic) int type;
 @property (nonatomic) int status;
 @property (nonatomic) uint64_t statusFlags;
 @property (nonatomic) int origin;
 
-@property (nonatomic) NSString *enckey;
-@property (nonatomic) MesiboProfile *profile;
-@property (nonatomic) MesiboProfile *groupProfile;
+@property (nonatomic, nullable) MesiboMessageDate *date;
 
--(BOOL) compare:(NSString *)peer groupid:(uint32_t)groupid;
--(BOOL) compare:(MesiboParams *) p;
+@property (nonatomic, nullable) MesiboProfile *profile;
+@property (nonatomic, nullable) MesiboProfile *groupProfile;
+
+-(BOOL) compare:(nullable NSString *)peer groupid:(uint32_t)groupid;
+-(BOOL) compare:(nonnull MesiboMessageProperties *) p;
+
+// for group messages only
+-(nullable MesiboProfile *) getCurrentStatusSender;
+-(int) getCurrentStatus;
 
 -(int) getStatus;
 -(void) setStatus:(int)status;
@@ -677,26 +669,43 @@
 -(void) setFlag:(uint64_t) flag;
 -(void) setInReplyTo:(uint64_t) messageid;
 -(uint64_t) getInReplyTo;
+-(BOOL) isReply;
 
--(void) setPeer:(NSString *)peer;
+-(void) setPeer:(NSString * _Nonnull)peer;
 -(void) setGroup:(uint32_t) group;
 
 -(void) enablePresence:(BOOL) enable;
 -(void) enableReadReceipt:(BOOL) enable;
 -(void) enableDeliveryReceipt:(BOOL) enable;
+-(void) enableCustom:(BOOL) enable;
 -(void) enableModify:(BOOL) enable;
 -(void) enableBroadcast:(BOOL) enable;
 
+-(void) markDeleted:(BOOL) enable;
+-(BOOL) isDeleted;
+
 -(BOOL) isIncoming;
 -(BOOL) isOutgoing;
--(BOOL) isRead;
+-(BOOL) isInOutbox;
+-(BOOL) isSent;
+-(BOOL) isDelivered;
+-(BOOL) isReadByPeer;
+-(BOOL) isReadByUs;
+//-(BOOL) isRead;
 -(BOOL) isUnread;
 -(BOOL) isSavedMessage;
--(BOOL) isDeleted;
--(BOOL) isModified;
+-(BOOL) isCustom;
+-(BOOL) isModified; // depreciated
+-(BOOL) isModifiedByPeer;
+-(BOOL) isUpdated;
+-(BOOL) isDynamic;
+-(BOOL) isFileTransferFailed;
 -(BOOL) isForwarded;
 -(BOOL) isEndToEndEncrypted;
+-(BOOL) isEndToEndEncryptionStatus;
 -(BOOL) isPresence;
+-(BOOL) isRichMessage;
+-(BOOL) isPlainMessage;
 -(BOOL) isMissedCall;
 -(BOOL) isIncomingCall;
 -(BOOL) isOutgoingCall;
@@ -710,11 +719,14 @@
 -(BOOL) isDbSummaryMessage;
 -(BOOL) isDbPendingMessage;
 -(BOOL) isRealtimeMessage;
+-(BOOL) isPendingMessage;
+-(BOOL) isGroupMessage;
+-(BOOL) isFromSamePeer:(MesiboMessageProperties * _Nonnull) m;
 
-
-
--(BOOL) isMessageStatusFailed;
+-(BOOL) isFailed;
 -(BOOL) isMessageStatusInProgress;
+
+-(BOOL) isDestinedFor:(MesiboProfile * _Nonnull) profile;
 
 -(void) setAge:(uint32_t) age;
 -(void) setAgeAfterDelivered:(uint32_t) age;
@@ -734,9 +746,9 @@
 
 -(int) getCallDuration;
 
-
-// WARNING - not to be used directly - (private function)
--(void) setParams:(NSString *)peer groupid:(uint32_t)groupid flag:(uint64_t)flag origin:(int)origin;
+-(NSString * _Nonnull) getDate:(BOOL) monthFirst today:(NSString * _Nullable)today yesterday:(NSString * _Nullable)yesterday;
+-(NSString * _Nonnull) getDate:(BOOL) monthFirst;
+-(NSString * _Nonnull) getTime:(BOOL) seconds;
 
 @end
 
@@ -765,203 +777,243 @@ typedef MesiboProfile MesiboAddress;
 
 #define MESIBO_FILESOURCE_MESSAGE         0
 #define MESIBO_FILESOURCE_PROFILE         1
-#define MESIBO_FILESOURCE_PROFILETN       2
-#define MESIBO_FILESOURCE_USERPROFILELIST   3
-
-
+#define MESIBO_FILESOURCE_GROUPPROFILE    2
+#define MESIBO_FILESOURCE_THUMBNAIL       3
+#define MESIBO_FILESOURCE_UNKNOWN         99
+#define MESIBO_FILESOURCE_CUSTOM          100
 
 #define MESIBO_FILETYPE_MASK                0xFF
 
-@interface MesiboFileInfo : NSObject
-@property (nonatomic) int mode;
-
+@interface MesiboFile : NSObject
 @property (nonatomic) int type;
+@property (nonatomic) int subtype;
+@property (nonatomic, nullable) NSString *url;
+@property (nonatomic, nonnull) NSString *path;
+@property (nonatomic, nullable) NSString *name;
+@property (nonatomic, nullable) NSString *mimeType;
+@property (nonatomic) uint64_t size;
+@property (nonatomic) int progress;
 @property (nonatomic) int source;
-@property (nonatomic) int size;
-@property (nonatomic) int maxDimension;
-@property (nonatomic) int maxSize;
-@property (nonatomic) NSString *mimeType;
-@property (nonatomic) NSString *launchUrl;
-@property (nonatomic) BOOL userInteraction;
-@property (nonatomic) BOOL secure;
-@property (nonatomic) NSString *title;
-@property (nonatomic) NSString *message;
+@property (nonatomic, nullable) id asset;
+@property (nonatomic, nullable) NSString *localIdentifier;
+@end
+
+@interface MesiboFileTransfer : NSObject
+@property (nonatomic) BOOL upload;
+@property (nonatomic) int priority;
+@property (nonatomic) int progress;
 @property (nonatomic) uint64_t mid;
-@property (nonatomic) UIImage *image;
-@property (nonatomic) double lat;
-@property (nonatomic) double lon;
-@property (nonatomic) id asset;
-@property (nonatomic) NSString *localIdentifier;
-@property (nonatomic, weak) id fileTransferContext;
+@property (nonatomic) uint64_t ts;
+@property (nonatomic) int origin;
+@property (nonatomic) int source;
+@property (nonatomic) BOOL secure; 
+@property (nonatomic) BOOL externalLink;
+@property (nonatomic) BOOL result;
+@property (nonatomic) BOOL inProgress;
+@property (nonatomic) BOOL notifyProgress;
 
--(void) setCache:(BOOL)isEnabled;
-
--(void) setData:(NSObject *)data;
--(NSObject *) getData;
-
--(void) setListener:(id) listener;
--(id) getListener;
-
--(NSString *) getUrl;
--(void) setUrl:(NSString *)url;
-
--(int) getStatus;
--(uint64_t) getId;
--(MesiboParams *) getParams;
-
-
--(void) setPath:(NSString *)path;
--(NSString *) getPath;
-
--(void) setFileTransferContext:(id)context;
--(id) getFileTransferContext;
-
--(int) getProgress;
-
--(BOOL) isTransferred;
--(BOOL) mayExist;
+-(NSString * _Nonnull) getPath;
+-(NSString * _Nullable) getUrl;
+-(NSString * _Nullable) getLocalIdentifier;
+-(id _Nullable) getPHAsset;
+-(void) start:(NSString * _Nullable)url post:(NSDictionary * _Nullable)post;
+-(void) cancel:(BOOL)retryLater;
+-(void) setProgress:(int)progress;
+-(void) setResult:(BOOL)success url:(NSString * _Nullable) url;
+-(void) setResult:(BOOL)success;
+-(void) setFileTransferContext:(id _Nullable) obj NS_SWIFT_NAME(setFileTransferContext(obj:));
+-(id _Nullable) getFileTransferContext NS_SWIFT_NAME(getFileTransferContext());
 @end
 
 
-
-
-@interface MesiboLocation : NSObject
-@property (nonatomic) double lat;
-@property (nonatomic) double lon;
-@property (nonatomic) int zoom;
-@property (nonatomic) NSString *url;
-@property (nonatomic) BOOL update;
-@property (nonatomic) NSString *title;
-@property (nonatomic) NSString *message;
-@property (nonatomic) uint64_t mid;
-@property (nonatomic) UIImage *image;
-@property (nonatomic) NSString *imageUrl;
-@property (nonatomic) NSData *imageData;
-
--(void) setData:(NSObject *)data;
--(NSObject *) getData;
+@interface MesiboRect : NSObject
+@property (nonatomic) uint16_t x;
+@property (nonatomic) uint16_t y;
+@property (nonatomic) uint16_t width;
+@property (nonatomic) uint16_t height;
 @end
 
-@interface MesiboMedia : NSObject
+#define MESIBO_CROP_GRAVITY_CENTER 0
+#define MESIBO_CROP_GRAVITY_START  1
+#define MESIBO_CROP_GRAVITY_END    2
 
-#if 0
-@property (nonatomic) NSString *url;
-@property (nonatomic) NSString *title;
-@property (nonatomic) UIImage *image;
+@interface MesiboMediaProperties : NSObject
+@property (nonatomic) MesiboRect * _Nullable cropping;
+@property (nonatomic) uint16_t quality;
+// image format was specified, we can use auto (COPY, videoCopy. AudioCopy, PNG, webp, jpeg-xl, jpeg, mp3, aac, mp4, videocopy, audiocopu)
+@property (nonatomic) uint16_t imageFormat;
+@property (nonatomic) uint16_t effect; //blur, b&w, color, etc
+@property (nonatomic) BOOL resize;
+//@property (nonatomic)  boolean embedLocation = false;
+//@property (nonatomic)  boolean embedExif = false;
+@property (nonatomic) uint32_t flags; //@property (nonatomic) so that proguard does not remove it
+@property (nonatomic) uint16_t cropGravity;
 
-@property (nonatomic) NSString *mimeType;
-@property (nonatomic) NSString *launchUrl;
+@property (nonatomic) uint16_t width;
+@property (nonatomic) uint16_t height;
+@property (nonatomic) uint16_t maxDimension;
+@property (nonatomic) uint32_t maxPixels;
+@property (nonatomic) uint32_t maxImageSize;
+@property (nonatomic) uint32_t maxVideoSize;
+@end
 
-@property (nonatomic) double lat;
-@property (nonatomic) double lon;
-@property (nonatomic) int zoom;
+@interface MesiboPresence : MesiboMessageProperties
+@property (nonatomic) uint32_t presence;
+@property (nonatomic) uint32_t value;
+@property (nonatomic) uint32_t interval;
 
-#else
-//Temporary - will be removed in v2.0
-@property (nonatomic) MesiboFileInfo *file;
-@property (nonatomic) MesiboLocation *location;
-#endif
+-(nonnull id)initWithPeer:(NSString * _Nonnull) peer;
+-(nonnull id)initWithGroupId:(uint32_t) groupid;
+-(nonnull id)initWithProfile:(MesiboProfile * _Nonnull) profile;
 
--(void) setData:(NSObject *)data;
--(NSObject *) getData;
+-(int) send:(uint32_t)presence value:(uint32_t) value interval:(uint32_t) interval;
+-(int) send:(uint32_t)presence;
+-(int) send;
+-(int) sendTyping;
+-(int) sendTypingCleared;
+-(int) sendJoined;
+-(int) sendLeft;
+-(int) sendOnline;
+-(int) sendOffline;
+-(int) sendRequest;
 @end
 
 // For internal use only - will be for public use from v2.0
-@interface MesiboMessage : NSObject
-@property (nonatomic) uint64_t mid;
-@property (nonatomic) uint64_t ts;
-@property (nonatomic) uint64_t mts;
-@property (nonatomic) int32_t expiry;
-@property (nonatomic) uint64_t flag;
-@property (nonatomic) int type;
-@property (nonatomic) int status;
-@property (nonatomic) int origin;
+@interface MesiboMessage : MesiboMessageProperties
+@property (nonatomic, nullable) NSData *data;
+@property (nonatomic, nullable) NSString *title;
+@property (nonatomic, nullable) NSString *subtitle;
+@property (nonatomic, nullable) NSString *message;
+@property (nonatomic, nullable) NSString *footer;
 
-@property (nonatomic) MesiboAddress *sender;
-@property (nonatomic) MesiboAddress *sendingGroup;
+@property (nonatomic) double latitude;
+@property (nonatomic) double longitude;
 
-@property (nonatomic) NSData *message;
+@property (nonatomic, nullable) id asset;
+@property (nonatomic, nullable) NSString *localIdentifier;
+@property (nonatomic, weak, nullable) id fileTransferContext;
 
-#if 0
-@property (nonatomic) double lat;
-@property (nonatomic) double lon;
-#endif
+@property (nonatomic)  BOOL copyFiles;
+@property (nonatomic)  BOOL urlPreview;
+@property (nonatomic)  BOOL extractUrlFromMessage;
+@property (nonatomic)  BOOL sendFileName;
+@property (nonatomic)  BOOL imageProcessing;
+@property (nonatomic)  BOOL sendThumbnail;
+@property (nonatomic)  BOOL extractThumbnail; // on receive side
+@property (nonatomic)  BOOL sendHqThumbnail;
+@property (nonatomic)  BOOL horizontalThumbnail;
+@property (nonatomic)  BOOL verticalThumbnail;
+@property (nonatomic)  BOOL matureContent; //may be instead of this, we can have level
+@property (nonatomic)  BOOL emojify;
+@property (nonatomic)  int contentRating;
 
-@property (nonatomic) MesiboMedia *media;
+@property (nonatomic)  BOOL saveImageUrl;
+@property (nonatomic)  BOOL saveVideoUrl;
+@property (nonatomic)  BOOL saveAudioUrl;
+@property (nonatomic)  BOOL saveAllFileUrl;
 
-@property (nonatomic) id other; //user data
-@property (nonatomic) id ui; //UI use only
+@property (nonatomic)  uint16_t thumbnailMaxSide;
+@property (nonatomic)  double thumbnailAspectRatio;
+@property (nonatomic)  uint32_t maxPreviewSize;
+@property (nonatomic)  int trackingProtectionLevel; // level of protection
+@property (nonatomic)  uint32_t passthroughSize; // min size to re-endode, else
+@property (nonatomic)  uint32_t urlTransferSize; // download file only if less than this
+@property (nonatomic)  BOOL secureDownload;
+@property (nonatomic)  BOOL openExternally;
+
+@property (nonatomic)  BOOL markForwarded;
+
+-(nonnull id)initWithPeer:(NSString * _Nonnull) peer;
+-(nonnull id)initWithGroupId:(uint32_t) groupid;
+-(nonnull id)initWithProfile:(MesiboProfile * _Nonnull) profile;
+-(BOOL) canSend;
+-(void) setObject:(nullable id) obj;
+-(nullable id) getObject;
+-(nullable MesiboMessage *) getRepliedToMessage;
+-(BOOL) hasFile;
+-(BOOL) isFileReady;
+-(nullable MesiboFile *) getFile;
+-(int) getFileType;
+-(nullable NSString *) getMimeType;
+-(nullable NSString *) getFileName;
+-(long) getFileSize;
+-(nullable NSString *) getFilePath;
+-(BOOL) hasImage;
+-(BOOL) hasVideo;
+-(BOOL) hasAudio;
+-(BOOL) hasDocument;
+-(BOOL) hasLocation;
+-(BOOL) hasThumbnail;
+-(BOOL) isMatureContent;
+-(void) setContentType:(int) type;
+-(void) setMediaProperties:(MesiboMediaProperties * _Nonnull)properties;
+-(void) setContent:(nonnull id) filePathOrUrlOrImage;
+-(void) setThumbnail:(nonnull UIImage *) thumbnail;
+-(nullable UIImage *) getThumbnail;
+-(BOOL) startFileTransfer:(int) priority;
+-(BOOL) stopFileTransfer;
+-(BOOL) toggleFileTransfer:(int) priority;
+-(BOOL) Mesibo_onFileTransferProgress:(MesiboFileTransfer * _Nonnull) ft;
+-(BOOL) isFileTransferInProgress;
+-(BOOL) isFileTransferRequired;
+-(BOOL) isUploadRequired;
+-(BOOL) isDownloadRequired;
+-(BOOL) replaceThumbnailImage:(nullable UIImage *) bmp;
+-(BOOL) replaceThumbnail:(nonnull NSString *) pathOrUrl;
+-(BOOL) replaceThumbnailWithLocation:(int) zoom key:(nullable NSString *)Key;
+
+-(int) send;
+-(BOOL) resend;
+-(int) sendUpdate;
+-(int) sendPresence;
+-(int) sendToWebhook;
+-(void) setForwarded:(NSArray<NSNumber *> * _Nonnull) fids;
+-(void) setForwardedMid:(uint64_t) fid;
+-(int) save;
+-(BOOL) delete;
+-(BOOL) wipe;
+-(BOOL) recall;
+-(BOOL) wipeAndRecall;
+-(BOOL) mayBeRetracted;
+-(int) getProgress;
+-(void) setString:(NSString * _Nonnull)name value:(NSString * _Nonnull) value;
+-(void) setLong:(NSString * _Nonnull)name value:(long) value;
+-(void) setInt:(NSString * _Nonnull)name value:(int) value;
+-(void) setDouble:(NSString * _Nonnull)name value:(double) value;
+-(void) setBoolean:(NSString * _Nonnull)name value:(BOOL) value;
+-(NSString * _Nullable) getString:(NSString * _Nonnull) name defval:(NSString * _Nullable) defval;
+-(long) getLong:(NSString * _Nonnull) name defval:(long) defval;
+-(int) getInt:(NSString * _Nonnull) name defval:(int) defval;
+-(double) getDouble:(NSString * _Nonnull) name defval:(double) defval;
+-(BOOL) getBoolean:(NSString * _Nonnull) name defval:(BOOL) defval;
 
 
--(int) getStatus;
--(void) setStatus:(int)status;
--(int) getExpiry;
--(void) setExpiry:(int)expiry;
--(int) getType;
--(void) setType:(int)type;
--(void) setOrigin:(int)origin;
 
--(BOOL) isIncoming;
--(BOOL) isOutgoing;
--(BOOL) isInOutbox;
--(BOOL) isFailed;
--(BOOL) isCustom;
--(BOOL) isDeleted;
--(BOOL) isForwarded;
--(BOOL) isEndToEndEncrypted;
--(BOOL) isPresence;
--(BOOL) isMissedCall;
--(BOOL) isCall;
--(BOOL) isVoiceCall;
--(BOOL) isVideoCall;
--(BOOL) isPstnCall;
--(BOOL) isLastMessage;
--(BOOL) isEmpty;
--(BOOL) hasMedia;
--(void) setDeleted;
-
--(void) setLocation:(MesiboLocation *) location;
--(void) setFile:(MesiboFileInfo *) file;
-
--(NSString *) getMessageAsString;
-
--(BOOL) isDbMessage;
--(BOOL) isDbSummaryMessage;
--(BOOL) isDbPendingMessage;
--(BOOL) isRealtimeMessage;
-
--(BOOL)compare:(NSString *)peer groupid:(uint32_t)groupid;
-
--(NSString *) getSenderAddress;
--(NSString *) getSenderName;
--(uint32_t) getGroupId;
++(MesiboMessage * _Nonnull) forPeer:(NSString * _Nonnull) peer;
++(MesiboMessage * _Nonnull) forGroup:(uint32_t) gid;
++(MesiboMessage * _Nonnull) forProfile:(MesiboProfile * _Nonnull) profile;
 @end
 
 
-
-
 @interface MesiboReadSession : NSObject
-+(void) addSession:(uint64_t)sessionid session:(id)session;
-+(MesiboReadSession *)getSession:(uint64_t)sessionid ;
-+(void)removeSession:(uint64_t)sessionid ;
-+(BOOL)isSessionReading:(MesiboParams *)params ;
+- (id _Nonnull)initWith:(MesiboProfile * _Nonnull)profile listener:(id _Nullable) listener;
+- (id _Nonnull)initWith:(id _Nullable) listener;
+
 +(void)endAllSessions;
--(void) initSession:(NSString*)peer groupid:(uint32_t)groupid query:(NSString *)query delegate:(id)listener;
--(void)endSession ;
 
 //private function - only for internal use
 -(void)_onsync:(int) count flags:(uint32_t)flags;
 
 
--(BOOL) isReading:(MesiboParams *)params ;
+-(BOOL) isReading:(MesiboMessageProperties * _Nonnull)params ;
 
--(id) getDelegate:(uint64_t)flags;
+-(id _Nullable) getDelegate:(uint64_t)flags;
 -(int) start;
 -(void) stop ;
 -(void) restart ;
 
 -(int) read:(int)count;
--(void)sync:(int)count listener:(id)listener ;
+-(void)sync:(int)count listener:(id _Nullable)listener ;
 -(void) setThreadId:(uint64_t) tid;
 
 -(int) getMessageCount:(int) status;
@@ -969,24 +1021,16 @@ typedef MesiboProfile MesiboAddress;
 -(int) getSentMessageCount;
 -(int) getReceivedMessageCount;
 -(int) getUnreadMessageCount;
-
+-(int) getFailedMessageCount;
 -(void) enableReadReceipt:(BOOL) enable ;
-
 -(void) enableSummary:(BOOL) enable ;
-
 -(void) enableFifo:(BOOL) enable ;
-
 -(void) enableFiles:(BOOL) enable ;
 -(void) enableThreads:(BOOL) enable;
-
 -(void) enableMessages:(BOOL) enable ;
-
 -(void) enableMissedCalls:(BOOL) enable ;
-
 -(void) enableIncomingCalls:(BOOL) enable ;
-
 -(void) enableOutgoingCalls:(BOOL) enable ;
-
 -(void) enableCalls:(BOOL) enable ;
 
 @end
@@ -996,40 +1040,39 @@ typedef MesiboProfile MesiboAddress;
 #define MESIBO_HTTPSTATE_DONE       2
 
 @class MesiboHttp; //forward declaration so that we can declare in block definition below
-typedef BOOL (^Mesibo_onHTTPProgress)(MesiboHttp *http, int state, int progress);
+typedef BOOL (^Mesibo_onHTTPProgress)(MesiboHttp * _Nonnull http, int state, int progress);
 
 @interface MesiboHttp : NSObject
+@property (nonatomic) NSString * _Nullable url;
+@property (nonatomic) NSString * _Nullable proxy;
 
-@property (nonatomic) NSString * url;
-@property (nonatomic) NSString * proxy;
+@property (nonatomic) NSData * _Nullable post;
+@property (nonatomic) NSDictionary * _Nullable postBundle;
+@property (nonatomic) NSString * _Nullable contentType;
 
-@property (nonatomic) NSData * post;
-@property (nonatomic) NSDictionary *postBundle;
-@property (nonatomic) NSString * contentType;
+@property (nonatomic) NSString * _Nullable cookie;
 
-@property (nonatomic) NSString * cookie;
+@property (nonatomic) NSString * _Nullable caCertificateFile;
 
-@property (nonatomic) NSString * caCertificateFile;
+@property (nonatomic) NSString * _Nullable downloadFile;
 
-@property (nonatomic) NSString * downloadFile;
+@property (nonatomic) id        _Nullable uploadPhAsset;
+@property (nonatomic) NSString * _Nullable uploadLocalIdentifier;
 
-@property (nonatomic) id        uploadPhAsset;
-@property (nonatomic) NSString *uploadLocalIdentifier;
+@property (nonatomic) NSString * _Nullable uploadFile;
+@property (nonatomic) NSString * _Nullable uploadFileField;
+@property (nonatomic) NSString * _Nullable uploadFileOffsetField;
+@property (nonatomic) NSString * _Nullable uploadFileName;
+@property (nonatomic) NSString * _Nullable uploadFileType;
+@property (nonatomic) NSString * _Nullable uploadFileCheckUrl;
 
-@property (nonatomic) NSString * uploadFile;
-@property (nonatomic) NSString * uploadFileField;
-@property (nonatomic) NSString * uploadFileOffsetField;
-@property (nonatomic) NSString * uploadFileName;
-@property (nonatomic) NSString * uploadFileType;
-@property (nonatomic) NSString * uploadFileCheckUrl;
-
-@property (nonatomic) NSString * extraHeaders;
-@property (nonatomic) NSString * userAgent;
-@property (nonatomic) NSString * referrer;
-@property (nonatomic) NSString * origin;
-@property (nonatomic) NSString * encoding;
-@property (nonatomic) NSString * cacheControl;
-@property (nonatomic) NSString * accept;
+@property (nonatomic) NSString * _Nullable extraHeaders;
+@property (nonatomic) NSString * _Nullable userAgent;
+@property (nonatomic) NSString * _Nullable referrer;
+@property (nonatomic) NSString * _Nullable origin;
+@property (nonatomic) NSString * _Nullable encoding;
+@property (nonatomic) NSString * _Nullable cacheControl;
+@property (nonatomic) NSString * _Nullable accept;
 
 @property (nonatomic) int bufferSize;
 @property (nonatomic) uint64_t connectionTimeout;
@@ -1053,21 +1096,21 @@ typedef BOOL (^Mesibo_onHTTPProgress)(MesiboHttp *http, int state, int progress)
 
 @property (nonatomic) uint64_t ts;
 
-@property (nonatomic) Mesibo_onHTTPProgress listener;
+@property (nonatomic) Mesibo_onHTTPProgress _Nullable listener;
 
 @property (nonatomic) int result;
 @property (nonatomic) int respCode;
 @property (nonatomic) int errorCode;
-@property (nonatomic) NSString * error;
+@property (nonatomic) NSString * _Nullable error;
 @property (nonatomic) int state;
 
 @property (nonatomic) int progress;
 @property (nonatomic) uint64_t contentLength;
 @property (nonatomic) uint64_t offset;
 
-@property (nonatomic) NSString * respEncoding;
-@property (nonatomic) NSString * respDisposition;
-@property (nonatomic) NSString * respETag;
+@property (nonatomic) NSString * _Nullable respEncoding;
+@property (nonatomic) NSString * _Nullable respDisposition;
+@property (nonatomic) NSString * _Nullable respETag;
 @property (nonatomic) BOOL respCached;
 
 @property (nonatomic) long contentAge ;
@@ -1076,27 +1119,27 @@ typedef BOOL (^Mesibo_onHTTPProgress)(MesiboHttp *http, int state, int progress)
 
 
 
-@property (nonatomic) NSMutableData *data;
+@property (nonatomic) NSMutableData * _Nullable data;
 
-@property (nonatomic) id other; // user data object
+@property (nonatomic) id _Nullable other; // user data object
 
-@property (nonatomic) dispatch_queue_t dispatchQueue;
+@property (nonatomic) dispatch_queue_t _Nullable dispatchQueue;
 
 
 -(BOOL) execute;
 -(BOOL) executeAndWait;
 -(void) cancel;
--(NSData *) getData;
--(NSString *) getDataString;
--(NSString *) urlEncode:(NSDictionary *) post;
+-(NSData * _Nullable) getData;
+-(NSString * _Nullable) getDataString;
+-(NSString * _Nullable) urlEncode:(nullable NSDictionary *) post;
 
 @end
 
 @interface MesiboServer : NSObject
 @property (nonatomic) int type;
-@property (nonatomic) NSString *host;
-@property (nonatomic) NSString *username;
-@property (nonatomic) NSString *password;
+@property (nonatomic, nonnull) NSString *host;
+@property (nonatomic, nullable) NSString *username;
+@property (nonatomic, nullable) NSString *password;
 @end
 
 
@@ -1111,7 +1154,7 @@ typedef BOOL (^Mesibo_onHTTPProgress)(MesiboHttp *http, int state, int progress)
  */
 
 
-typedef BOOL (^Mesibo_onHTTPUtilsProgress)(id cbdata, int progress, NSString *result);
+typedef BOOL (^Mesibo_onHTTPUtilsProgress)(id _Nullable cbdata, int progress, NSString * _Nullable result);
 typedef void (^Mesibo_onSetGroupHandler)(uint32_t groupid);
 typedef void (^Mesibo_onRunHandler)(void);
 
@@ -1120,57 +1163,57 @@ typedef void (^Mesibo_onRunHandler)(void);
 @required
 
 @optional
--(void) Mesibo_OnMessage:(MesiboParams *)params data:(NSData *)data;
+-(void) Mesibo_onMessage:(MesiboMessage * _Nonnull)message NS_SWIFT_NAME(Mesibo_onMessage(message:));
+-(void) Mesibo_onMessageUpdate:(MesiboMessage * _Nonnull)message NS_SWIFT_NAME(Mesibo_onMessageUpdate(message:));
+-(void) Mesibo_onMessageStatus:(MesiboMessage * _Nonnull)message NS_SWIFT_NAME(Mesibo_onMessageStatus(message:));
+-(BOOL) Mesibo_onMessageFilter:(MesiboMessage * _Nonnull)message NS_SWIFT_NAME(Mesibo_onMessageFilter(message:));
 
-//Only for internal use now 
--(void) Mesibo_OnMessage:(MesiboMessage *)message;
+-(void) Mesibo_onPresence:(MesiboPresence * _Nonnull)message NS_SWIFT_NAME(Mesibo_onPresence(message:));
+-(void) Mesibo_onPresenceRequest:(MesiboPresence * _Nonnull)message NS_SWIFT_NAME(Mesibo_onPresenceRequest(message:));
 
--(void) Mesibo_OnMessageStatus:(MesiboParams *)params;
--(void) Mesibo_OnConnectionStatus:(int) status;
+-(void) Mesibo_onConnectionStatus:(NSInteger) status NS_SWIFT_NAME(Mesibo_onConnectionStatus(status:));
 
--(void) Mesibo_onActivity:(MesiboParams *)params activity:(int) activity;
--(void) Mesibo_onLocation:(MesiboParams *)params location:(MesiboLocation *)location;
--(void) Mesibo_onFile:(MesiboParams *)params file:(MesiboFileInfo *) file;
+-(void) Mesibo_onSync:(NSInteger)count NS_SWIFT_NAME(Mesibo_onSync(count:));
 
--(void) Mesibo_OnPresence:(MesiboParams *)params data:(NSData *)data;
+-(BOOL) Mesibo_onCall:(uint32_t)peerid callid:(uint32_t)callid profile:(MesiboProfile * _Nonnull)profile flags:(uint64_t)flags;
 
--(void) Mesibo_OnSync:(int)count;
+-(BOOL) Mesibo_onCallStatus:(uint32_t)peerid callid:(uint32_t)callid status:(int)status flags:(uint64_t)flags info:(uint64_t)info resolution:(uint64_t)resolution desc:(NSString * _Nullable)desc;
 
--(BOOL) Mesibo_onCall:(uint32_t)peerid callid:(uint32_t)callid profile:(MesiboProfile *)profile flags:(uint64_t)flags;
--(BOOL) Mesibo_onCallStatus:(uint32_t)peerid callid:(uint32_t)callid status:(int)status flags:(uint64_t)flags info:(uint64_t)info resolution:(uint64_t)resolution desc:(NSString *)desc;
--(void) Mesibo_onServer:(int)type url:(NSString *)url username:(NSString *)username credential:(NSString *)credential;
+-(void) Mesibo_onServer:(int)type url:(NSString * _Nullable)url username:(NSString * _Nullable)username credential:(NSString * _Nullable)credential;
 
--(void) Mesibo_onConfParitcipant:(uint32_t)uid sid:(uint32_t)sid address:(NSString *)address name:(NSString *)name role:(uint32_t) role flags:(uint32_t) flags;
--(void) Mesibo_onConfCall:(uint32_t)uid sid:(uint32_t)sid op:(int)op source:(uint32_t)source resolution:(uint32_t)resolution fps:(int)fps bw:(uint32_t)bw flags:(uint32_t)flags sdp:(NSString *)sdp mid:(NSString *)mid mline:(int) mline;
+-(void) Mesibo_onConfParitcipant:(uint32_t)uid sid:(uint32_t)sid address:(NSString * _Nullable)address name:(NSString * _Nullable)name role:(uint32_t) role flags:(uint32_t) flags;
 
--(BOOL) Mesibo_onStartFileTransfer:(MesiboFileInfo *)file;
--(BOOL) Mesibo_onStopFileTransfer:(MesiboFileInfo *) file;
--(BOOL) Mesibo_onFileTransferProgress:(MesiboFileInfo *) file;
+-(void) Mesibo_onConfCall:(uint32_t)uid sid:(uint32_t)sid op:(int)op source:(uint32_t)source resolution:(uint32_t)resolution fps:(int)fps bw:(uint32_t)bw flags:(uint32_t)flags sdp:(NSString * _Nullable)sdp mid:(NSString * _Nullable)mid mline:(int) mline;
 
--(BOOL) Mesibo_OnMessageFilter:(MesiboParams *)params direction:(int)direction data:(NSData *)data;
+-(BOOL) Mesibo_onStartFileTransfer:(MesiboFileTransfer * _Nonnull)ft NS_SWIFT_NAME(Mesibo_onStartFileTransfer(ft:));
+-(BOOL) Mesibo_onStopFileTransfer:(MesiboFileTransfer * _Nonnull) ft NS_SWIFT_NAME(Mesibo_onStopFileTransfer(ft:));
 
--(void) Mesibo_onProfileUpdated:(MesiboProfile *)profile;
--(BOOL) Mesibo_onGetProfile:(MesiboProfile *)profile;
+-(BOOL) Mesibo_onFileTransferProgress:(MesiboFileTransfer * _Nonnull) ft;
 
--(void) Mesibo_onGroupCreated:(MesiboProfile *) groupProfile;
--(void) Mesibo_onGroupJoined:(MesiboProfile *) groupProfile;
--(void) Mesibo_onGroupLeft:(MesiboProfile *) groupProfile;
--(void) Mesibo_onGroupMembers:(MesiboProfile *) groupProfile members:(NSArray *)members;
--(void) Mesibo_onGroupMembersJoined:(MesiboProfile *) groupProfile members:(NSArray *)members;
--(void) Mesibo_onGroupMembersRemoved:(MesiboProfile *) groupProfile members:(NSArray *)members;
--(void) Mesibo_onGroupSettings:(MesiboProfile *) groupProfile settings:(MesiboGroupSettings *)settings permissions:(MesiboMemberPermissions *)permissions pins:(NSArray<MesiboGroupPin *> *) pins;
--(void) Mesibo_onGroupError:(MesiboProfile *) groupProfile error:(uint32_t)error;
 
--(void) Mesibo_onEndToEndEncryption:(MesiboProfile *)profile status:(int)status;
+-(void) Mesibo_onProfileUpdated:(MesiboProfile * _Nonnull)profile NS_SWIFT_NAME(Mesibo_onProfileUpdated(profile:));
+-(BOOL) Mesibo_onGetProfile:(MesiboProfile * _Nonnull)profile NS_SWIFT_NAME(Mesibo_onGetProfile(profile:));
+
+-(void) Mesibo_onGroupCreated:(MesiboProfile * _Nonnull) groupProfile NS_SWIFT_NAME(Mesibo_onGroupCreated(groupProfile:));
+-(void) Mesibo_onGroupJoined:(MesiboProfile * _Nonnull) groupProfile NS_SWIFT_NAME(Mesibo_onGroupJoined(groupProfile:));
+-(void) Mesibo_onGroupLeft:(MesiboProfile * _Nonnull) groupProfile NS_SWIFT_NAME(Mesibo_onGroupLeft(groupProfile:));
+-(void) Mesibo_onGroupMembers:(MesiboProfile * _Nonnull) groupProfile members:(NSArray * _Nonnull)members NS_SWIFT_NAME(Mesibo_onGroupMembers(groupProfile:members:));
+-(void) Mesibo_onGroupMembersJoined:(MesiboProfile * _Nonnull) groupProfile members:(NSArray * _Nonnull)members NS_SWIFT_NAME(Mesibo_onGroupMembersJoined(groupProfile:members:));
+-(void) Mesibo_onGroupMembersRemoved:(MesiboProfile * _Nonnull) groupProfile members:(NSArray * _Nonnull)members NS_SWIFT_NAME(Mesibo_onGroupMembersRemoved(groupProfile:members:));
+-(void) Mesibo_onGroupSettings:(MesiboProfile * _Nonnull) groupProfile settings:(MesiboGroupSettings * _Nonnull)settings permissions:(MesiboMemberPermissions * _Nonnull)permissions pins:(NSArray<MesiboGroupPin *> * _Nullable) pins NS_SWIFT_NAME(Mesibo_onGroupSettings(groupProfile:settings:permissions:pins:));
+-(void) Mesibo_onGroupError:(MesiboProfile * _Nonnull) groupProfile error:(uint32_t)error NS_SWIFT_NAME(Mesibo_onGroupError(groupProfile:error:));
+
+-(void) Mesibo_onEndToEndEncryption:(MesiboProfile * _Nonnull)profile status:(int)status NS_SWIFT_NAME(Mesibo_onEndToEndEncryption(profile:status:));
 
 //UI helper
 //-(void) Mesibo_onShowProfilesList;
--(void) Mesibo_onForeground:(id)parent screenId:(int)screenId foreground:(BOOL)foreground;
--(void) Mesibo_onShowProfile:(id)parent profile:(MesiboProfile *) profile;
--(void) Mesibo_onDeleteProfile:(id)parent profile:(MesiboProfile *) profile handler:(Mesibo_onSetGroupHandler)handler;
+-(void) Mesibo_onForeground:(id _Nonnull)parent screenId:(int)screenId foreground:(BOOL)foreground NS_SWIFT_NAME(Mesibo_onForeground(parent:screenId:foreground:));
 
--(NSArray *) Mesibo_onGetMenu:(id)parent type:(int) type profile:(MesiboProfile *)profile;
--(BOOL) Mesibo_onMenuItemSelected:(id)parent type:(int)type profile:(MesiboProfile *)profile item:(int)item;
+#if 0
+-(void) Mesibo_onShowProfile:(id _Nonnull)parent profile:(MesiboProfile * _Nonnull) profile NS_SWIFT_NAME(Mesibo_onShowProfile(parent:profile:));
+-(NSArray * _Nullable) Mesibo_onGetMenu:(id _Nonnull)parent type:(int) type profile:(MesiboProfile * _Nullable)profile NS_SWIFT_NAME(Mesibo_onGetMenu(parent:type:profile:));
+-(BOOL) Mesibo_onMenuItemSelected:(id _Nonnull)parent type:(int)type profile:(MesiboProfile * _Nullable)profile item:(int)item NS_SWIFT_NAME(Mesibo_onMenuItemSelected(parent:type:profile:item:));
+#endif
 
 @end
 
@@ -1182,26 +1225,26 @@ typedef void (^Mesibo_onRunHandler)(void);
 
 @interface Mesibo : NSObject
 
-+(Mesibo *) getInstance;
++(Mesibo * _Nonnull) getInstance;
 
 //********************** Init ************************************************
 //-(void) someInit; //TBD
 -(void) reset;
--(BOOL) setPath:(NSString *)path;
--(int) setAccessToken:(NSString *)accessToken;
--(int) setPushToken:(NSString *)pushToken voip:(BOOL)voip;
--(void) setPushRegistryCompletion:(void (^)(void))completion;
+-(BOOL) setPath:(NSString * _Nullable)path;
+-(int) setAccessToken:(NSString * _Nullable)accessToken;
+-(int) setPushToken:(NSString * _Nonnull)pushToken voip:(BOOL)voip;
+-(void) setPushRegistryCompletion:(nullable void (^)(void))completion;
 -(uint32_t) getAccessTokenValidity;
 -(int) setBufferLen:(int)length empty:(BOOL)empty;
 -(void) setSecureConnection:(BOOL) enable;
 -(void) setConfiuration:(uint32_t) type value:(uint32_t)value;
--(void) setConfiuration:(uint32_t) type svalue:(NSString *)svalue;
+-(void) setConfiuration:(uint32_t) type svalue:(nullable NSString *)svalue;
 //********************** Listner *********************************************
 //both are same functions, setDelegate is more common in iOS world
--(BOOL) setDelegate:(id)delegate;
--(id) getDelegates;
--(BOOL) addListener:(id)delegate;
--(BOOL) removeListner:(id)delegate;
+-(BOOL) setDelegate:(nonnull id)delegate;
+-(nullable id) getDelegates;
+-(BOOL) addListener:(nonnull id)delegate;
+-(BOOL) removeListner:(nonnull id)delegate;
 
 //********************** Live Connection **************************************
 -(int) start;
@@ -1213,41 +1256,41 @@ typedef void (^Mesibo_onRunHandler)(void);
 -(void)setNetwork:(int)connectivity;
 -(int) getDeviceType;
 -(uint32_t) getUid;
--(NSString *) getAddress;
--(void) setAppName:(NSString *)name ;
--(NSString *) getAppName;
--(MesiboEndToEndEncryption *) e2ee;
+-(nonnull NSString *) getAddress;
+-(void) setAppName:(nonnull NSString *)name ;
+-(nonnull NSString *) getAppName;
+-(nonnull MesiboEndToEndEncryption *) e2ee;
 
 //********************** Push Handler **************************************
--(void) didReceiveRemoteNotification:(NSDictionary *)userInfo fetchCompletionHandler:(void (^)(UIBackgroundFetchResult))completionHandler;
+-(void) didReceiveRemoteNotification:(nullable NSDictionary *)userInfo fetchCompletionHandler:(nullable void (^)( UIBackgroundFetchResult))completionHandler;
 //-(void) didReceiveIncomingPushWithPayload:(PKPushPayload *)payload forType:(PKPushType)type withCompletionHandler:(void (^)(void))completion;
 
 //********************** Database **********************************************
--(BOOL) setDatabase:(NSString *)name resetTables:(uint32_t)resetTables;
+-(BOOL) setDatabase:(nullable NSString *)name resetTables:(uint32_t)resetTables;
 -(void) resetDatabase:(uint32_t) tables;
--(NSString *) getDatabasePath;
--(NSString *) getDatabaseBackupPath:(NSString *)path;
--(NSString *) backupDatabase:(NSString *)path;
--(NSString *) backupDatabase:(NSString *)path age:(uint32_t)age;
+-(NSString * _Nonnull) getDatabasePath;
+-(NSString * _Nonnull) getDatabaseBackupPath:(nullable NSString *)path;
+-(NSString * _Nonnull) backupDatabase:(nonnull NSString *)path;
+-(NSString * _Nonnull) backupDatabase:(nonnull NSString *)path age:(uint32_t)age;
 
--(int) restoreDatabase:(NSString *)path;
+-(int) restoreDatabase:(NSString * _Nonnull)path;
 -(int) databaseAge;
 -(int) backupAge;
 -(BOOL) isFirstInstall;
 
--(BOOL) setKey:(NSString *)key value:(NSString *)value;
--(NSString *) readKey:(NSString *)key;
--(BOOL) deleteKey:(NSString *)key;
+-(BOOL) setKey:(NSString * _Nonnull)key value:(NSString * _Nonnull)value;
+-(nullable NSString *) readKey:(NSString * _Nonnull)key;
+-(BOOL) deleteKey:(NSString * _Nonnull)key;
 
 
 //********************** Status and Information *********************************
--(NSString *) getBasePath;
--(NSString *) getFilePath:(int)type;
--(void) setForegroundContext:(id)context screenId:(int)screenId foreground:(BOOL)foreground;
--(BOOL) setAppInForeground:(id)context screenId:(int)screenId foreground:(BOOL)foreground;
--(id) getForegroundContext;
+-(NSString * _Nonnull) getBasePath;
+-(NSString * _Nonnull) getFilePath:(int)type sent:(BOOL) sent;
+-(void) setForegroundContext:(id _Nonnull)context screenId:(int)screenId foreground:(BOOL)foreground;
+-(BOOL) setAppInForeground:(id _Nonnull)context screenId:(int)screenId foreground:(BOOL)foreground;
+-(nullable id) getForegroundContext;
 -(BOOL) isAppInForeground;
--(NSString *) version; // TBD
+-(NSString * _Nonnull) version; // TBD
 
 // Time
 -(uint64_t) getTimestamp;
@@ -1256,17 +1299,9 @@ typedef void (^Mesibo_onRunHandler)(void);
 
 //********************** Messaging ************************************************
 
--(int) sendMessage:(MesiboParams *)p msgid:(uint32_t)msgid data:(NSData *)data;
--(int) sendMessage:(MesiboParams *)p msgid:(uint32_t)msgid string:(NSString *)string;
--(int) addCustomMessage:(MesiboParams *)p msgid:(uint32_t)msgid data:(NSData *)data;
--(int) addCustomMessage:(MesiboParams *)p msgid:(uint32_t)msgid string:(NSString *)string;
--(int) sendFile:(MesiboParams *)p msgid:(uint32_t)msgid file:(MesiboFileInfo *)file;
--(int) sendLocation:(MesiboParams *)p msgid:(uint32_t)msgid location:(MesiboLocation *) location;
-//TBD, add title also (already have message)
--(int) sendPresence:(MesiboParams *)p msgid:(uint32_t)msgid presence:(int)presence interval:(int)interval;
--(int) sendActivity:(MesiboParams *)p msgid:(uint32_t)msgid activity:(int)activity interval:(int)interval;
--(int) forwardMessage:(MesiboParams *)p msgid:(uint32_t)msgid forwardid:(uint64_t)forwardid;
--(BOOL) resend:(uint32_t)msgid;
+-(MesiboMessage * _Nullable) getMessage:(uint64_t) mid;
+
+
 -(int) cancel:(int)type msgid:(uint32_t)msgid;
 //-(void) enableAutoSendOnlineStatus:(BOOL)enable;
 -(void) setOnlineStatusMode:(int) mode;
@@ -1278,67 +1313,62 @@ typedef void (^Mesibo_onRunHandler)(void);
 -(int) setMessageRetractionPolicy:(uint32_t) policy;
 -(int) setRemoteRetractionPolicy:(uint32_t) policy;
 
--(BOOL) wipeAndRecallMessages:(uint64_t *)msgids count:(int)count;
+-(BOOL) wipeAndRecallMessages:(uint64_t * _Nonnull)msgids count:(int)count;
 -(BOOL) wipeAndRecallMessage:(uint64_t)msgid;
--(BOOL) wipeMessages:(uint64_t *)msgids count:(int)count remote:(BOOL)remote;
--(BOOL) wipeMessages:(uint64_t *)msgids count:(int)count;
+-(BOOL) wipeMessages:(uint64_t * _Nonnull)msgids count:(int)count remote:(BOOL)remote;
+-(BOOL) wipeMessages:(uint64_t * _Nonnull)msgids count:(int)count;
 -(BOOL) wipeMessage:(uint64_t)msgid;
--(BOOL) deleteMessages:(uint64_t *)msgids count:(int)count remote:(BOOL)remote;
--(BOOL) deleteMessages:(uint64_t *)msgids count:(int)count;
+-(BOOL) deleteMessages:(uint64_t * _Nonnull)msgids count:(int)count remote:(BOOL)remote;
+-(BOOL) deleteMessages:(uint64_t * _Nonnull)msgids count:(int)count;
 -(BOOL) deleteMessage:(uint64_t)msgid remote:(BOOL)remote;
 -(BOOL) deleteMessage:(uint64_t)msgid;
 
--(BOOL) deleteMessages:(NSString *)sender groupid:(uint32_t)groupid ts:(uint64_t)ts;
+-(BOOL) deleteMessages:(NSString * _Nullable)sender groupid:(uint32_t)groupid ts:(uint64_t)ts;
 -(BOOL) deleteZombieMessages:(BOOL) groupOnly;
 //-(void)setEnableReadReceipt:(BOOL)enable sendLastReceipt:(BOOL)sendLastReceipt;
--(int) sendReadReceipt:(MesiboParams *)p msgid:(uint64_t)msgid;
+-(int) sendReadReceipt:(MesiboMessageProperties * _Nonnull)p msgid:(uint64_t)msgid;
 //-(id) getMessageFilter; //TBD, not implemented in IOS
--(BOOL) isReading:(MesiboParams *)p;
--(void) updateLocationImage:(MesiboParams *)params location:(MesiboLocation *)location;
-
+-(BOOL) isReading:(MesiboMessageProperties * _Nonnull)p;
 
 //********************** File Transfer ********************************************
--(MesiboFileInfo *) getFileInstance:(MesiboParams *)p msgid:(uint64_t)msgid mode:(int)mode type:(int)type source:(int)source filePath:(NSString *)filePath url:(NSString *)url listener:(id)listener;
--(BOOL) startFileTransfer:(MesiboFileInfo *)file;
--(BOOL) stopFileTransfer:(MesiboFileInfo *) file;
--(BOOL) updateFileTransferProgress:(MesiboFileInfo *)file progress:(int)progress status:(int)status;
+
 -(BOOL) isFileTransferEnabled;
 -(void) disableFileTransfer;
--(NSString *) getUploadUrl;
--(NSString *) getUploadAuthToken;
--(void) setUploadUrl:(NSString *)url  authToken:(NSString *) authToken;
--(int) getFileType:(NSString *)path;
+-(NSString * _Nullable) getUploadUrl;
+-(NSString * _Nullable) getUploadAuthToken;
+-(void) setUploadUrl:(NSString * _Nullable)url authToken:(NSString * _Nullable) authToken;
+-(int) getFileType:(NSString * _Nonnull)path;
 
 //********************** User Profile *********************************************
 
--(MesiboProfile *) getProfile:(NSString *)peer groupid:(uint32_t)groupid;
--(MesiboProfile *) getProfileIfExists:(NSString *)peer groupid:(uint32_t)groupid;
--(MesiboProfile *) getUserProfile:(NSString *)peer;
--(MesiboProfile *) getGroupProfile:(uint32_t)groupid;
--(MesiboProfile *) getProfileFromParams:(MesiboParams *)params;
+-(MesiboProfile * _Nonnull) getProfile:(NSString * _Nullable)peer groupid:(uint32_t)groupid;
+-(MesiboProfile * _Nullable) getProfileIfExists:(NSString * _Nullable)peer groupid:(uint32_t)groupid;
+-(MesiboProfile * _Nonnull) getUserProfile:(NSString * _Nullable)peer;
+-(MesiboProfile * _Nonnull) getGroupProfile:(uint32_t)groupid;
+-(MesiboProfile * _Nonnull) getProfileFromParams:(MesiboMessageProperties * _Nonnull)params;
 
--(MesiboProfile *) getUserProfileIfExists:(NSString *)peer;
--(MesiboProfile *) getGroupProfileIfExists:(uint32_t)groupid;
+-(MesiboProfile * _Nullable) getUserProfileIfExists:(NSString * _Nonnull)peer;
+-(MesiboProfile * _Nullable) getGroupProfileIfExists:(uint32_t)groupid;
 
--(MesiboProfile *) getSelfProfile;
+-(MesiboProfile * _Nonnull) getSelfProfile;
 
 -(BOOL) isAutoSyncContactsEnabled;
 -(void) enableAutoSyncContacts:(BOOL) enabled;
 
--(void) syncContacts:(NSArray<NSString *> *)addresses addContact:(BOOL)addContact subscribe:(BOOL)subscribe visibility:(int)visibility syncNow:(BOOL) syncNow;
--(void) syncContact:(NSString *)address addContact:(BOOL)addContact subscribe:(BOOL)subscribe visibility:(int)visibility syncNow:(BOOL) syncNow;
+-(void) syncContacts:(NSArray<NSString *> * _Nonnull)addresses addContact:(BOOL)addContact subscribe:(BOOL)subscribe visibility:(int)visibility syncNow:(BOOL) syncNow;
+-(void) syncContact:(NSString * _Nonnull)address addContact:(BOOL)addContact subscribe:(BOOL)subscribe visibility:(int)visibility syncNow:(BOOL) syncNow;
 -(void) syncContacts;
--(void) syncAndUpdateContacts:(NSArray<NSString *> *)addresses addContact:(BOOL)addContact subscribe:(BOOL)subscribe visibility:(int)visibility syncNow:(BOOL) syncNow;
--(void) syncAndUpdateContact:(NSString *)address addContact:(BOOL)addContact subscribe:(BOOL)subscribe visibility:(int)visibility syncNow:(BOOL) syncNow;
+-(void) syncAndUpdateContacts:(NSArray<NSString *> * _Nonnull)addresses addContact:(BOOL)addContact subscribe:(BOOL)subscribe visibility:(int)visibility syncNow:(BOOL) syncNow;
+-(void) syncAndUpdateContact:(NSString * _Nonnull)address addContact:(BOOL)addContact subscribe:(BOOL)subscribe visibility:(int)visibility syncNow:(BOOL) syncNow;
 
--(BOOL) createGroup:(NSString *)name flags:(uint32_t) flags listener:(id)listener;
--(BOOL) createGroup:(MesiboGroupSettings *)settings listener:(id)listener;
+-(BOOL) createGroup:(NSString * _Nonnull)name flags:(uint32_t) flags listener:(id _Nullable)listener;
+-(BOOL) createGroup:(MesiboGroupSettings * _Nonnull)settings listener:(id _Nullable)listener;
 
--(int) subscribeTransient:(NSArray<NSString *> *) addresses type:(uint32_t)type activity:(uint32_t)activity duration:(uint32_t)duration;
+-(int) subscribeTransient:(NSArray<NSString *> * _Nonnull) addresses type:(uint32_t)type activity:(uint32_t)activity duration:(uint32_t)duration;
 
 -(void) hideInactiveGroupProfiles:(BOOL) reset;
--(NSArray *) getSortedProfiles;
--(NSArray *) getRecentProfiles;
+-(NSArray * _Nonnull) getSortedProfiles;
+-(NSArray * _Nonnull) getRecentProfiles;
 
 -(void) updateLookups;
 
@@ -1347,22 +1377,22 @@ typedef void (^Mesibo_onRunHandler)(void);
 -(uint32_t) random;
 -(uint32_t) getSenderMessageId:(uint64_t)mid;
 
--(BOOL) createFile:(NSString *)path fileName:(NSString *)fileName data:(NSData *)data overwrite:(BOOL)overwrite;
--(BOOL) createPath:(NSString *)path;
--(BOOL) fileExists:(NSString *)fileName;
--(BOOL) deleteFile:(NSString *)path;
--(NSString *) getFileName:(NSString *) path;
--(BOOL) renameFile:(NSString *)srcFile destFile:(NSString *)destFile forced:(BOOL) forced ;
+-(BOOL) createFile:(NSString * _Nonnull)path fileName:(NSString * _Nonnull)fileName data:(NSData * _Nonnull)data overwrite:(BOOL)overwrite;
+-(BOOL) createPath:(NSString * _Nonnull)path;
+-(BOOL) fileExists:(NSString * _Nonnull)fileName;
+-(BOOL) deleteFile:(NSString * _Nonnull)path;
+-(NSString * _Nonnull) getFileName:(NSString * _Nonnull) path;
+-(BOOL) renameFile:(NSString * _Nonnull)srcFile destFile:(NSString * _Nonnull)destFile forced:(BOOL) forced ;
 
 // phone functions, used in demo app
--(int) getCountryCodeFromPhone:(NSString *) phone;
--(NSString *) getFQN:(NSString *)phone code:(int)code mcc:(int)mcc;
+-(int) getCountryCodeFromPhone:(NSString * _Nonnull) phone;
+-(NSString * _Nullable) getFQN:(NSString * _Nonnull)phone code:(int)code mcc:(int)mcc;
 
 -(BOOL) isUiThread;
--(void) runInThread:(BOOL)uiThread handler:(Mesibo_onRunHandler) handler;
--(void) queueInThread:(BOOL)uiThread handler:(Mesibo_onRunHandler) handler;
--(void) queueInThread:(BOOL)uiThread delay:(int64_t)delay_ms handler:(Mesibo_onRunHandler) handler;
--(UIImage *) loadImage:(UIImage *)image filePath:(NSString *)path maxside:(int)maxside;
+-(void) runInThread:(BOOL)uiThread handler:(Mesibo_onRunHandler _Nonnull) handler;
+-(void) queueInThread:(BOOL)uiThread handler:(Mesibo_onRunHandler _Nonnull) handler;
+-(void) queueInThread:(BOOL)uiThread delay:(int64_t)delay_ms handler:(Mesibo_onRunHandler _Nonnull) handler;
+-(nullable UIImage *) loadImage:(UIImage * _Nullable)image filePath:(NSString * _Nullable)path maxside:(int)maxside;
 
 //********************** Network.HTTP(S) Functions *********************************************
 -(int) getNetworkConnectivity;
@@ -1382,11 +1412,11 @@ typedef void (^Mesibo_onRunHandler)(void);
 
 
 
-+ (void) Log:(const char*)sourceFile lineNumber:(int)lineNumber format:(NSString*)format, ...;
-+ (void) Log:(NSString*)format, ...;
++ (void) Log:(const char* _Nullable)sourceFile lineNumber:(int)lineNumber format:(NSString* _Nonnull)format, ...;
++ (void) Log:(NSString* _Nonnull)format, ...;
 
--(void) setCallInterface:(int)type ci:(void *) ci;
--(int) call:(NSString *)phone video:(BOOL)video;
+-(void) setCallInterface:(int)type ci:(void * _Nullable) ci;
+-(int) call:(NSString * _Nonnull)phone video:(BOOL)video;
 -(int) answer:(BOOL)video;
 -(int) call_ack:(BOOL)cis;
 -(int) call_info:(uint64_t)info width:(uint16_t)width height:(uint16_t) height;
@@ -1396,15 +1426,15 @@ typedef void (^Mesibo_onRunHandler)(void);
 -(int) hangup:(uint32_t)callid;
 -(int) getMuteStatus;
 -(void) setCallProcessing:(int)rejectStatus currentStatus:(int)currentStatus;
--(void) setCallStatus:(int)type sdp:(NSString *)sdp;
--(void) setCallQueue:(id)q;
+-(void) setCallStatus:(int)type sdp:(NSString * _Nullable)sdp;
+-(void) setCallQueue:(id _Nullable)q;
 -(void) requestBackgroundTime;
--(void) remlog_start:(NSString *)host port:(int) port;
--(void) remlog:(NSString *)log;
+-(void) remlog_start:(NSString * _Nullable)host port:(int) port;
+-(void) remlog:(NSString * _Nullable)log;
 //-(MesiboServer *) getServer:(int)type;
 
 // INTERNAL USE ONLY - NOT TO BE USED
--(id) getProfilesManager;
+
 
 // INTERNAL USE ONLY - DO NOT invoke these functions directly
 -(int) groupcall_start:(uint32_t) groupid;
@@ -1414,9 +1444,9 @@ typedef void (^Mesibo_onRunHandler)(void);
 -(int) groupcall_hangup:(uint32_t)peer sid:(uint32_t) sid;
 -(int) groupcall_set_media:(uint32_t)peer sid:(uint32_t)sid resolution:(uint32_t)resolution screen:(BOOL)screen;
 -(int) groupcall_mute:(uint32_t)peer sid:(uint32_t)sid video:(BOOL)video audio:(BOOL)audio mute:(BOOL)mute;
--(int) groupcall_sdp:(uint32_t)peer sid:(uint32_t)sid resolutioon:(uint32_t)resolution type:(int)type sdp:(NSString *)sdp mid:(NSString *)mid mline:(int) mline;
--(void) groupcall_admin:(uint16_t)o flags:(uint16_t)flags source:(uint32_t)source index:(uint16_t)index tuid:(uint32_t)tuid tsid:(uint32_t)tsid us:(uint32_t *)us ss:(uint32_t *)ss count:(int)count;
--(void) groupcall_fyi:(uint32_t)sid source:(uint32_t)source status:(NSString *)status;
+-(int) groupcall_sdp:(uint32_t)peer sid:(uint32_t)sid resolutioon:(uint32_t)resolution type:(int)type sdp:(NSString * _Nullable)sdp mid:(NSString * _Nullable)mid mline:(int) mline;
+-(void) groupcall_admin:(uint16_t)o flags:(uint16_t)flags source:(uint32_t)source index:(uint16_t)index tuid:(uint32_t)tuid tsid:(uint32_t)tsid us:(uint32_t * _Nullable)us ss:(uint32_t * _Nullable)ss count:(int)count;
+-(void) groupcall_fyi:(uint32_t)sid source:(uint32_t)source status:(NSString * _Nullable)status;
 
 /*
  
@@ -1433,7 +1463,6 @@ typedef void (^Mesibo_onRunHandler)(void);
  -(int) getCharges:(float *)charge;
  */
 
--(void *) getApi;
 @end
 
 #ifdef MESIBO_NOLOGS

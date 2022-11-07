@@ -51,6 +51,6 @@ import PushKit
     public func pushRegistry(_ registry: PKPushRegistry, didReceiveIncomingPushWith payload: PKPushPayload, for type: PKPushType, completion: @escaping () -> Void) {
 
         Mesibo.getInstance().setPushRegistryCompletion(completion)
-        Mesibo.getInstance().setAppInForeground(nil, screenId: -1, foreground: true)
+        //Mesibo.getInstance().setAppInForeground(nil, screenId: -1, foreground: true)
     }
 }

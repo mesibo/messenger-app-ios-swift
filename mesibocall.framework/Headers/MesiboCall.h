@@ -154,10 +154,10 @@
 @class MesiboCallIncomingListener;
 
 @protocol MesiboCallIncomingListener
--(MesiboCallProperties *_Nullable) MesiboCall_OnIncoming:(MesiboProfile *_Nonnull)profile video:(BOOL)video;
--(BOOL) MesiboCall_OnShowUserInterface:(id _Nullable )call properties:(MesiboCallProperties *_Nullable)cp;
--(BOOL) MesiboCall_OnNotify:(int)type profile:(MesiboProfile *_Nonnull)profile video:(BOOL)video;
--(void) MesiboCall_OnError:(MesiboCallProperties*_Nonnull)cp error:(int) error;
+-(MesiboCallProperties * _Nullable) MesiboCall_OnIncoming:(MesiboProfile *_Nonnull)profile video:(BOOL)video NS_SWIFT_NAME(MesiboCall_OnIncoming(profile:video:));
+-(BOOL) MesiboCall_OnShowUserInterface:(id _Nullable )call properties:(MesiboCallProperties *_Nullable)cp NS_SWIFT_NAME(MesiboCall_OnShowUserInterface(call:properties:));
+-(BOOL) MesiboCall_OnNotify:(int)type profile:(MesiboProfile *_Nonnull)profile video:(BOOL)video NS_SWIFT_NAME(MesiboCall_OnNotify(type:profile:video:));
+-(void) MesiboCall_OnError:(MesiboCallProperties*_Nonnull)cp error:(int) error NS_SWIFT_NAME(MesiboCall_OnError(cp:error:));
 @end
 
 @interface MesiboCallApi : NSObject
@@ -201,10 +201,6 @@
 
 -(void) playInCallSound:(NSURL * _Nullable)url volume:(float)volume loops:(int)loops;
 -(void) stopInCallSound;
-
-
-
-
 
 @end
 
@@ -261,7 +257,7 @@ typedef void (^MesiboPermissionBlock)(BOOL granted, BOOL existing);
 + (MesiboCall* _Nonnull) getInstance;
 + (id _Nonnull) startWith:(_Nullable id<MesiboCallIncomingListener>)listner name:(NSString * _Nonnull)appName icon:(UIImage * _Nullable)icon callKit:(BOOL)enabled;
 + (id _Nonnull) startWith:(_Nullable id<MesiboCallIncomingListener>)listner name:(NSString * _Nonnull)appName icon:(UIImage * _Nullable)icon callKit:(BOOL)enabled recentLogs:(BOOL) recentLogs;
-
++(void) testRing;
 
 -(MesiboCallApi *_Nullable) getActiveCall;
 -(NSBundle * _Nullable) getResourceBundle;
@@ -271,7 +267,7 @@ typedef void (^MesiboPermissionBlock)(BOOL granted, BOOL existing);
 -(MesiboCallApi * _Nullable)call:(MesiboCallProperties * _Nonnull)cc;
 
 -(BOOL) callUi:(MesiboCallProperties * _Nonnull)cc;
--(BOOL) callUi:(id _Nonnull)parent address:(NSString * _Nonnull)address video:(BOOL)video;
+-(BOOL) callUi:(id _Nonnull)parent profile:(MesiboProfile * _Nonnull)profile video:(BOOL)video;
 -(BOOL) callUiForExistingCall:(id _Nonnull)parent;
 
 -(MesiboCallProperties * _Nonnull) createCallProperties:(BOOL)video;
@@ -297,7 +293,7 @@ typedef void (^MesiboPermissionBlock)(BOOL granted, BOOL existing);
 -(MesiboGroupCall * _Nullable) groupCall:(id _Nonnull)controller groupid:(uint32_t) groupid;
 
 -(BOOL) groupCallJoinRoomUi:(id _Nonnull)parent;
--(BOOL) groupCallUi:(id _Nonnull)parent gid:(uint32_t)gid video:(BOOL)video publish:(BOOL)publish;
+-(BOOL) groupCallUi:(id _Nonnull)parent profile:(MesiboProfile * _Nonnull)profile video:(BOOL)video publish:(BOOL)publish;
 @end
 
 
@@ -399,8 +395,6 @@ typedef void (^MesiboPermissionBlock)(BOOL granted, BOOL existing);
 -(BOOL) isPublisher;
 @end
 
-
-
 @interface MesiboParticipantSortParams : NSObject
 @property (nonatomic) BOOL orderedBySelf;
 @property (nonatomic) BOOL orderedByTalking;
@@ -416,7 +410,7 @@ typedef void (^MesiboPermissionBlock)(BOOL granted, BOOL existing);
 @end
 
 @protocol MesiboParticipantSortListener
--(MesiboParticipant *_Nonnull) ParticipantSort_onGetParticipant:(id _Nonnull)o;
+-(MesiboParticipant * _Nonnull) ParticipantSort_onGetParticipant:(id _Nonnull)o;
 -(void) ParticipantSort_onSetCoordinates:(id _Nonnull)o position:(int)position x:(float)x y:(float)y width:(float)width height:(float)height;
 @end
 

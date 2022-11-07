@@ -25,6 +25,20 @@
 @optional
 @end
 
+@protocol MesiboUIDelegate <NSObject>
+
+@required
+
+-(void) MesiboUI_onShowProfile:(id _Nonnull)parent profile:(MesiboProfile * _Nonnull) profile NS_SWIFT_NAME(MesiboUI_onShowProfile(parent:profile:));
+-(NSArray * _Nullable) MesiboUI_onGetMenu:(id _Nonnull)parent type:(int) type profile:(MesiboProfile * _Nullable)profile NS_SWIFT_NAME(MesiboUI_onGetMenu(parent:type:profile:));
+-(BOOL) MesiboUI_onMenuItemSelected:(id _Nonnull)parent type:(int)type profile:(MesiboProfile * _Nullable)profile item:(int)item NS_SWIFT_NAME(MesiboUI_onMenuItemSelected(parent:type:profile:item:));
+@end
+
+#define LOCATION_APP_APPLE      0
+#define LOCATION_APP_GOOGLEMAP  1
+#define LOCATION_APP_PROMPT     2
+#define LOCATION_APP_PROMPTONCE 3
+
 @interface MesiboUiOptions : NSObject
 @property (nonatomic) UIImage *contactPlaceHolder;
 @property (nonatomic) UIImage *messagingBackground;
@@ -39,6 +53,7 @@
 @property (nonatomic) BOOL enableBackButton;
 @property (nonatomic) BOOL enableMessageButton;
 @property (nonatomic) BOOL hidesBottomBarWhenPushed;
+@property (nonatomic) BOOL emojify;
 
 @property (nonatomic) BOOL e2eIndicator;
 
@@ -87,6 +102,8 @@
 @property (assign, nonatomic) uint32_t mUserListMaxRows;
 @property (assign, nonatomic) uint32_t messageBackgroundColorForMe;
 @property (assign, nonatomic) uint32_t messageBackgroundColorForPeer;
+@property (assign, nonatomic) uint32_t titleBackgroundColorForMe;
+@property (assign, nonatomic) uint32_t titleBackgroundColorForPeer;
 @property (assign, nonatomic) uint32_t messagingBackgroundColor;
 @property (assign, nonatomic) uint32_t messageInputBackgroundColor;
 @property (assign, nonatomic) uint32_t messageInputButtonsColor;
@@ -97,21 +114,21 @@
 
 
 
-@property (assign, nonatomic) int customFontSize;
 @property (assign, nonatomic) uint32_t customTextColor;
 @property (assign, nonatomic) uint32_t customBackgroundColor;
 @property (assign, nonatomic) uint32_t e2eeBackgroundColor;
 
-@property (assign, nonatomic) int dateFontSize;
 @property (assign, nonatomic) uint32_t dateTextColor;
 @property (assign, nonatomic) uint32_t dateBackgroundColor;
 
 @property (assign, nonatomic) uint32_t titleTextColor;
-@property (assign, nonatomic) int titleFontSize;
 @property (assign, nonatomic) UIFont *titleFont;
+@property (assign, nonatomic) UIFont *subtitleFont;
+@property (assign, nonatomic) UIFont *messageFont;
+@property (assign, nonatomic) UIFont *customFont;
+@property (assign, nonatomic) UIFont *dateFont;
 
 @property (assign, nonatomic) UIFont *headingFont;
-@property (assign, nonatomic) int headingFontSize;
 @property (assign, nonatomic) uint32_t headingTextColor;
 
 @property (assign, nonatomic) uint32_t timeTextColor;
@@ -130,6 +147,7 @@
 @property (assign, nonatomic) int docButtonPosition;
 @property (assign, nonatomic) int audioButtonPosition;
 
+@property (assign, nonatomic) int preferredLocationApp;
 
 @property (assign, nonatomic) uint64_t mMaxImageFileSize;
 @property (assign, nonatomic) uint64_t mMaxVideoFileSize;
@@ -143,6 +161,8 @@
 @property (copy, nonatomic) NSString *today;
 @property (copy, nonatomic) NSString *yesterday;
 @property (copy, nonatomic) NSString *at;
+
+@property (copy, nonatomic) NSString *you;
 
 @property (copy, nonatomic) NSString *shareMediaTitle;
 @property (copy, nonatomic) NSString *shareMediaSubTitle;
@@ -163,17 +183,16 @@
 @property (copy, nonatomic) NSString *deleteTitle;
 @property (copy, nonatomic) NSString *deleteAlertTitle;
 
-
-
-
-
-
-
+@property (assign, nonatomic) int verticalImageWidth;
+@property (assign, nonatomic) int horizontalImageWidth;
 
 @end
 
 
 @interface MesiboUI : NSObject
+
++(void) setListener:(id<MesiboUIDelegate>)delegate;
++(nullable id<MesiboUIDelegate>) getListener;
 
 +(void) launchEditGroupDetails:(id) parent groupid:(uint32_t) groupid;
 
@@ -197,6 +216,7 @@
 + (UIViewController *) getE2EViewController:(MesiboProfile *)profile ;
 
 //+(void) getUITableViewInstance:(UITableViewWithReloadCallback *) table;
++(NSBundle *) getMesiboUIBumble;
 
 @end
 
