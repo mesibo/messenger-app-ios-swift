@@ -204,8 +204,8 @@
 
 
 
-+(MesiboUiOptions *) getUiOptions;
-+(void) setUiOptions:(MesiboUiOptions *)options;
++(nonnull MesiboUiOptions *) getUiOptions;
++(void) setUiOptions:(MesiboUiOptions * _Nonnull)options;
 
 +(void) launchMessageViewControllerWithNavigation:(UIViewController *)parent profile:(id)profile uidelegate:(id)uidelegate;
 +(void) launchMessageViewController:(UIViewController *) parent profile:(MesiboProfile*)profile ;
