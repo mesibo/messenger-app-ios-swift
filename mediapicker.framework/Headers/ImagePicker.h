@@ -98,7 +98,11 @@ typedef void (^MesiboImageViewerBlock)(UIImageView *image, UILabel *caption);
 
 @end
 
+@interface PickerUiOptions : NSObject
+@property (assign, nonatomic) uint32_t mToolbarColor;
 
+- (UIColor *) toolBarColor;
+@end
 
 
 @interface ImagePicker : NSObject <UIDocumentPickerDelegate>
@@ -126,12 +130,12 @@ typedef void (^MesiboImageViewerBlock)(UIImageView *image, UILabel *caption);
 -(void) showMediaFiles : (UIViewController *)presentController withMediaData :(NSArray *) data withTitle:(NSString*) title;
 
 -(void) callBackFromFacebook:(UIImage*) imageFacebook;
-
 -(void) showMediaFilesInViewer:(UIViewController *)presentController withInitialIndex:(int)index withData : (NSArray*) filesArray withTitle:(NSString*) title;
 
 +(void) showFile:(UIViewController *)parent path:(NSString *)path title:(NSString *)title type:(int)type;
-
 +(void) mapSnapShot:(double)lat lon:(double)lon handler:(void(^)(ImagePickerFile *file)) handler;
-
 + (UIImage *)getDefaultImageForExt:(NSString *)ext;
+
++(void) setUiOptions:(PickerUiOptions *)options;
++(PickerUiOptions *) getUiOptions;
 @end
