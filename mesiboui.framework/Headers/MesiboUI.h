@@ -53,7 +53,6 @@
 @property (nonatomic) BOOL enableBackButton;
 @property (nonatomic) BOOL enableMessageButton;
 @property (nonatomic) BOOL hidesBottomBarWhenPushed;
-@property (nonatomic) BOOL emojify;
 
 @property (nonatomic) BOOL e2eIndicator;
 
@@ -122,13 +121,13 @@
 @property (assign, nonatomic) uint32_t dateBackgroundColor;
 
 @property (assign, nonatomic) uint32_t titleTextColor;
-@property (assign, nonatomic) UIFont *titleFont;
-@property (assign, nonatomic) UIFont *subtitleFont;
-@property (assign, nonatomic) UIFont *messageFont;
-@property (assign, nonatomic) UIFont *customFont;
-@property (assign, nonatomic) UIFont *dateFont;
+@property (copy, nonatomic) UIFont *titleFont;
+@property (copy, nonatomic) UIFont *subtitleFont;
+@property (copy, nonatomic) UIFont *messageFont;
+@property (copy, nonatomic) UIFont *customFont;
+@property (copy, nonatomic) UIFont *dateFont;
 
-@property (assign, nonatomic) UIFont *headingFont;
+@property (copy, nonatomic) UIFont *headingFont;
 @property (assign, nonatomic) uint32_t headingTextColor;
 
 @property (assign, nonatomic) uint32_t timeTextColor;
@@ -205,7 +204,7 @@
 
 
 +(nonnull MesiboUiOptions *) getUiOptions;
-+(void) setUiOptions:(MesiboUiOptions * _Nonnull)options;
+//+(void) setUiOptions:(MesiboUiOptions * _Nonnull)options;
 
 +(void) launchMessageViewControllerWithNavigation:(UIViewController *)parent profile:(id)profile uidelegate:(id)uidelegate;
 +(void) launchMessageViewController:(UIViewController *) parent profile:(MesiboProfile*)profile ;

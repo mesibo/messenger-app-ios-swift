@@ -453,6 +453,8 @@
 -(BOOL) isLookedup;
 -(void) setLookedup:(BOOL)enable;
 
+-(BOOL) isValidDestination;
+
 -(BOOL) isProfileSynced;
 -(BOOL) isSyncedProfileRecent;
 
@@ -726,6 +728,9 @@
 -(BOOL) isFailed;
 -(BOOL) isMessageStatusInProgress;
 
+-(BOOL) isDate;
+-(BOOL) isMessage;
+
 -(BOOL) isDestinedFor:(MesiboProfile * _Nonnull) profile;
 
 -(void) setAge:(uint32_t) age;
@@ -876,6 +881,15 @@ typedef MesiboProfile MesiboAddress;
 -(int) sendOnline;
 -(int) sendOffline;
 -(int) sendRequest;
+
+-(BOOL) isRequest;
+-(BOOL) isOnline;
+-(BOOL) isOffline;
+-(BOOL) isTyping;
+-(BOOL) isTypingCleared;
+-(BOOL) isChatting;
+-(BOOL) hasJoined;
+-(BOOL) hasLeft;
 @end
 
 // For internal use only - will be for public use from v2.0
@@ -895,6 +909,10 @@ typedef MesiboProfile MesiboAddress;
 
 @property (nonatomic)  BOOL copyFiles;
 @property (nonatomic)  BOOL urlPreview;
+@property (nonatomic)  BOOL urlPreviewServer;
+@property (nonatomic)  BOOL urlPreviewCache;
+@property (nonatomic)  BOOL urlPreviewShare;
+
 @property (nonatomic)  BOOL extractUrlFromMessage;
 @property (nonatomic)  BOOL sendFileName;
 @property (nonatomic)  BOOL imageProcessing;
@@ -915,17 +933,21 @@ typedef MesiboProfile MesiboAddress;
 @property (nonatomic)  uint16_t thumbnailMaxSide;
 @property (nonatomic)  double thumbnailAspectRatio;
 @property (nonatomic)  uint32_t maxPreviewSize;
-@property (nonatomic)  int trackingProtectionLevel; // level of protection
-@property (nonatomic)  uint32_t passthroughSize; // min size to re-endode, else
-@property (nonatomic)  uint32_t urlTransferSize; // download file only if less than this
+@property (nonatomic)  int trackingProtectionLevel;
+@property (nonatomic)  uint32_t passthroughSize;
+@property (nonatomic)  uint32_t urlTransferSize;
+@property (nonatomic)  uint32_t urlPreviewExpiry;
 @property (nonatomic)  BOOL secureDownload;
 @property (nonatomic)  BOOL openExternally;
 
 @property (nonatomic)  BOOL markForwarded;
 
++(void) setDefaults:(MesiboMessage *) defaults;
+
 -(nonnull id)initWithPeer:(NSString * _Nonnull) peer;
 -(nonnull id)initWithGroupId:(uint32_t) groupid;
 -(nonnull id)initWithProfile:(MesiboProfile * _Nonnull) profile;
+-(void) initDefaults;
 -(BOOL) canSend;
 -(void) setObject:(nullable id) obj;
 -(nullable id) getObject;
@@ -982,6 +1004,7 @@ typedef MesiboProfile MesiboAddress;
 -(BOOL) wipeAndRecall;
 -(BOOL) mayBeRetracted;
 -(int) getProgress;
+-(MesiboMessage * _Nonnull) cloneDate;
 -(void) setString:(NSString * _Nonnull)name value:(NSString * _Nonnull) value;
 -(void) setLong:(NSString * _Nonnull)name value:(long) value;
 -(void) setInt:(NSString * _Nonnull)name value:(int) value;
