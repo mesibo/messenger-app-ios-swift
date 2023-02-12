@@ -15,7 +15,7 @@ import MesiboUIHelper
 import UIKit
 
 @UIApplicationMain
-@objc public class AppDelegate: UIResponder, UIApplicationDelegate, MesiboDelegate, MesiboUIDelegate {
+@objc public class AppDelegate: UIResponder, UIApplicationDelegate, MesiboDelegate {
     
     private var mMesiboUIHelper: MesiboUIHelper?
     private var mAppLaunchData: MesiboUiHelperConfig?
@@ -32,6 +32,7 @@ import UIKit
     private var thiz: AppDelegate?
     public var window: UIWindow?
     public var fileTranserHandler: SampleAppFileTransferHandler?
+    private var uiListener: UIListener?
     
     public func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey : Any]? = nil) -> Bool {
         
@@ -71,7 +72,7 @@ import UIKit
         
         
         Mesibo.getInstance().addListener(self);
-        MesiboUI.setListener(self)
+        
         
         // just to intitialize
         
@@ -188,9 +189,14 @@ import UIKit
     
     func launchMesiboUI() {
         let ui = MesiboUI.getOptions()
-        ui?.emptyUserListMessage = "No active conversations! Invite your family and friends to try mesibo."
+        ui.emptyUserListMessage = "No active conversations! Invite your family and friends to try mesibo."
         
-        let mesiboController = MesiboUI.getViewController()
+        uiListener = UIListener()
+        
+        let opts = MesiboUserListScreenOptions()
+        
+        let mesiboController = MesiboUI.getUserListViewController(opts)
+        
         var navigationController: UINavigationController? = nil
         if let mesiboController = mesiboController {
             navigationController = UINavigationController(rootViewController: mesiboController)
@@ -348,70 +354,6 @@ import UIKit
         })
         
         setRootController(editSelfProfileController)
-    }
-    
-    public func MesiboUI_onGetMenu(parent: Any, type: Int32, profile: MesiboProfile?) -> [Any]? {
-        
-        var btns: [AnyHashable]? = nil
-        
-        if type == 0 {
-            let button = UIButton(type: .custom)
-            button.setImage(UIImage(named: "ic_message_white"), for: .normal)
-            button.frame = CGRect(x: 0, y: 0, width: 44, height: 44)
-            button.tag = 0
-            
-            let button1 = UIButton(type: .custom)
-            button1.setImage(UIImage(named: "ic_more_vert_white"), for: .normal)
-            button1.frame = CGRect(x: 0, y: 0, width: 44, height: 44)
-            button1.tag = 1
-            
-            btns = [button, button1]
-        } else {
-            if profile != nil && profile?.getGroupId() == 0 {
-                let button = UIButton(type: .custom)
-                button.setImage(UIImage(named: "ic_call_white"), for: .normal)
-                button.frame = CGRect(x: 0, y: 0, width: 44, height: 44)
-                button.tag = 0
-                
-                let vbutton = UIButton(type: .custom)
-                vbutton.setImage(UIImage(named: "ic_videocam_white"), for: .normal)
-                vbutton.frame = CGRect(x: 0, y: 0, width: 44, height: 44)
-                vbutton.tag = 1
-                
-                btns = [vbutton, button]
-            }
-        }
-        
-        return btns
-        
-    }
-    
-    public func MesiboUI_onMenuItemSelected(parent: Any, type: Int32, profile: MesiboProfile?, item: Int32) -> Bool {
-        
-        // userlist menu are active
-        if type == 0 {
-            // USERLIST
-            if item == 1 {
-                //item == 0 is reserved
-                MesiboUIManager.launchSettings(parent as! UIViewController)
-            }
-        } else {
-            // MESSAGEBOX
-            if item == 0 {
-                print("Menu btn from messagebox pressed")
-                MesiboCall.getInstance().callUi(parent, profile: profile!, video: false)
-            } else if item == 1 {
-                DispatchQueue.main.async(execute: {
-                    MesiboCall.getInstance().callUi(parent, profile: profile!, video: true)
-                    
-                })
-            }
-        }
-        return true
-    }
-    
-    public func MesiboUI_onShowProfile(parent: Any, profile: MesiboProfile) {
-        MesiboUIManager.launchProfile(parent, profile: profile)
     }
     
     @objc func logout(fromApplication sender: UIViewController?) {

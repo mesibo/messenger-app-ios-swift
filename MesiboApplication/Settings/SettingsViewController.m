@@ -43,6 +43,8 @@
     UIBarButtonItem *barButton = [[UIBarButtonItem alloc] initWithCustomView:button];
     self.navigationItem.leftBarButtonItem = barButton;
     
+    [CommonAppUtils styleLight:self.view];
+    
 
 }
 
@@ -73,8 +75,9 @@
             imageView.layer.masksToBounds = YES;
             
             MesiboProfile *up = [MesiboInstance getSelfProfile];
+            NSString *status = [up getStatus];
             imageView.image = [up getImageOrThumbnail];
-            if(!imageView.image) imageView.image = [MesiboUI getDefaultImage:NO];
+            if(!imageView.image) imageView.image = [AppUIManager getDefaultImage:NO];
     
             
             UILabel *nameLabel = [cell viewWithTag:101];

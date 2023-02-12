@@ -2,7 +2,7 @@
 //  SampleAppNotify.swift
 //  MesiboMessengerSwift
 //
-//  Copyright © 2020 Mesibo. All rights reserved.
+//  Copyright © 2023 Mesibo. All rights reserved.
 //
 
 import Foundation

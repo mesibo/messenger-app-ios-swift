@@ -894,7 +894,9 @@
         if([memberProfile isSelfProfile])
             return;
         
-        [MesiboUI launchMessageViewController:self profile:memberProfile];
+        MesiboMessageScreenOptions *opts = [MesiboMessageScreenOptions new];
+        opts.profile = memberProfile;
+        [MesiboUI launchMessaging:self opts:opts];
         return;
     }
     
@@ -932,7 +934,9 @@
                 [mProfiles removeObjectAtIndex:indexPath.row];
                 [_mMembersTable reloadData];
             } else if(2 == j) {
-                [MesiboUI launchMessageViewController:self profile:memberProfile];
+                MesiboMessageScreenOptions *opts = [MesiboMessageScreenOptions new];
+                opts.profile = memberProfile;
+                [MesiboUI launchMessaging:self opts:opts];
             }
             
         }];

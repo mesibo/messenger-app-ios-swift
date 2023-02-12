@@ -2,7 +2,7 @@
 //  SampleAppListeners.swift
 //  MesiboMessengerSwift
 
-//  Copyright © 2022 Mesibo. All rights reserved.
+//  Copyright © 2023 Mesibo. All rights reserved.
 //
 
 import Foundation

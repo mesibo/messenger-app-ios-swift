@@ -16,6 +16,7 @@
 @interface SettingsViewController : UITableViewController
 
 @property (nonatomic, strong) id <LogoutDelegate> delegate;
+@property (nonatomic, strong) id mParent;
 @property (weak, nonatomic) IBOutlet UINavigationItem *mNavigationItem;
 
 @end

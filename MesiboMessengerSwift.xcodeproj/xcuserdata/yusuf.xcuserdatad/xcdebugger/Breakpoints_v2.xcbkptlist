@@ -274,22 +274,6 @@
       <BreakpointProxy
          BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
          <BreakpointContent
-            uuid = "A8BAA833-96C4-4C7C-877B-812DC7D58241"
-            shouldBeEnabled = "No"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "MesiboApplication/AppDelegate.swift"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "355"
-            endingLineNumber = "355"
-            landmarkName = "MesiboUI_onGetMenu(parent:type:profile:)"
-            landmarkType = "7">
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
             uuid = "17914142-71FA-4436-A23C-33530D77D9A3"
             shouldBeEnabled = "No"
             ignoreCount = "0"
@@ -297,25 +281,9 @@
             filePath = "MesiboApplication/AppDelegate.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "40"
-            endingLineNumber = "40"
+            startingLineNumber = "41"
+            endingLineNumber = "41"
             landmarkName = "application(_:didFinishLaunchingWithOptions:)"
-            landmarkType = "7">
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            uuid = "6A289401-DB3C-4CFA-900A-7596B2D4650A"
-            shouldBeEnabled = "No"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "MesiboApplication/AppDelegate.swift"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "392"
-            endingLineNumber = "392"
-            landmarkName = "MesiboUI_onMenuItemSelected(parent:type:profile:item:)"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
@@ -329,8 +297,8 @@
             filePath = "MesiboApplication/AppDelegate.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "208"
-            endingLineNumber = "208"
+            startingLineNumber = "214"
+            endingLineNumber = "214"
             landmarkName = "launchMainUI()"
             landmarkType = "7">
          </BreakpointContent>
@@ -393,8 +361,8 @@
             filePath = "MesiboApplication/AppDelegate.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "165"
-            endingLineNumber = "165"
+            startingLineNumber = "166"
+            endingLineNumber = "166"
             landmarkName = "onLogin(_:code:akToken:caller:handler:)"
             landmarkType = "7">
          </BreakpointContent>
@@ -409,8 +377,8 @@
             filePath = "MesiboApplication/AppDelegate.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "186"
-            endingLineNumber = "186"
+            startingLineNumber = "187"
+            endingLineNumber = "187"
             landmarkName = "onLogin(_:code:akToken:caller:handler:)"
             landmarkType = "7">
          </BreakpointContent>
@@ -441,8 +409,8 @@
             filePath = "MesiboApplication/AppDelegate.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "167"
-            endingLineNumber = "167"
+            startingLineNumber = "168"
+            endingLineNumber = "168"
             landmarkName = "onLogin(_:code:akToken:caller:handler:)"
             landmarkType = "7">
          </BreakpointContent>
@@ -473,25 +441,9 @@
             filePath = "MesiboApplication/AppDelegate.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "174"
-            endingLineNumber = "174"
+            startingLineNumber = "175"
+            endingLineNumber = "175"
             landmarkName = "onLogin(_:code:akToken:caller:handler:)"
-            landmarkType = "7">
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            uuid = "56D701B5-B086-40C8-8524-CD97984D82E7"
-            shouldBeEnabled = "No"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "MesiboApplication/AppDelegate.swift"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "396"
-            endingLineNumber = "396"
-            landmarkName = "MesiboUI_onMenuItemSelected(parent:type:profile:item:)"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
@@ -531,7 +483,7 @@
          BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
          <BreakpointContent
             uuid = "52A20A77-8409-4AAD-A678-EDF2EB21B22F"
-            shouldBeEnabled = "Yes"
+            shouldBeEnabled = "No"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "MesiboApplication/Settings/SettingsViewController.m"
@@ -1009,16 +961,16 @@
       <BreakpointProxy
          BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
          <BreakpointContent
-            uuid = "9F023B6A-6D39-489A-91FD-3F83F60646C1"
-            shouldBeEnabled = "No"
+            uuid = "3367E9D8-202B-4390-A2F5-E38494191AE1"
+            shouldBeEnabled = "Yes"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
-            filePath = "MesiboApplication/AppDelegate.swift"
+            filePath = "MesiboApplication/UIListener.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "414"
-            endingLineNumber = "414"
-            landmarkName = "MesiboUI_onShowProfile(parent:profile:)"
+            startingLineNumber = "12"
+            endingLineNumber = "12"
+            landmarkName = "init()"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>

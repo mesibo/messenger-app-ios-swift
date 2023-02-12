@@ -132,8 +132,6 @@
 	</array>
 	<key>UILaunchStoryboardName</key>
 	<string>Main</string>
-	<key>UIUserInterfaceStyle</key>
-	<string>light</string>
 	<key>UIMainStoryboardFile</key>
 	<string>Main</string>
 	<key>UIRequiredDeviceCapabilities</key>
@@ -144,5 +142,7 @@
 	<array>
 		<string>UIInterfaceOrientationPortrait</string>
 	</array>
+	<key>UIUserInterfaceStyle</key>
+	<string>light</string>
 </dict>
 </plist>

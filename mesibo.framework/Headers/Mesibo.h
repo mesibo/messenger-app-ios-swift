@@ -44,9 +44,13 @@
 #define MESIBO_MSGSTATUS_CALLOUTGOING   0x17
 #define MESIBO_MSGSTATUS_CUSTOM         0x20
 
-#define MESIBO_MSGSTATUS_DELETED         0x21
-#define MESIBO_MSGSTATUS_WIPED           0x22
+//#define MESIBO_MSGSTATUS_DELETED         0x21
+//#define MESIBO_MSGSTATUS_WIPED           0x22
 #define MESIBO_MSGSTATUS_E2E             0x23
+#define MESIBO_MSGSTATUS_E2E             0x23
+#define MESIBO_MSGSTATUS_DATETIME        0x24
+#define MESIBO_MSGSTATUS_HEADER          0x25
+#define MESIBO_MSGSTATUS_INVISIBLE       0x26
 
 // ONLY FOR UI USAGE
 #define MESIBO_MSGSTATUS_TIMESTAMP      0x30
@@ -321,6 +325,7 @@
 #define MESIBO_GROUPCALLFLAG_SIMULCAST2      0x400
 #define MESIBO_GROUPCALLFLAG_4_3             0x800
 #define MESIBO_GROUPCALLFLAG_RECORD          0x1000
+#define MESIBO_GROUPCALLFLAG_VAD             0x8000
 #define MESIBO_GROUPCALLFLAG_TALKING         0x8000
 #define MESIBO_GROUPCALLFLAG_FIXEDBITRATE    0x10000
 #define MESIBO_GROUPCALLFLAG_FIXEDRESOLUTION        0x20000
@@ -328,7 +333,7 @@
 #define MESIBO_GROUPCALLFLAG_PREFER264       0x80000
 
 #if 0
-#define MESIBO_GROUPCALLFLAG_DEFAULT          (MESIBO_GROUPCALLFLAG_AUDIO|MESIBO_GROUPCALLFLAG_VIDEO|MESIBO_GROUPCALLFLAG_VIDEO|MESIBO_GROUPCALLFLAG_TALKING)
+#define MESIBO_GROUPCALLFLAG_DEFAULT          (MESIBO_GROUPCALLFLAG_AUDIO|MESIBO_GROUPCALLFLAG_VIDEO|MESIBO_GROUPCALLFLAG_SCREEN|MESIBO_GROUPCALLFLAG_VAD)
 #else
 #define MESIBO_GROUPCALLFLAG_DEFAULT 0x8107
 #endif
@@ -435,13 +440,15 @@
 
 -(BOOL) isActive;
 
--(void) setArchived:(BOOL)enable;
+-(void) favorite:(BOOL)enable;
+-(void) archive:(BOOL)enable;
 -(void) setHidden:(BOOL) enable;
 -(void) setMuted:(BOOL) enable;
 -(void) toggleArchive;
 -(void) toggleHidden;
 -(void) toggleMute;
 -(BOOL) isArchived;
+-(BOOL) isFavorite;
 -(BOOL) isMuted;
 -(BOOL) isHidden;
 
@@ -523,7 +530,6 @@
 -(UIImage * _Nullable) getImageOrThumbnail;
 
 
--(void) setAddress:(NSString * _Nullable)addr gid:(uint32_t)gid ;
 -(MesiboProfile * _Nonnull) cloneProfile;
 
 -(MesiboProfileEndToEndEncryption * _Nonnull) e2ee;
@@ -684,7 +690,9 @@
 -(void) enableBroadcast:(BOOL) enable;
 
 -(void) markDeleted:(BOOL) enable;
+-(void) markWiped:(BOOL) enable;
 -(BOOL) isDeleted;
+-(BOOL) isWiped;
 
 -(BOOL) isIncoming;
 -(BOOL) isOutgoing;
@@ -697,6 +705,8 @@
 -(BOOL) isUnread;
 -(BOOL) isSavedMessage;
 -(BOOL) isCustom;
+-(BOOL) isHeader;
+-(BOOL) isInvisible;
 -(BOOL) isModified; // depreciated
 -(BOOL) isModifiedByPeer;
 -(BOOL) isUpdated;
@@ -942,7 +952,7 @@ typedef MesiboProfile MesiboAddress;
 
 @property (nonatomic)  BOOL markForwarded;
 
-+(void) setDefaults:(MesiboMessage *) defaults;
++(void) setDefaults:(MesiboMessage * _Nullable) defaults;
 
 -(nonnull id)initWithPeer:(NSString * _Nonnull) peer;
 -(nonnull id)initWithGroupId:(uint32_t) groupid;
@@ -1399,12 +1409,14 @@ typedef void (^Mesibo_onRunHandler)(void);
 -(void) hideInactiveGroupProfiles:(BOOL) reset;
 -(NSArray * _Nonnull) getSortedProfiles;
 -(NSArray * _Nonnull) getRecentProfiles;
+-(uint64_t) getLastProfileUpdateTimestamp;
 
 -(void) updateLookups;
 
 //********************** Utility Functions *********************************************
 
--(uint32_t) random;
+-(uint32_t) random __deprecated_msg("Use getUniqueMessageId instead.");;
+-(uint32_t) getUniqueMessageId;
 -(uint32_t) getSenderMessageId:(uint64_t)mid;
 
 -(BOOL) createFile:(NSString * _Nonnull)path fileName:(NSString * _Nonnull)fileName data:(NSData * _Nonnull)data overwrite:(BOOL)overwrite;

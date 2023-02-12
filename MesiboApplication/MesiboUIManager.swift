@@ -117,12 +117,11 @@ var shareInProgress: Bool = false
         var rootController = rootController
         
         let ui = MesiboUI.getOptions()
-        ui?.emptyUserListMessage = "No active conversations! Click on the message icon to send a message."
+        ui.emptyUserListMessage = "No active conversations! Click on the message icon to send a message."
+                
+        let opts = MesiboUserListScreenOptions()
         
-        let old = mainWindow?.rootViewController
-        
-        
-        let mesiboController = MesiboUI.getViewController()
+        let mesiboController = MesiboUI.getUserListViewController(opts)
         var navigationController: UINavigationController? = nil
         if let mesiboController = mesiboController {
             navigationController = UINavigationController(rootViewController: mesiboController)

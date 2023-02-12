@@ -82,6 +82,7 @@
 		88F39D90243A3ED800361C78 /* SampleAppNotify.swift in Sources */ = {isa = PBXBuildFile; fileRef = 88F39D8F243A3ED800361C78 /* SampleAppNotify.swift */; };
 		88F6C037243AD22C003767D6 /* PushKitNotify.swift in Sources */ = {isa = PBXBuildFile; fileRef = 88F6C036243AD22C003767D6 /* PushKitNotify.swift */; };
 		88F6C03A243ADAB0003767D6 /* ProgressIndicator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 88F6C039243ADAB0003767D6 /* ProgressIndicator.swift */; };
+		88FB3A202998E6480090F118 /* UIListener.swift in Sources */ = {isa = PBXBuildFile; fileRef = 88FB3A1F2998E6480090F118 /* UIListener.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -218,6 +219,7 @@
 		88F39D8F243A3ED800361C78 /* SampleAppNotify.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SampleAppNotify.swift; sourceTree = "<group>"; };
 		88F6C036243AD22C003767D6 /* PushKitNotify.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PushKitNotify.swift; sourceTree = "<group>"; };
 		88F6C039243ADAB0003767D6 /* ProgressIndicator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProgressIndicator.swift; sourceTree = "<group>"; };
+		88FB3A1F2998E6480090F118 /* UIListener.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIListener.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -365,6 +367,7 @@
 				88F39D8D2439A61B00361C78 /* SampleAppFileTransferHandler.swift */,
 				88F39D8B2439898100361C78 /* SampleAppListeners.swift */,
 				88F39D8F243A3ED800361C78 /* SampleAppNotify.swift */,
+				88FB3A1F2998E6480090F118 /* UIListener.swift */,
 			);
 			name = Sources;
 			sourceTree = "<group>";
@@ -647,6 +650,7 @@
 				88F39D8E2439A61B00361C78 /* SampleAppFileTransferHandler.swift in Sources */,
 				3EA490101E389AA700492966 /* UIColors.m in Sources */,
 				88F6C037243AD22C003767D6 /* PushKitNotify.swift in Sources */,
+				88FB3A202998E6480090F118 /* UIListener.swift in Sources */,
 				3EA490211E389B4C00492966 /* SettingsViewController.m in Sources */,
 				88F39D862436F93200361C78 /* SampleAPI.swift in Sources */,
 				88F39D892438C13800361C78 /* MesiboUIManager.swift in Sources */,
@@ -828,7 +832,7 @@
 					"$(PROJECT_DIR)/Frameworks/MesiboUIHelper",
 					"$(PROJECT_DIR)",
 				);
-				MARKETING_VERSION = 1.5.0;
+				MARKETING_VERSION = 2.0.19;
 				PRODUCT_BUNDLE_IDENTIFIER = org.mesibo.messenger;
 				PRODUCT_NAME = MesiboMessenger;
 				SWIFT_OBJC_BRIDGING_HEADER = "MesiboApplication/MesiboMessengerSwift-Bridging-Header.h";
@@ -865,7 +869,7 @@
 					"$(PROJECT_DIR)/Frameworks/MesiboUIHelper",
 					"$(PROJECT_DIR)",
 				);
-				MARKETING_VERSION = 1.5.0;
+				MARKETING_VERSION = 2.0.19;
 				PRODUCT_BUNDLE_IDENTIFIER = org.mesibo.messenger;
 				PRODUCT_NAME = MesiboMessenger;
 				SWIFT_OBJC_BRIDGING_HEADER = "MesiboApplication/MesiboMessengerSwift-Bridging-Header.h";
