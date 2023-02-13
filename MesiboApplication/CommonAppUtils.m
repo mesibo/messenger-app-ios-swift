@@ -160,7 +160,22 @@ BOOL shareInProgress = NO;
     //[parent presentViewController:activityVC animated:YES completion:nil];
 }
 
++ (void)styleLight:(UIView *)view {
+    
+    view.overrideUserInterfaceStyle = UIUserInterfaceStyleLight;
+    // Get the subviews of the view
+    NSArray *subviews = [view subviews];
 
+    for (UIView *subview in subviews) {
+        
+        subview.overrideUserInterfaceStyle = UIUserInterfaceStyleLight;
+        // Do what you want to do with the subview
+        NSLog(@"%@", subview);
+
+        // List the subviews of subview
+        [self styleLight:subview];
+    }
+}
 
 
 @end

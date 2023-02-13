@@ -14,6 +14,11 @@
 #define USERLIST_MODE_EDITGROUP     4
 #define USERLIST_MODE_MESSAGES      5
 
+@interface MesiboScreenOptions : NSObject
+@property (assign, nonatomic) long sid;
+@property (nonatomic, nullable) id userObject;
+@end
+
 @interface MesiboScreen : NSObject
 @property (nonatomic, nonnull) UIViewController *parent;
 @property (nonatomic, nonnull) UITableView *table;
@@ -23,7 +28,7 @@
 @property (nonatomic, nonnull) UILabel *subtitle;
 @property (nonatomic, nonnull) UIView *titleArea;
 @property (nonatomic) BOOL userList;
-@property (nonatomic) int sid;
+@property (nonatomic, nonnull) MesiboScreenOptions *options;
 -(void) reset;
 @end
 
@@ -132,7 +137,7 @@
 #define LOCATION_APP_PROMPT     2
 #define LOCATION_APP_PROMPTONCE 3
 
-@interface MesiboUiOptions : NSObject
+@interface MesiboUiDefaults : NSObject
 @property (nonatomic, nullable) UIImage *contactPlaceHolder;
 @property (nonatomic, nullable) UIImage *messagingBackground;
 
@@ -277,8 +282,7 @@
 
 @end
 
-@interface MesiboUserListScreenOptions : NSObject
-@property (assign, nonatomic) int sid;
+@interface MesiboUserListScreenOptions : MesiboScreenOptions
 @property (assign, nonatomic) int mode;
 //@property (assign, nonatomic) BOOL startInBackground;
 //@property (assign, nonatomic) BOOL keepRunning;
@@ -292,8 +296,7 @@
 @property (assign, nonatomic, nullable) id<MesiboUIListener> mlistener;
 @end
 
-@interface MesiboMessageScreenOptions : NSObject
-@property (assign, nonatomic) int sid;
+@interface MesiboMessageScreenOptions : MesiboScreenOptions
 @property (assign, nonatomic, nullable) MesiboProfile *profile;
 @property (assign, nonatomic, nullable) id<MesiboUIListener> listener;
 @property (assign, nonatomic) BOOL navigation;
@@ -302,8 +305,10 @@
 @interface MesiboUI : NSObject
 +(void) setListener:(id<MesiboUIListener> _Nullable) delegate;
 +(nullable id<MesiboUIListener>) getListener;
-+(MesiboUiOptions * _Nonnull) getUiOptions;
-+(MesiboScreen * _Nullable) getParentScreen:(id _Nonnull)view;
+
++(MesiboScreen * _Nullable) getParentScreen:(id _Nonnull)view NS_SWIFT_NAME(getParentScreen(_:));
+
++(MesiboUiDefaults * _Nonnull) getUiDefaults NS_SWIFT_NAME(getUiDefaults());
 +(BOOL) addTarget:(id _Nonnull)parent screen:(MesiboScreen * _Nonnull)screen view:(id _Nonnull)view action:(SEL _Nonnull)action;
 
 +(UIViewController * _Nullable) getUserListViewController:(MesiboUserListScreenOptions * _Nonnull)opts;
@@ -311,7 +316,7 @@
 +(UIViewController * _Nullable) getE2EViewController:(MesiboProfile * _Nullable)profile ;
 
 /* depreciated functions. We suggest to use getUserListViewController or getMessageViewController and launch it yourself */
-+(void) launch:(UIViewController * _Nonnull)parent opts:(MesiboUserListScreenOptions * _Nonnull) opts __deprecated_msg("Use getUserListViewController instead.");
++(void) launchUserList:(UIViewController * _Nonnull)parent opts:(MesiboUserListScreenOptions * _Nonnull) opts __deprecated_msg("Use getUserListViewController instead.");
 +(void) launchMessaging:(UIViewController * _Nonnull) parent opts:(MesiboMessageScreenOptions * _Nonnull) opts __deprecated_msg("Use getMessageViewController instead.");
 
 +(void) launchEditGroupDetails:(id _Nonnull)parent groupid:(uint32_t) groupid;

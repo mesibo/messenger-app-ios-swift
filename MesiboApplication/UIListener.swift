@@ -83,8 +83,7 @@ import Foundation
     }
 
 
-    @objc func onAudioCall(sender: Any) {
-
+    func onAudioCall(sender: Any) {
         let screen = MesiboUI.getParentScreen(sender) as! MesiboMessageScreen
         makeCall(parent: screen.parent, profile: screen.profile, video: false)
     }

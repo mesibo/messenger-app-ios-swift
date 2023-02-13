@@ -832,7 +832,7 @@
 					"$(PROJECT_DIR)/Frameworks/MesiboUIHelper",
 					"$(PROJECT_DIR)",
 				);
-				MARKETING_VERSION = 2.0.19;
+				MARKETING_VERSION = 2.0.20;
 				PRODUCT_BUNDLE_IDENTIFIER = org.mesibo.messenger;
 				PRODUCT_NAME = MesiboMessenger;
 				SWIFT_OBJC_BRIDGING_HEADER = "MesiboApplication/MesiboMessengerSwift-Bridging-Header.h";
@@ -869,7 +869,7 @@
 					"$(PROJECT_DIR)/Frameworks/MesiboUIHelper",
 					"$(PROJECT_DIR)",
 				);
-				MARKETING_VERSION = 2.0.19;
+				MARKETING_VERSION = 2.0.20;
 				PRODUCT_BUNDLE_IDENTIFIER = org.mesibo.messenger;
 				PRODUCT_NAME = MesiboMessenger;
 				SWIFT_OBJC_BRIDGING_HEADER = "MesiboApplication/MesiboMessengerSwift-Bridging-Header.h";

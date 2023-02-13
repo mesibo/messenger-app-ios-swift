@@ -682,6 +682,7 @@
 -(void) setPeer:(NSString * _Nonnull)peer;
 -(void) setGroup:(uint32_t) group;
 
+-(void) enableTransient:(BOOL) enable;
 -(void) enablePresence:(BOOL) enable;
 -(void) enableReadReceipt:(BOOL) enable;
 -(void) enableDeliveryReceipt:(BOOL) enable;
@@ -1027,10 +1028,11 @@ typedef MesiboProfile MesiboAddress;
 -(BOOL) getBoolean:(NSString * _Nonnull) name defval:(BOOL) defval;
 
 
-
+#if 0
 +(MesiboMessage * _Nonnull) forPeer:(NSString * _Nonnull) peer;
 +(MesiboMessage * _Nonnull) forGroup:(uint32_t) gid;
 +(MesiboMessage * _Nonnull) forProfile:(MesiboProfile * _Nonnull) profile;
+#endif
 @end
 
 
@@ -1415,7 +1417,7 @@ typedef void (^Mesibo_onRunHandler)(void);
 
 //********************** Utility Functions *********************************************
 
--(uint32_t) random __deprecated_msg("Use getUniqueMessageId instead.");;
+-(uint32_t) random __deprecated_msg("Use getUniqueMessageId instead.");
 -(uint32_t) getUniqueMessageId;
 -(uint32_t) getSenderMessageId:(uint64_t)mid;
 

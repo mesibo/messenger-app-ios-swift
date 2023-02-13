@@ -8,6 +8,7 @@
 #import <mesibo/mesibo.h>
 #import "MesiboMessengerSwift-Bridging-Header.h"
 #import "MesiboMessenger-Swift.h"
+#import "AppUIManager.h"
 
 //#import "AppUIManager.h"
 
