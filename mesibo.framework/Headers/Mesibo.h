@@ -460,6 +460,10 @@
 -(BOOL) isLookedup;
 -(void) setLookedup:(BOOL)enable;
 
+-(BOOL) isCallInProgres;
+-(BOOL) isVideoCallInProgress;
+-(BOOL) isVoiceCallInProgress;
+
 -(BOOL) isValidDestination;
 
 -(BOOL) isProfileSynced;
@@ -1437,6 +1441,10 @@ typedef void (^Mesibo_onRunHandler)(void);
 -(void) queueInThread:(BOOL)uiThread handler:(Mesibo_onRunHandler _Nonnull) handler;
 -(void) queueInThread:(BOOL)uiThread delay:(int64_t)delay_ms handler:(Mesibo_onRunHandler _Nonnull) handler;
 -(nullable UIImage *) loadImage:(UIImage * _Nullable)image filePath:(NSString * _Nullable)path maxside:(int)maxside;
+
+-(MesiboProfile * _Nullable) getActiveCall;
+-(MesiboProfile * _Nullable) getActiveP2PCall;
+-(MesiboProfile * _Nullable) getActiveGroupCall;
 
 //********************** Network.HTTP(S) Functions *********************************************
 -(int) getNetworkConnectivity;

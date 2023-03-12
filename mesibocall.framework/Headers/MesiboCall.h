@@ -41,12 +41,13 @@
 @property (nonatomic) NSString * _Nullable message;
 @property (nonatomic) NSString * _Nullable answer;
 @property (nonatomic) NSString * _Nullable hangup;
+@property (nonatomic) NSString * _Nullable silentJoin;
 @property (nonatomic) BOOL vibrate;
 @property (nonatomic) BOOL sound;
 @property (nonatomic) int color;
 @property (nonatomic) int duration;
 @property (nonatomic) NSURL * _Nullable soundFileUrl;
-- (id _Nonnull)initWith:(BOOL)video;
+- (id _Nonnull)initWith:(BOOL)video group:(BOOL)group;
 @end
 
 @interface MesiboVideoProperties : NSObject
@@ -99,6 +100,7 @@
 @property (nonatomic, weak) id _Nullable parent;
 @property (nonatomic, weak) id _Nullable controller;
 @property (nonatomic) MesiboProfile * _Nullable user;
+@property (nonatomic) MesiboProfile * _Nullable groupProfile;
 
 
 
@@ -112,7 +114,7 @@
 
 @property (nonatomic) int batteryLowThreshold; // 0 to disable
 
-
+@property (nonatomic) BOOL hangup;
 @property (nonatomic) BOOL autoAnswer;
 @property (nonatomic) BOOL autoDetectAppState;
 @property (nonatomic) BOOL disableSpeakerOnProximity;
@@ -128,8 +130,8 @@
 
 @property (nonatomic) BOOL incoming;
 
--(void) reset:(BOOL)video;
--(id _Nonnull )initWith:(BOOL)video;
+-(void) reset:(BOOL)videoEnabled group:(BOOL)group;
+-(id _Nonnull )initWith:(BOOL)video group:(BOOL)group;
 @end
 
 @interface MesiboVideoView : UIView
@@ -247,10 +249,15 @@ enum MesiboAudioDevice {MESIBO_AUDIODEVICE_SPEAKER, MESIBO_AUDIODEVICE_HEADSET, 
 
 @class MesiboParticipant;
 @class MesiboGroupCall;
+@class MesiboGroupCallIncomingListener;
 
 #define MesiboCallInstance [MesiboCall getInstance]
 
 typedef void (^MesiboPermissionBlock)(BOOL granted, BOOL existing);
+
+@protocol MesiboGroupCallIncomingListener
+-(MesiboCallProperties * _Nullable) MesiboGroupcall_OnIncoming:(MesiboProfile * _Nonnull)groupProfile profile:(MesiboProfile * _Nonnull)profile active:(BOOL)active;
+@end
 
 @interface MesiboCall : NSObject
 
@@ -263,6 +270,7 @@ typedef void (^MesiboPermissionBlock)(BOOL granted, BOOL existing);
 -(NSBundle * _Nullable) getResourceBundle;
 
 -(void) setListener:(_Nonnull id<MesiboCallIncomingListener>) delegate;
+-(void) setGroupCallListener:(_Nonnull id<MesiboGroupCallIncomingListener>) delegate;
 -(void) start;
 -(MesiboCallApi * _Nullable)call:(MesiboCallProperties * _Nonnull)cc;
 
@@ -271,6 +279,7 @@ typedef void (^MesiboPermissionBlock)(BOOL granted, BOOL existing);
 -(BOOL) callUiForExistingCall:(id _Nonnull)parent;
 
 -(MesiboCallProperties * _Nonnull) createCallProperties:(BOOL)video;
+-(MesiboCallProperties * _Nonnull) createGroupCallProperties:(BOOL)video;
 
 -(BOOL) isAppInBackground;
 -(BOOL) isCallKitAllowed; 
@@ -294,12 +303,12 @@ typedef void (^MesiboPermissionBlock)(BOOL granted, BOOL existing);
 
 -(BOOL) groupCallJoinRoomUi:(id _Nonnull)parent;
 -(BOOL) groupCallUi:(id _Nonnull)parent profile:(MesiboProfile * _Nonnull)profile video:(BOOL)video publish:(BOOL)publish;
+
+-(void) notify:(MesiboCallProperties *)cp;
 @end
 
 
-@protocol MesiboGroupCallIncomingListener
--(void) MesiboGroupcall_OnIncoming:(MesiboProfile * _Nonnull)groupProfile count:(int)count profile:(MesiboProfile * _Nonnull)profile;
-@end
+
 
 @protocol MesiboGroupCallAdminListener
 -(BOOL) MesiboGroupcallAdmin_OnStartPublishing:(MesiboProfile * _Nonnull)requester isAdmin:(BOOL)isAdmin sid:(uint32_t)sid audio:(BOOL)audio video:(BOOL)video source:(uint32_t)source index:(uint16_t)sindex;
