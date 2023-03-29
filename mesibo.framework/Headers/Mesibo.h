@@ -638,7 +638,8 @@
 -(void) MesiboProfile_onEndToEndEncryption:(MesiboProfile * _Nonnull)profile status:(int) status NS_SWIFT_NAME(MesiboProfile_onEndToEndEncryption(profile:status:));
 @end
 
-@interface MesiboMessageDate : NSObject
+@interface MesiboDateTime : NSObject
+@property (nonatomic) uint64_t ts;
 @property (nonatomic) int year;
 @property (nonatomic) int month;
 @property (nonatomic) int day;
@@ -646,6 +647,13 @@
 @property (nonatomic) int min;
 @property (nonatomic) int sec;
 @property (nonatomic) int daysElapsed;
+
+-(BOOL) isValid;
+-(BOOL) setTimestamp:(uint64_t) ts;
+-(NSString * _Nullable) getMonth;
+-(NSString * _Nonnull) getDate:(BOOL)monthFirst;
+-(NSString * _Nonnull) getDate:(BOOL)monthFirst today:(NSString * _Nullable)today yesterday:(NSString * _Nullable) yesterday;
+-(NSString * _Nonnull) getTime:(BOOL)seconds;
 @end
 
 @interface MesiboMessageProperties : NSObject
@@ -660,7 +668,7 @@
 @property (nonatomic) uint64_t statusFlags;
 @property (nonatomic) int origin;
 
-@property (nonatomic, nullable) MesiboMessageDate *date;
+@property (nonatomic, nullable) MesiboDateTime *date;
 
 @property (nonatomic, nullable) MesiboProfile *profile;
 @property (nonatomic, nullable) MesiboProfile *groupProfile;
@@ -766,9 +774,13 @@
 
 -(int) getCallDuration;
 
--(NSString * _Nonnull) getDate:(BOOL) monthFirst today:(NSString * _Nullable)today yesterday:(NSString * _Nullable)yesterday;
--(NSString * _Nonnull) getDate:(BOOL) monthFirst;
--(NSString * _Nonnull) getTime:(BOOL) seconds;
+-(MesiboDateTime * _Nonnull) getTimestamp;
+-(MesiboDateTime * _Nullable) getReadTimestamp:(NSString * _Nullable) peer;
+-(MesiboDateTime * _Nullable) getDeliveryTimestamp:(NSString * _Nullable) peer;
+
+-(NSString * _Nonnull) getDate:(BOOL) monthFirst today:(NSString * _Nullable)today yesterday:(NSString * _Nullable)yesterday __deprecated_msg("Use getTimestamp instead.");
+-(NSString * _Nonnull) getDate:(BOOL) monthFirst __deprecated_msg("Use getTimestamp instead.");
+-(NSString * _Nonnull) getTime:(BOOL) seconds __deprecated_msg("Use getTimestamp instead.");
 
 @end
 
@@ -976,6 +988,10 @@ typedef MesiboProfile MesiboAddress;
 -(nullable NSString *) getFileName;
 -(long) getFileSize;
 -(nullable NSString *) getFilePath;
+-(nullable NSString *) getImagePath:(BOOL) sent;
+-(nullable NSString *) getVideoPath:(BOOL) sent;
+-(nullable NSString *) getAudioPath:(BOOL) sent;
+-(nullable NSString *) getDocumentPath:(BOOL) sent;
 -(BOOL) isImage;
 -(BOOL) isVideo;
 -(BOOL) isAudio;
@@ -1031,6 +1047,8 @@ typedef MesiboProfile MesiboAddress;
 -(double) getDouble:(NSString * _Nonnull) name defval:(double) defval;
 -(BOOL) getBoolean:(NSString * _Nonnull) name defval:(BOOL) defval;
 
+-(id _Nullable) getUiContext;
+-(void) setUiContext:(id _Nullable) context;
 
 #if 0
 +(MesiboMessage * _Nonnull) forPeer:(NSString * _Nonnull) peer;
