@@ -2,11 +2,10 @@
 //  SampleAPI.swift
 //  MesiboMessengerSwift
 //
-//  Copyright © 2021 Mesibo. All rights reserved.
+//  Copyright © 2023 Mesibo. All rights reserved.
 //
 
 import Foundation
-import contactutils
 
 import mesibo
 
@@ -125,21 +124,13 @@ let CC_KEY = "cc"
         
         initAutoDownload()
         
-        Mesibo.getInstance().setSecureConnection(true)
         // Uncomment to enable end-to-end encryption
         //Mesibo.getInstance()?.e2ee()?.enable(true)
         Mesibo.getInstance().start()
         
     }
     
-    public func getSyncedContacts() -> String? {
-        return Mesibo.getInstance().readKey(SYNCEDCONTACTS_KEY)
-    }
     
-    public func saveSyncedContacts(contacts: [AnyHashable]?) {
-        let str = ContactUtils.getInstance().synced(contacts, type: CONTACTUTILS_SYNCTYPE_SYNC)
-        Mesibo.getInstance().setKey(SYNCEDCONTACTS_KEY, value: str!)
-    }
     
     public func startContactSync() {
         
@@ -153,76 +144,11 @@ let CC_KEY = "cc"
         }
         
         if mResetSyncedContacts {
-            ContactUtils.getInstance().reset()
-            Mesibo.getInstance().setKey(SYNCEDCONTACTS_KEY, value: "")
+            Mesibo.getInstance().getPhoneContactsManager().reset()
         }
         
-        let phone = getPhone()
-        let cc = Mesibo.getInstance().getCountryCode(fromPhone: phone!)
-        ContactUtils.getInstance().setCountryCode(cc)
+        Mesibo.getInstance().getPhoneContactsManager().start()
         
-        //TBD, we need to fix contact utils to run in this thread
-        // We must run in UI thread else contact change is not triggered
-        Mesibo.getInstance().run(inThread: true, handler: {
-            var mContacts: [String] = []
-            var mDeletedContacts: [String] = []
-            
-            ContactUtils.getInstance().sync({ c, type in
-                if c == nil {
-                    return false
-                }
-                
-                if CONTACTUTILS_SYNCTYPE_DELETE == type {
-                    if(c?.phoneNumber == nil) { return true }
-                    let profile = Mesibo.getInstance().getProfile(c?.phoneNumber, groupid: 0)
-                    if profile != nil {
-                        profile.setContact(false, visiblity: 0)
-                        profile.save()
-                    }
-                    
-                    if let phoneNumber = c?.phoneNumber {
-                        mDeletedContacts.append(phoneNumber)
-                    }
-                    return true
-                }
-                //NSLog(@"Contact: %@", c);
-                
-                let selfPhone = SampleAPI.getInstance().getPhone()
-                if selfPhone != nil && c?.phoneNumber != nil && (selfPhone == c?.phoneNumber) {
-                    let selfarray = [c?.phoneNumber]
-                    return true
-                }
-                
-                if c?.phoneNumber != nil {
-                    if let phoneNumber = c?.phoneNumber {
-                        mContacts.append(phoneNumber)
-                    }
-                }
-                
-                if mContacts.count >= 100 || (nil == c?.phoneNumber && mContacts.count > 0) {
-                    
-                    if mContacts.count > 0 {
-                        Mesibo.getInstance().syncContacts(mContacts, addContact: true, subscribe: true, visibility: 0, syncNow: false)
-                        self.saveSyncedContacts(contacts: mContacts)
-                        mContacts.removeAll()
-                    }
-                    
-                }
-                
-                if nil == c?.phoneNumber {
-                    if mDeletedContacts.count > 0 {
-                        Mesibo.getInstance().syncContacts(mDeletedContacts, addContact: false, subscribe: true, visibility: 0, syncNow: false)
-                        ContactUtils.getInstance().synced(mDeletedContacts, type: CONTACTUTILS_SYNCTYPE_DELETE)
-                        mDeletedContacts.removeAll()
-                    }
-                    
-                    Mesibo.getInstance().syncContacts()
-                    self.mSyncStarted = false
-                }
-                
-                return true
-            })
-        })
     }
     
     public func getPhone() -> String? {
@@ -365,7 +291,7 @@ let CC_KEY = "cc"
                 
                 mResetSyncedContacts = true
                 mSyncStarted = false
-                ContactUtils.getInstance().reset()
+                Mesibo.getInstance().getPhoneContactsManager().reset()
                 Mesibo.getInstance().reset()
                 
                 startMesibo(resetProfiles: true)
@@ -445,15 +371,6 @@ let CC_KEY = "cc"
             return true
         }
         return false
-    }
-    
-    public func phoneBookLookup(_ phone: String?) -> String? {
-        let c = ContactUtils.getInstance().lookup(phone, returnCopy: false)
-        if c == nil {
-            return nil
-        }
-        
-        return c?.name
     }
     
     

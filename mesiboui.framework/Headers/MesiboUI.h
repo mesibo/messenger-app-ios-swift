@@ -1,4 +1,13 @@
-//  Copyright © 2023 Mesibo. All rights reserved.
+/************************************************************************
+* By accessing and utilizing this work, you hereby acknowledge that you *
+* have thoroughly reviewed, comprehended, and commit to adhering to the *
+* terms and conditions stipulated on the mesibo website, thereby        *
+* entering into a legally binding agreement.                            *
+*                                                                       *
+* mesibo website: https://mesibo.com                                    *
+*                                                                       *
+* Copyright ©2023 Mesibo. All rights reserved.                          *
+*************************************************************************/
 
 #ifndef __MESIBOUI_H
 #define __MESIBOUI_H
@@ -98,6 +107,8 @@
 @required
 -(BOOL) MesiboUI_onInitScreen:(MesiboScreen * _Nonnull)screen NS_SWIFT_NAME(MesiboUI_onInitScreen(screen:));
 
+-(BOOL) MesiboUI_onShowScreen:(MesiboScreen * _Nonnull)screen NS_SWIFT_NAME(MesiboUI_onShowScreen(screen:));
+
 /* return height of the cell if creating custom cell - return -1 otherwise*/
 -(CGFloat) MesiboUI_onGetCustomRowHeight:(MesiboScreen * _Nonnull)screen row:(MesiboRow * _Nonnull) row NS_SWIFT_NAME(MesiboUI_onGetCustomRowHeight(screen:row:));
 
@@ -116,9 +127,7 @@
  */
 -(BOOL) MesiboUI_onUpdateRow:(MesiboScreen * _Nonnull)screen row:(MesiboRow * _Nonnull) row last:(BOOL)last NS_SWIFT_NAME(MesiboUI_onUpdateRow(screen:row:last:));
 
-/* You can implement addTarget or set tag for buttons */
-//-(BOOL) MesiboUI_onClicked:(MesiboScreen * _Nonnull)screen row:(MesiboRow * _Nullable)row view:(id _Nonnull)view;
-
+-(BOOL) MesiboUI_onClickedRow:(MesiboScreen * _Nonnull)screen row:(MesiboRow * _Nonnull) row  NS_SWIFT_NAME(MesiboUI_onClickedRow(screen:row:));
 
 @end
 
@@ -152,6 +161,8 @@
 @property (nonatomic) BOOL enableMessageButton;
 @property (nonatomic) BOOL hidesBottomBarWhenPushed;
 @property (nonatomic) BOOL alwaysShowSearchBar;
+@property (nonatomic) BOOL showRichMessageButtons;
+
 
 @property (nonatomic) BOOL e2eIndicator;
 
@@ -236,6 +247,9 @@
 @property (assign, nonatomic) uint32_t messagePictureTextColor;
 @property (assign, nonatomic) uint32_t messageReplyTextColor;
 
+@property (assign, nonatomic) uint32_t deleteButtonColor;
+@property (assign, nonatomic) uint32_t unreadButtonColor;
+
 @property (assign, nonatomic) int mediaButtonPosition;
 @property (assign, nonatomic) int locationButtonPosition;
 @property (assign, nonatomic) int docButtonPosition;
@@ -252,6 +266,7 @@
 @property (copy, nonatomic, nonnull) NSString *allUsersTitle;
 @property (copy, nonatomic, nonnull) NSString *groupMembersTitle;
 
+@property (nonatomic) BOOL showMonthFirst;
 @property (copy, nonatomic, nonnull) NSString *today;
 @property (copy, nonatomic, nonnull) NSString *yesterday;
 @property (copy, nonatomic, nonnull) NSString *at;
@@ -276,9 +291,12 @@
 @property (copy, nonatomic, nonnull) NSString *deleteForMeTitle;
 @property (copy, nonatomic, nonnull) NSString *deleteTitle;
 @property (copy, nonatomic, nonnull) NSString *deleteAlertTitle;
+@property (copy, nonatomic, nonnull) NSString *unreadTitle;
 
 @property (assign, nonatomic) int verticalImageWidth;
 @property (assign, nonatomic) int horizontalImageWidth;
+
+@property (assign, nonatomic) UITableViewCellAccessoryType userListCellAccessoryType;
 
 @end
 
@@ -299,6 +317,7 @@
 @interface MesiboMessageScreenOptions : MesiboScreenOptions
 @property (assign, nonatomic, nullable) MesiboProfile *profile;
 @property (assign, nonatomic, nullable) id<MesiboUIListener> listener;
+@property (assign, nonatomic, nullable) id<MesiboUIListener> ulistener;
 @property (assign, nonatomic) BOOL navigation;
 @end
 

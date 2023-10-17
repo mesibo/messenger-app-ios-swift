@@ -2,11 +2,10 @@
 //  AppDelegate.swift
 //  MesiboMessengerSwift
 //
-//  Copyright © 2020 Mesibo. All rights reserved.
+//  Copyright © 2023 Mesibo. All rights reserved.
 //
 
 import Foundation
-import contactutils
 import Intents
 import mesibo
 import MesiboUI
@@ -222,24 +221,7 @@ import UIKit
             self.launchMesiboUI()
         })
         
-        let syncedContacts = SampleAPI.getInstance().getSyncedContacts()
-        
-        ContactUtils.getInstance().initPhonebook(syncedContacts, onPermission: { result in
-            if !result {
-                //permission denied
-                AppAlert.showDialogue("You have not granted contact permission. Mesibo requires contact permission so that you can communicate with your contacts. Go to phone Settings -> Mesibo to grant the necessary permissions to continue! Alternatively, you can reinstall, restart, and then grant permissions.", withTitle: "Permission Required", handler: {
-                    
-                    // change to something more useful depening on your requirements
-                    exit(0);
-                })
-                return
-            }
-            
-
-            
-        }, onChange: {
-            SampleAPI.getInstance().startContactSync()
-        })
+        Mesibo.getInstance().getPhoneContactsManager().start()
     }
     
     func dismissAndlaunchMainUI(_ previousController: UIViewController?) {
@@ -278,10 +260,7 @@ import UIKit
     
     func doLaunchWelcomeController() {
         
-        var countryCode = ContactUtils.getInstance().getCountryCode()
-        if countryCode < 1 {
-            countryCode = 1
-        }
+        var countryCode = 1
         
         //query_mesibo_webrtc();
         

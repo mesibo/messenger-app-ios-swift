@@ -8,6 +8,8 @@ import Foundation
 
 @objcMembers public class UIListener : NSObject, MesiboUIListener {
     
+    
+    
     override init() {
         super.init()
         MesiboUI.setListener(self);
@@ -33,6 +35,14 @@ import Foundation
     
     public func MesiboUI_onUpdateRow(screen: MesiboScreen, row: MesiboRow, last: Bool) -> Bool {
         return true;
+    }
+    
+    public func MesiboUI_onShowScreen(screen: MesiboScreen) -> Bool {
+        return false;
+    }
+    
+    public func MesiboUI_onClickedRow(screen: MesiboScreen, row: MesiboRow) -> Bool {
+        return false;
     }
     
     

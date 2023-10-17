@@ -1,7 +1,0 @@
-framework module contactutils {
- umbrella header "ContactUtils.h"
-
- module * { export * }
-
- export *
-}

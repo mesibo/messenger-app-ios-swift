@@ -6,7 +6,6 @@
 //
 
 import Foundation
-import contactutils
 import mesibo
 import MesiboUI
 import MesiboCall
@@ -66,23 +65,6 @@ import MesiboUIHelper
     }
     
     public func Mesibo_onGetProfile(profile: MesiboProfile) -> Bool {
-        
-        if profile.getGroupId() != 0 {
-            profile.setLookedup(true)
-            return true
-        }
-        
-        let addr = profile.getAddress()
-        
-        if(nil == addr) { return false }
-        
-        
-        let c = ContactUtils.getInstance().lookup(addr, returnCopy: false)
-        if c == nil || c?.name == nil {
-            return false
-        }
-        
-        profile.setOverrideName(c!.name!)
         return true
     }
     

@@ -1,6 +1,14 @@
-// Mesibo.h
-// Copyright © 2022 Mesibo. All rights reserved.
-// https://mesibo.com
+/************************************************************************
+* By accessing and utilizing this work, you hereby acknowledge that you *
+* have thoroughly reviewed, comprehended, and commit to adhering to the *
+* terms and conditions stipulated on the mesibo website, thereby        *
+* entering into a legally binding agreement.                            *
+*                                                                       *
+* mesibo website: https://mesibo.com                                    *
+*                                                                       *
+* Copyright ©2023 Mesibo. All rights reserved.                          *
+*************************************************************************/
+
 
 #pragma once
 
@@ -104,75 +112,6 @@
 #define MESIBO_PRESENCE_RESERVED            255
 
 
-
-
-
-// All status < 0x40 will keep call in progress - max status 0x7F (we can't go beyond that, as 0x80 will be treated as voice)
-#define MESIBO_CALLSTATUS_NONE                  0x00
-#define MESIBO_CALLSTATUS_INCOMING         0x01
-#define MESIBO_CALLSTATUS_INPROGRESS            0x02
-#define MESIBO_CALLSTATUS_RINGING               0x03
-#define MESIBO_CALLSTATUS_ANSWER                0x05
-#define MESIBO_CALLSTATUS_UPDATE                0x06
-#define MESIBO_CALLSTATUS_DTMF                  0x07
-#define MESIBO_CALLSTATUS_SDP                   0x08
-#define MESIBO_CALLSTATUS_MUTE                  0x09
-#define MESIBO_CALLSTATUS_UNMUTE                0x0A
-#define MESIBO_CALLSTATUS_HOLD                  0x0B
-#define MESIBO_CALLSTATUS_UNHOLD                0x0C
-
-#define MESIBO_CALLSTATUS_PING                  0x21
-#define MESIBO_CALLSTATUS_INFO                  0x23
-#define MESIBO_CALLSTATUS_ECHO                  0x24
-#define MESIBO_CALLSTATUS_REDIRECT              0x25
-
-//Local Status used by client
-#define MESIBO_CALLSTATUS_CHANNELUP             0x30
-#define MESIBO_CALLSTATUS_CONNECTED             0x30
-#define MESIBO_CALLSTATUS_QUALITY               0x31
-#define MESIBO_CALLSTATUS_RECONNECTING          0x32
-
-// Phone Specific ERRORs
-#define MESIBO_CALLSTATUS_COMPLETE              0x40
-#define MESIBO_CALLSTATUS_CANCEL                0x41
-#define MESIBO_CALLSTATUS_NOANSWER              0x42
-#define MESIBO_CALLSTATUS_BUSY                  0x43
-#define MESIBO_CALLSTATUS_UNREACHABLE           0x44
-#define MESIBO_CALLSTATUS_OFFLINE               0x45
-#define MESIBO_CALLSTATUS_INVALIDDEST           0x46
-#define MESIBO_CALLSTATUS_INVALIDSTATE          0x47
-#define MESIBO_CALLSTATUS_NOCALLS               0x48
-#define MESIBO_CALLSTATUS_NOVIDEOCALLS          0x49
-#define MESIBO_CALLSTATUS_NOTALLOWED            0x4A
-#define MESIBO_CALLSTATUS_BLOCKED               0x4B
-#define MESIBO_CALLSTATUS_DURATIONEXCEEDED      0x4C
-
-//TringMe specific errir
-#define MESIBO_CALLSTATUS_AUTHFAIL              0x50
-#define MESIBO_CALLSTATUS_NOCREDITS             0x51
-#define MESIBO_CALLSTATUS_NONTRINGMEDEST        0x52
-#define MESIBO_CALLSTATUS_INCOMPATIBLE          0x53
-#define MESIBO_CALLSTATUS_BADCALLID             0x54
-
-// Generic Errors
-#define MESIBO_CALLSTATUS_ERROR                 0x60
-#define MESIBO_CALLSTATUS_HWERROR               0x61
-#define MESIBO_CALLSTATUS_NETWORKERROR          0x62
-#define MESIBO_CALLSTATUS_NETWORKBLOCKED        0x63
-
-#define MESIBO_CALLFLAG_AUDIO                   0x1
-#define MESIBO_CALLFLAG_VIDEO                   0x2
-#define MESIBO_CALLFLAG_STARTCALL               0x4
-#define MESIBO_CALLFLAG_CALLWAITING               0x8
-#define MESIBO_CALLFLAG_WIFI                    0x10
-#define MESIBO_CALLFLAG_SLOWNETWORK             0x20
-#define MESIBO_CALLFLAG_MISSED                  0x1000
-
-//Following CALL_STATUS_ are for internal use and for notifications
-#define MESIBO_CALLSTATUS_DUREXCEED             19
-#define MESIBO_CALLSTATUS_SRCRINGING            20
-#define MESIBO_CALLSTATUS_SRCANSWERED           21
-#define MESIBO_CALLSTATUS_USERINPUT             22
 
 #define MESIBO_SERVERTYPE_STUN                  0
 #define MESIBO_SERVERTYPE_TURN                  1
@@ -429,6 +368,66 @@
 @property (nonatomic, nullable) MesiboMemberPermissions *permissions;
 @end
 
+#define MESIBO_PHONETYPE_INVALID  -1
+#define MESIBO_PHONETYPE_MAYBE  0
+#define MESIBO_PHONETYPE_VALID  1
+#define MESIBO_PHONETYPE_MOBILE  2
+#define MESIBO_PHONETYPE_FIXED  3
+#define MESIBO_PHONETYPE_TOLLFREE  4
+#define MESIBO_PHONETYPE_PREMIUM  5
+#define MESIBO_PHONETYPE_VOIP  6
+#define MESIBO_PHONETYPE_PRIVATE  7
+#define MESIBO_PHONETYPE_COUNTRY  10
+
+@interface MesiboPhoneContact : NSObject
+@property (nonatomic) NSString * _Nullable name;
+@property (nonatomic) NSString * _Nullable phoneNumber;
+@property (nonatomic) NSString * _Nullable nationalNumber;
+@property (nonatomic) NSString * _Nullable country;
+@property (nonatomic) int countryCode;
+@property (nonatomic) int type;
+@property (nonatomic) BOOL valid;
+@end
+
+@protocol MesiboPhoneContactsListener <NSObject>
+-(void) Mesibo_onPhoneContactsAdded:(NSArray<NSString *> * _Nonnull) phones  NS_SWIFT_NAME(Mesibo_onPhoneContactsAdded(phones:));
+-(void) Mesibo_onPhoneContactsDeleted:(NSArray<NSString *> * _Nonnull) phones  NS_SWIFT_NAME(Mesibo_onPhoneContactsDeleted(phones:));
+@end
+
+@interface MesiboPhoneContactsManager : NSObject
+-(void) setListener:(id<MesiboPhoneContactsListener>  _Nonnull) listener;
+-(void) setSyncConfig:(BOOL) addContact subscribe:(BOOL)subscribe visibility:(int) visibility;
+-(void) syncMobileNumbers:(BOOL) enable;
+-(void) syncLandlineNumbers:(BOOL) enable;
+-(void) syncTollfreeNumbers:(BOOL) enable;
+-(void) syncPremiumNumbers:(BOOL) enable;
+-(void) syncVoipNumbers:(BOOL) enable;
+-(void) syncPrivateNumbers:(BOOL) enable;
+-(void) syncUnknownNumbers:(BOOL) enable;
+-(void) ignoreInvalidCharacters:(BOOL) enable;
+-(void) ignoreInvalidLength:(BOOL) enable;
+-(void) truncateLongNumbers:(BOOL) enable;
+-(void) forcePrefixCountryCode:(BOOL) enable;
+-(void) detectMissingCountryCode:(BOOL) enable;
+-(void) enableNameLookup:(BOOL) enable;
+-(void) syncValidNumbers:(BOOL) enable;
+-(void) syncPossiblyValidNumbers:(BOOL) enable;
+-(void) syncInvalidNumbers:(BOOL) enable;
+-(void) overrideProfileName:(BOOL) enable;
+-(BOOL) canOverrideProfileName;
+-(BOOL) start:(BOOL) listenChanges;
+-(BOOL) start;
+-(void) reset;
+-(int) setLocalPhoneNumber:(NSString * _Nonnull) phone;
+-(BOOL) setCountryCode:(int) code;
+-(MesiboPhoneContact * _Nonnull) getCountryCodeFromPhone:(NSString * _Nonnull) phone;
+-(MesiboPhoneContact * _Nonnull) getCountryCode;
+// Removed because of iOS 16 CTCarrier deprecation
+//-(MesiboPhoneContact * _Nonnull) getNetworkCountryCode;
+//-(MesiboPhoneContact * _Nonnull) getSimCountryCode;
+-(MesiboPhoneContact * _Nonnull) validateAndLookupPhoneNumber:(NSString * _Nonnull) phone;
+
+@end
 
 @class MesiboGroupProfile; // foward declaration
 @protocol MesiboProfileDelegate;
@@ -578,6 +577,7 @@
 -(int) getReceivedMessageCount;
 -(int) getUnreadMessageCount;
 -(int) getFailedMessageCount;
+-(int) unread;
 
 -(int) subscribeTransient:(uint32_t)type activity:(uint32_t)activity duration:(uint32_t) duration;
 
@@ -648,11 +648,17 @@
 @property (nonatomic) int sec;
 @property (nonatomic) int daysElapsed;
 
++(BOOL) isMonthFirstDateFormat;
++(BOOL) is24HourTimeFormat;
+
 -(BOOL) isValid;
 -(BOOL) setTimestamp:(uint64_t) ts;
+-(BOOL) isToday;
+-(int) getDays;
 -(NSString * _Nullable) getMonth;
 -(NSString * _Nonnull) getDate:(BOOL)monthFirst;
 -(NSString * _Nonnull) getDate:(BOOL)monthFirst today:(NSString * _Nullable)today yesterday:(NSString * _Nullable) yesterday;
+-(NSString * _Nonnull) getDate:(BOOL)monthFirst today:(NSString * _Nullable)today yesterday:(NSString * _Nullable) yesterday numerical:(BOOL)numerical;
 -(NSString * _Nonnull) getTime:(BOOL)seconds;
 @end
 
@@ -778,9 +784,12 @@
 -(MesiboDateTime * _Nullable) getReadTimestamp:(NSString * _Nullable) peer;
 -(MesiboDateTime * _Nullable) getDeliveryTimestamp:(NSString * _Nullable) peer;
 
--(NSString * _Nonnull) getDate:(BOOL) monthFirst today:(NSString * _Nullable)today yesterday:(NSString * _Nullable)yesterday __deprecated_msg("Use getTimestamp instead.");
--(NSString * _Nonnull) getDate:(BOOL) monthFirst __deprecated_msg("Use getTimestamp instead.");
--(NSString * _Nonnull) getTime:(BOOL) seconds __deprecated_msg("Use getTimestamp instead.");
+#if 0
+/* These functions are removed now - use getTimestamp() and MesiboDateTime */
+-(NSString * _Nonnull) getDate:(BOOL) monthFirst today:(NSString * _Nullable)today yesterday:(NSString * _Nullable)yesterday __deprecated_msg("Use getTimestamp instead -- this function will be removed in the next release.");
+-(NSString * _Nonnull) getDate:(BOOL) monthFirst __deprecated_msg("Use getTimestamp instead -- this function will be removed in the next release.");
+-(NSString * _Nonnull) getTime:(BOOL) seconds __deprecated_msg("Use getTimestamp instead -- this function will be removed in the next release.");
+#endif
 
 @end
 
@@ -988,10 +997,7 @@ typedef MesiboProfile MesiboAddress;
 -(nullable NSString *) getFileName;
 -(long) getFileSize;
 -(nullable NSString *) getFilePath;
--(nullable NSString *) getImagePath:(BOOL) sent;
--(nullable NSString *) getVideoPath:(BOOL) sent;
--(nullable NSString *) getAudioPath:(BOOL) sent;
--(nullable NSString *) getDocumentPath:(BOOL) sent;
+
 -(BOOL) isImage;
 -(BOOL) isVideo;
 -(BOOL) isAudio;
@@ -1245,7 +1251,7 @@ typedef void (^Mesibo_onRunHandler)(void);
 
 -(void) Mesibo_onServer:(int)type url:(NSString * _Nullable)url username:(NSString * _Nullable)username credential:(NSString * _Nullable)credential;
 
--(void) Mesibo_onConfParitcipant:(uint32_t)uid sid:(uint32_t)sid address:(NSString * _Nullable)address name:(NSString * _Nullable)name role:(uint32_t) role flags:(uint32_t) flags;
+-(void) Mesibo_onConfParitcipant:(uint32_t)uid sid:(uint32_t)sid address:(NSString * _Nullable)address name:(NSString * _Nullable)name role:(uint32_t) role flags:(uint32_t) flags callflags:(uint32_t) callflags;
 
 -(void) Mesibo_onConfCall:(uint32_t)uid sid:(uint32_t)sid op:(int)op source:(uint32_t)source resolution:(uint32_t)resolution fps:(int)fps bw:(uint32_t)bw flags:(uint32_t)flags sdp:(NSString * _Nullable)sdp mid:(NSString * _Nullable)mid mline:(int) mline;
 
@@ -1325,6 +1331,8 @@ typedef void (^Mesibo_onRunHandler)(void);
 -(nonnull NSString *) getAppName;
 -(nonnull MesiboEndToEndEncryption *) e2ee;
 
+-(nonnull MesiboPhoneContactsManager *) getPhoneContactsManager;
+
 //********************** Push Handler **************************************
 -(void) didReceiveRemoteNotification:(nullable NSDictionary *)userInfo fetchCompletionHandler:(nullable void (^)( UIBackgroundFetchResult))completionHandler;
 //-(void) didReceiveIncomingPushWithPayload:(PKPushPayload *)payload forType:(PKPushType)type withCompletionHandler:(void (^)(void))completion;
@@ -1350,6 +1358,10 @@ typedef void (^Mesibo_onRunHandler)(void);
 //********************** Status and Information *********************************
 -(NSString * _Nonnull) getBasePath;
 -(NSString * _Nonnull) getFilePath:(int)type sent:(BOOL) sent;
+-(nullable NSString *) getImagePath:(BOOL) sent;
+-(nullable NSString *) getVideoPath:(BOOL) sent;
+-(nullable NSString *) getAudioPath:(BOOL) sent;
+-(nullable NSString *) getDocumentPath:(BOOL) sent;
 -(void) setForegroundContext:(id _Nonnull)context screenId:(int)screenId foreground:(BOOL)foreground;
 -(BOOL) setAppInForeground:(id _Nonnull)context screenId:(int)screenId foreground:(BOOL)foreground;
 -(nullable id) getForegroundContext;
@@ -1387,7 +1399,6 @@ typedef void (^Mesibo_onRunHandler)(void);
 -(BOOL) deleteMessage:(uint64_t)msgid remote:(BOOL)remote;
 -(BOOL) deleteMessage:(uint64_t)msgid;
 
--(BOOL) deleteMessages:(NSString * _Nullable)sender groupid:(uint32_t)groupid ts:(uint64_t)ts;
 -(BOOL) deleteZombieMessages:(BOOL) groupOnly;
 //-(void)setEnableReadReceipt:(BOOL)enable sendLastReceipt:(BOOL)sendLastReceipt;
 -(int) sendReadReceipt:(MesiboMessageProperties * _Nonnull)p msgid:(uint64_t)msgid;
@@ -1397,7 +1408,7 @@ typedef void (^Mesibo_onRunHandler)(void);
 //********************** File Transfer ********************************************
 
 -(BOOL) isFileTransferEnabled;
--(void) disableFileTransfer;
+-(void) enableFileTransfer:(BOOL) enable;
 -(NSString * _Nullable) getUploadUrl;
 -(NSString * _Nullable) getUploadAuthToken;
 -(void) setUploadUrl:(NSString * _Nullable)url authToken:(NSString * _Nullable) authToken;
@@ -1450,9 +1461,6 @@ typedef void (^Mesibo_onRunHandler)(void);
 -(NSString * _Nonnull) getFileName:(NSString * _Nonnull) path;
 -(BOOL) renameFile:(NSString * _Nonnull)srcFile destFile:(NSString * _Nonnull)destFile forced:(BOOL) forced ;
 
-// phone functions, used in demo app
--(int) getCountryCodeFromPhone:(NSString * _Nonnull) phone;
--(NSString * _Nullable) getFQN:(NSString * _Nonnull)phone code:(int)code mcc:(int)mcc;
 
 -(BOOL) isUiThread;
 -(void) runInThread:(BOOL)uiThread handler:(Mesibo_onRunHandler _Nonnull) handler;
@@ -1487,13 +1495,15 @@ typedef void (^Mesibo_onRunHandler)(void);
 
 -(void) setCallInterface:(int)type ci:(void * _Nullable) ci;
 -(int) call:(NSString * _Nonnull)phone video:(BOOL)video;
--(int) answer:(BOOL)video;
+-(int) answer:(uint32_t)callid video:(BOOL)video waiting:(BOOL)waiting;
 -(int) call_ack:(BOOL)cis;
 -(int) call_info:(uint64_t)info width:(uint16_t)width height:(uint16_t) height;
+-(uint32_t) getCallId;
+-(BOOL) isCallWaiting;
 -(int) mute:(BOOL)audio video:(BOOL)video enable:(BOOL)enable;
 -(int) hold:(BOOL)enable;
 -(int) dtmf:(int)digit;
--(int) hangup:(uint32_t)callid;
+-(int) hangup:(uint32_t)callid waiting:(BOOL)waiting;
 -(int) getMuteStatus;
 -(void) setCallProcessing:(int)rejectStatus currentStatus:(int)currentStatus;
 -(void) setCallStatus:(int)type sdp:(NSString * _Nullable)sdp;

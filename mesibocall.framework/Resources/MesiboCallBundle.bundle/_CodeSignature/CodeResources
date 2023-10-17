@@ -14,7 +14,7 @@
 		</data>
 		<key>Assets.car</key>
 		<data>
-		iiVEuZcwBPK0agvFnUKC++SI/Sk=
+		gPTr5SFwi/yOMS0BE6t7QqLFx3Y=
 		</data>
 		<key>Base.lproj/joinroom.storyboardc/5UB-wb-Xnc-view-fvP-ce-ntU.nib/objects-11.0+.nib</key>
 		<data>
@@ -110,7 +110,11 @@
 		</data>
 		<key>ic_clear_black_24dp.tiff</key>
 		<data>
-		ZfYsfSs5wZcM+/d988yUsAZkgDo=
+		sCXvicMwc4pzSI8Da8fNNP/EUMg=
+		</data>
+		<key>profile.png</key>
+		<data>
+		zxVWfjVVLkFVLTPshhM3wmmnK34=
 		</data>
 		<key>progress.mp3</key>
 		<data>
@@ -153,11 +157,11 @@
 		<dict>
 			<key>hash</key>
 			<data>
-			iiVEuZcwBPK0agvFnUKC++SI/Sk=
+			gPTr5SFwi/yOMS0BE6t7QqLFx3Y=
 			</data>
 			<key>hash2</key>
 			<data>
-			Y3R6QeJ8JmLxu4n3d4g68gDUBJh3p/p01+25Zd0sQOM=
+			9pSBioBuJYXZI45UCdJR6pzZ/SnRsP88QgQGtKNPEUo=
 			</data>
 		</dict>
 		<key>Base.lproj/joinroom.storyboardc/5UB-wb-Xnc-view-fvP-ce-ntU.nib/objects-11.0+.nib</key>
@@ -417,11 +421,22 @@
 		<dict>
 			<key>hash</key>
 			<data>
-			ZfYsfSs5wZcM+/d988yUsAZkgDo=
+			sCXvicMwc4pzSI8Da8fNNP/EUMg=
 			</data>
 			<key>hash2</key>
 			<data>
-			uLT1gP+NvLdM9shVKaylsOFdpwA5Xt2wFdYEhWwhfIk=
+			PKOlUSj0F3hAxu0VzrVC3spItdS8FQ1L46nt3NKedUQ=
+			</data>
+		</dict>
+		<key>profile.png</key>
+		<dict>
+			<key>hash</key>
+			<data>
+			zxVWfjVVLkFVLTPshhM3wmmnK34=
+			</data>
+			<key>hash2</key>
+			<data>
+			4MYq55Hjq6w/n74+qwfgs7OmmJMqBXqtQkukHlTGhOQ=
 			</data>
 		</dict>
 		<key>progress.mp3</key>

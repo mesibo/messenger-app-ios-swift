@@ -44,7 +44,6 @@
 		8817FE831FF91A5F00ABB3F4 /* CallKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8817FE821FF91A5F00ABB3F4 /* CallKit.framework */; };
 		8817FE921FF92CFD00ABB3F4 /* PushKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8817FE911FF92CFC00ABB3F4 /* PushKit.framework */; };
 		88292D9A1E88D1B90008A4F7 /* NSDictionary+NilObject.m in Sources */ = {isa = PBXBuildFile; fileRef = 88292D951E88D1B90008A4F7 /* NSDictionary+NilObject.m */; };
-		88292DA01E88E36E0008A4F7 /* AddressBook.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 88292D9F1E88E36E0008A4F7 /* AddressBook.framework */; };
 		8839B07A21ADB50B00B55B85 /* WebRTC.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8839B07921ADB50B00B55B85 /* WebRTC.framework */; };
 		8839B07B21ADB51F00B55B85 /* WebRTC.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8839B07921ADB50B00B55B85 /* WebRTC.framework */; };
 		8839B07C21ADB51F00B55B85 /* WebRTC.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 8839B07921ADB50B00B55B85 /* WebRTC.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
@@ -68,7 +67,6 @@
 		88B4F3291EBB617F0032E9F2 /* mesibo-Regular.otf in Resources */ = {isa = PBXBuildFile; fileRef = 88B4F3281EBB61690032E9F2 /* mesibo-Regular.otf */; };
 		88B4F3481EBDF3960032E9F2 /* NSLayoutConstraint+Visibiltiy.m in Sources */ = {isa = PBXBuildFile; fileRef = 88B4F3451EBDF3960032E9F2 /* NSLayoutConstraint+Visibiltiy.m */; };
 		88B4F3491EBDF3960032E9F2 /* UIView+Visibility.m in Sources */ = {isa = PBXBuildFile; fileRef = 88B4F3471EBDF3960032E9F2 /* UIView+Visibility.m */; };
-		88B4F35F1EBF67890032E9F2 /* contactutils.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 88B4F35E1EBF67890032E9F2 /* contactutils.framework */; };
 		88B6A0531EA736080051A873 /* opensource_ios.png in Resources */ = {isa = PBXBuildFile; fileRef = 88B6A0521EA736080051A873 /* opensource_ios.png */; };
 		88C4EC1521EE3D8C0066F405 /* mesibo.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 88C4EC1421EE3D8C0066F405 /* mesibo.framework */; };
 		88D671F42686C3FB004B1570 /* AppUIManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 88D671F32686C3FB004B1570 /* AppUIManager.m */; };
@@ -175,7 +173,6 @@
 		8817FE911FF92CFC00ABB3F4 /* PushKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = PushKit.framework; path = System/Library/Frameworks/PushKit.framework; sourceTree = SDKROOT; };
 		88292D941E88D1B90008A4F7 /* NSDictionary+NilObject.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSDictionary+NilObject.h"; sourceTree = "<group>"; };
 		88292D951E88D1B90008A4F7 /* NSDictionary+NilObject.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSDictionary+NilObject.m"; sourceTree = "<group>"; };
-		88292D9F1E88E36E0008A4F7 /* AddressBook.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AddressBook.framework; path = System/Library/Frameworks/AddressBook.framework; sourceTree = SDKROOT; };
 		88292DA91E891A3C0008A4F7 /* GooglePlacePicker.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; name = GooglePlacePicker.bundle; path = Frameworks/Google/GooglePlacePicker.framework/Versions/A/Resources/GooglePlacePicker.bundle; sourceTree = "<group>"; };
 		8839B07921ADB50B00B55B85 /* WebRTC.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = WebRTC.framework; sourceTree = "<group>"; };
 		883F3E3F21A9B0520090D7B9 /* mesibouihelper.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = mesibouihelper.framework; sourceTree = "<group>"; };
@@ -203,7 +200,6 @@
 		88B4F3451EBDF3960032E9F2 /* NSLayoutConstraint+Visibiltiy.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSLayoutConstraint+Visibiltiy.m"; sourceTree = "<group>"; };
 		88B4F3461EBDF3960032E9F2 /* UIView+Visibility.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIView+Visibility.h"; sourceTree = "<group>"; };
 		88B4F3471EBDF3960032E9F2 /* UIView+Visibility.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIView+Visibility.m"; sourceTree = "<group>"; };
-		88B4F35E1EBF67890032E9F2 /* contactutils.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = contactutils.framework; sourceTree = "<group>"; };
 		88B6A0521EA736080051A873 /* opensource_ios.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = opensource_ios.png; sourceTree = "<group>"; };
 		88C4EC1421EE3D8C0066F405 /* mesibo.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = mesibo.framework; sourceTree = "<group>"; };
 		88D671F22686C3FB004B1570 /* AppUIManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AppUIManager.h; sourceTree = "<group>"; };
@@ -235,7 +231,6 @@
 				8817FE811FF919CC00ABB3F4 /* VideoToolbox.framework in Frameworks */,
 				8817FE7F1FF919C000ABB3F4 /* AudioToolbox.framework in Frameworks */,
 				88F30B531F7D0BB700803AA8 /* Contacts.framework in Frameworks */,
-				88292DA01E88E36E0008A4F7 /* AddressBook.framework in Frameworks */,
 				887B4C221E460AFF000C4556 /* MapKit.framework in Frameworks */,
 				887B4C201E46071B000C4556 /* AVKit.framework in Frameworks */,
 				3E4CF0AB1E40E90300D589A0 /* MediaPlayer.framework in Frameworks */,
@@ -251,7 +246,6 @@
 				88AD47B22602155C00829724 /* Network.framework in Frameworks */,
 				3EA490621E38A05200492966 /* CoreLocation.framework in Frameworks */,
 				883F3E4021A9B0520090D7B9 /* mesibouihelper.framework in Frameworks */,
-				88B4F35F1EBF67890032E9F2 /* contactutils.framework in Frameworks */,
 				3EA4905E1E38A03B00492966 /* libz.1.1.3.tbd in Frameworks */,
 				887B95DB21F0347E00264A74 /* mesiboui.framework in Frameworks */,
 				888E0D3B27D79B87007A98ED /* MetalKit.framework in Frameworks */,
@@ -418,7 +412,6 @@
 				8817FE801FF919CC00ABB3F4 /* VideoToolbox.framework */,
 				8817FE7E1FF919BF00ABB3F4 /* AudioToolbox.framework */,
 				88F30B521F7D0BB700803AA8 /* Contacts.framework */,
-				88292D9F1E88E36E0008A4F7 /* AddressBook.framework */,
 				887B4C211E460AFF000C4556 /* MapKit.framework */,
 				887B4C1F1E46071B000C4556 /* AVKit.framework */,
 				3E4CF0AA1E40E90300D589A0 /* MediaPlayer.framework */,
@@ -467,7 +460,6 @@
 				88C4EC1421EE3D8C0066F405 /* mesibo.framework */,
 				88DE780921EDA35000A1876A /* mesibocall.framework */,
 				885A99A12814024C00FA7A0C /* MesiboCallBundle.bundle */,
-				88B4F35E1EBF67890032E9F2 /* contactutils.framework */,
 			);
 			name = MesiboCore;
 			sourceTree = "<group>";
@@ -823,7 +815,7 @@
 					"$(PROJECT_DIR)",
 				);
 				INFOPLIST_FILE = MesiboApplication/Info.plist;
-				IPHONEOS_DEPLOYMENT_TARGET = 10.3;
+				IPHONEOS_DEPLOYMENT_TARGET = 11;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
@@ -832,7 +824,7 @@
 					"$(PROJECT_DIR)/Frameworks/MesiboUIHelper",
 					"$(PROJECT_DIR)",
 				);
-				MARKETING_VERSION = 2.0.20;
+				MARKETING_VERSION = 2.1.14;
 				PRODUCT_BUNDLE_IDENTIFIER = org.mesibo.messenger;
 				PRODUCT_NAME = MesiboMessenger;
 				SWIFT_OBJC_BRIDGING_HEADER = "MesiboApplication/MesiboMessengerSwift-Bridging-Header.h";
@@ -860,7 +852,7 @@
 					"$(PROJECT_DIR)",
 				);
 				INFOPLIST_FILE = MesiboApplication/Info.plist;
-				IPHONEOS_DEPLOYMENT_TARGET = 10.3;
+				IPHONEOS_DEPLOYMENT_TARGET = 11;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
@@ -869,7 +861,7 @@
 					"$(PROJECT_DIR)/Frameworks/MesiboUIHelper",
 					"$(PROJECT_DIR)",
 				);
-				MARKETING_VERSION = 2.0.20;
+				MARKETING_VERSION = 2.1.14;
 				PRODUCT_BUNDLE_IDENTIFIER = org.mesibo.messenger;
 				PRODUCT_NAME = MesiboMessenger;
 				SWIFT_OBJC_BRIDGING_HEADER = "MesiboApplication/MesiboMessengerSwift-Bridging-Header.h";
