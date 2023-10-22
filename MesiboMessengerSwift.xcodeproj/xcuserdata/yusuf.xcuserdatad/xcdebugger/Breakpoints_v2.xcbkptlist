@@ -281,10 +281,10 @@
             filePath = "MesiboApplication/AppDelegate.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "40"
-            endingLineNumber = "40"
-            landmarkName = "application(_:didFinishLaunchingWithOptions:)"
-            landmarkType = "7">
+            startingLineNumber = "33"
+            endingLineNumber = "33"
+            landmarkName = "AppDelegate"
+            landmarkType = "3">
          </BreakpointContent>
       </BreakpointProxy>
       <BreakpointProxy
@@ -297,9 +297,9 @@
             filePath = "MesiboApplication/AppDelegate.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "213"
-            endingLineNumber = "213"
-            landmarkName = "launchMainUI()"
+            startingLineNumber = "206"
+            endingLineNumber = "206"
+            landmarkName = "launchMesiboUI()"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
@@ -361,9 +361,9 @@
             filePath = "MesiboApplication/AppDelegate.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "165"
-            endingLineNumber = "165"
-            landmarkName = "onLogin(_:code:akToken:caller:handler:)"
+            startingLineNumber = "158"
+            endingLineNumber = "158"
+            landmarkName = "application(_:continue:restorationHandler:)"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
@@ -377,8 +377,8 @@
             filePath = "MesiboApplication/AppDelegate.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "186"
-            endingLineNumber = "186"
+            startingLineNumber = "179"
+            endingLineNumber = "179"
             landmarkName = "onLogin(_:code:akToken:caller:handler:)"
             landmarkType = "7">
          </BreakpointContent>
@@ -409,9 +409,9 @@
             filePath = "MesiboApplication/AppDelegate.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "167"
-            endingLineNumber = "167"
-            landmarkName = "onLogin(_:code:akToken:caller:handler:)"
+            startingLineNumber = "160"
+            endingLineNumber = "160"
+            landmarkName = "application(_:continue:restorationHandler:)"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
@@ -441,9 +441,9 @@
             filePath = "MesiboApplication/AppDelegate.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "174"
-            endingLineNumber = "174"
-            landmarkName = "onLogin(_:code:akToken:caller:handler:)"
+            startingLineNumber = "167"
+            endingLineNumber = "167"
+            landmarkName = "application(_:continue:restorationHandler:)"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
@@ -489,9 +489,9 @@
             filePath = "MesiboApplication/Settings/SettingsViewController.m"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "83"
-            endingLineNumber = "83"
-            landmarkName = "-tableView:cellForRowAtIndexPath:"
+            startingLineNumber = "79"
+            endingLineNumber = "79"
+            landmarkName = "-backButtonPressed"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
@@ -584,9 +584,9 @@
             filePath = "MesiboApplication/SampleAppListeners.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "73"
-            endingLineNumber = "73"
-            landmarkName = "Mesibo_onForeground(parent:screenId:foreground:)"
+            startingLineNumber = "66"
+            endingLineNumber = "66"
+            landmarkName = "Mesibo_onMessage(message:)"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
@@ -600,10 +600,10 @@
             filePath = "MesiboApplication/SampleAppListeners.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "32"
-            endingLineNumber = "32"
-            landmarkName = "initialize()"
-            landmarkType = "7">
+            startingLineNumber = "25"
+            endingLineNumber = "25"
+            landmarkName = "unknown"
+            landmarkType = "0">
          </BreakpointContent>
       </BreakpointProxy>
       <BreakpointProxy
@@ -616,9 +616,9 @@
             filePath = "MesiboApplication/SampleAppListeners.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "53"
-            endingLineNumber = "53"
-            landmarkName = "Mesibo_onConnectionStatus(status:)"
+            startingLineNumber = "46"
+            endingLineNumber = "46"
+            landmarkName = "getInstance()"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
@@ -632,9 +632,9 @@
             filePath = "MesiboApplication/SampleAppListeners.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "80"
-            endingLineNumber = "80"
-            landmarkName = "mesiboCall_(onNotifyIncoming:profile:video:)"
+            startingLineNumber = "73"
+            endingLineNumber = "73"
+            landmarkName = "Mesibo_onConnectionStatus(status:)"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
@@ -648,25 +648,9 @@
             filePath = "MesiboApplication/SampleAppListeners.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "81"
-            endingLineNumber = "81"
-            landmarkName = "mesiboCall_(onNotifyIncoming:profile:video:)"
-            landmarkType = "7">
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            uuid = "DEF06707-B7C9-4859-9AF7-FB95AAFB3817"
-            shouldBeEnabled = "No"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "MesiboApplication/SampleAppNotify.swift"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "31"
-            endingLineNumber = "31"
-            landmarkName = "initialize()"
+            startingLineNumber = "74"
+            endingLineNumber = "74"
+            landmarkName = "Mesibo_onConnectionStatus(status:)"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
@@ -680,10 +664,10 @@
             filePath = "MesiboApplication/SampleAppNotify.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "34"
-            endingLineNumber = "34"
-            landmarkName = "initialize()"
-            landmarkType = "7">
+            startingLineNumber = "27"
+            endingLineNumber = "27"
+            landmarkName = "unknown"
+            landmarkType = "0">
          </BreakpointContent>
       </BreakpointProxy>
       <BreakpointProxy
@@ -696,9 +680,9 @@
             filePath = "MesiboApplication/SampleAppNotify.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "45"
-            endingLineNumber = "45"
-            landmarkName = "notify(_:subject:message:)"
+            startingLineNumber = "38"
+            endingLineNumber = "38"
+            landmarkName = "getInstance()"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
@@ -707,22 +691,6 @@
          <BreakpointContent
             uuid = "5E31BD00-3E45-481F-B6D4-77B13846EC3F"
             shouldBeEnabled = "No"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "MesiboApplication/SampleAppNotify.swift"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "69"
-            endingLineNumber = "69"
-            landmarkName = "notifyMessage(_:)"
-            landmarkType = "7">
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            uuid = "CF5A852F-B144-47A9-AFA7-642026089E57"
-            shouldBeEnabled = "Yes"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "MesiboApplication/SampleAppNotify.swift"
@@ -737,6 +705,22 @@
       <BreakpointProxy
          BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
          <BreakpointContent
+            uuid = "CF5A852F-B144-47A9-AFA7-642026089E57"
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "MesiboApplication/SampleAppNotify.swift"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "55"
+            endingLineNumber = "55"
+            landmarkName = "SampleAppNotify"
+            landmarkType = "3">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
             uuid = "28DC87B7-F039-448D-8BC8-8B44128ACD8F"
             shouldBeEnabled = "Yes"
             ignoreCount = "0"
@@ -744,9 +728,9 @@
             filePath = "MesiboApplication/SampleAppNotify.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "61"
-            endingLineNumber = "61"
-            landmarkName = "notify(_:subject:message:)"
+            startingLineNumber = "54"
+            endingLineNumber = "54"
+            landmarkName = "initialize()"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
@@ -760,26 +744,10 @@
             filePath = "MesiboApplication/PushKitNotify.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "35"
-            endingLineNumber = "35"
-            landmarkName = "pushRegistry(_:didUpdate:for:)"
-            landmarkType = "7">
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            uuid = "A6C30CEB-F395-4683-9552-8977F638DEC4"
-            shouldBeEnabled = "No"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "MesiboApplication/PushKitNotify.swift"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "29"
-            endingLineNumber = "29"
-            landmarkName = "initialize()"
-            landmarkType = "7">
+            startingLineNumber = "28"
+            endingLineNumber = "28"
+            landmarkName = "SamplePushKitNotify"
+            landmarkType = "3">
          </BreakpointContent>
       </BreakpointProxy>
       <BreakpointProxy
@@ -792,9 +760,9 @@
             filePath = "MesiboApplication/PushKitNotify.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "41"
-            endingLineNumber = "41"
-            landmarkName = "pushRegistry(_:didUpdate:for:)"
+            startingLineNumber = "34"
+            endingLineNumber = "34"
+            landmarkName = "getInstance()"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
@@ -808,9 +776,9 @@
             filePath = "MesiboApplication/PushKitNotify.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "48"
-            endingLineNumber = "48"
-            landmarkName = "pushRegistry(_:didUpdate:for:)"
+            startingLineNumber = "41"
+            endingLineNumber = "41"
+            landmarkName = "getInstance()"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
@@ -856,9 +824,9 @@
             filePath = "MesiboApplication/SampleAPI.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "417"
-            endingLineNumber = "417"
-            landmarkName = "login(_:code:handler:)"
+            startingLineNumber = "410"
+            endingLineNumber = "410"
+            landmarkName = "logout(_:parent:)"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
@@ -872,8 +840,8 @@
             filePath = "MesiboApplication/SampleAPI.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "345"
-            endingLineNumber = "345"
+            startingLineNumber = "338"
+            endingLineNumber = "338"
             landmarkName = "invokeApi(post:filePath:handler:)"
             landmarkType = "7">
          </BreakpointContent>
@@ -888,8 +856,8 @@
             filePath = "MesiboApplication/SampleAPI.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "264"
-            endingLineNumber = "264"
+            startingLineNumber = "257"
+            endingLineNumber = "257"
             landmarkName = "parseResponse(response:request:handler:)"
             landmarkType = "7">
          </BreakpointContent>
@@ -904,8 +872,8 @@
             filePath = "MesiboApplication/SampleAPI.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "266"
-            endingLineNumber = "266"
+            startingLineNumber = "259"
+            endingLineNumber = "259"
             landmarkName = "parseResponse(response:request:handler:)"
             landmarkType = "7">
          </BreakpointContent>
@@ -920,9 +888,9 @@
             filePath = "MesiboApplication/SampleAPI.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "223"
-            endingLineNumber = "223"
-            landmarkName = "parseResponse(response:request:handler:)"
+            startingLineNumber = "216"
+            endingLineNumber = "216"
+            landmarkName = "getDownloadUrl()"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
@@ -952,10 +920,10 @@
             filePath = "MesiboApplication/SampleAppListeners.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "39"
-            endingLineNumber = "39"
-            landmarkName = "Mesibo_onMessage(message:)"
-            landmarkType = "7">
+            startingLineNumber = "32"
+            endingLineNumber = "32"
+            landmarkName = "SampleAppListeners"
+            landmarkType = "3">
          </BreakpointContent>
       </BreakpointProxy>
       <BreakpointProxy
@@ -970,8 +938,8 @@
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "14"
             endingLineNumber = "14"
-            landmarkName = "MesiboUI_onClickedRow(screen:row:)"
-            landmarkType = "7">
+            landmarkName = "unknown"
+            landmarkType = "0">
          </BreakpointContent>
       </BreakpointProxy>
    </Breakpoints>

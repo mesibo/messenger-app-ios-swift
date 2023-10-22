@@ -1,14 +1,26 @@
-/************************************************************************
-* By accessing and utilizing this work, you hereby acknowledge that you *
-* have thoroughly reviewed, comprehended, and commit to adhering to the *
-* terms and conditions stipulated on the mesibo website, thereby        *
-* entering into a legally binding agreement.                            *
-*                                                                       *
-* mesibo website: https://mesibo.com                                    *
-*                                                                       *
-* Copyright ©2023 Mesibo. All rights reserved.                          *
-*************************************************************************/
-
+/******************************************************************************
+* By accessing or copying this work, you agree to comply with the following   *
+* terms:                                                                      *
+*                                                                             *
+* Copyright (c) 2019-2023 mesibo                                              *
+* https://mesibo.com                                                          *
+* All rights reserved.                                                        *
+*                                                                             *
+* Redistribution is not permitted. Use of this software is subject to the     *
+* conditions specified at https://mesibo.com . When using the source code,    *
+* maintain the copyright notice, conditions, disclaimer, and  links to mesibo * 
+* website, documentation and the source code repository.                      *
+*                                                                             *
+* Do not use the name of mesibo or its contributors to endorse products from  *
+* this software without prior written permission.                             *
+*                                                                             *
+* This software is provided "as is" without warranties. mesibo and its        *
+* contributors are not liable for any damages arising from its use.           *
+*                                                                             *
+* Documentation: https://mesibo.com/documentation/                            *
+*                                                                             *
+* Source Code Repository: https://github.com/mesibo/                          *
+*******************************************************************************/
 
 #pragma once
 
@@ -390,8 +402,9 @@
 @end
 
 @protocol MesiboPhoneContactsListener <NSObject>
--(void) Mesibo_onPhoneContactsAdded:(NSArray<NSString *> * _Nonnull) phones  NS_SWIFT_NAME(Mesibo_onPhoneContactsAdded(phones:));
--(void) Mesibo_onPhoneContactsDeleted:(NSArray<NSString *> * _Nonnull) phones  NS_SWIFT_NAME(Mesibo_onPhoneContactsDeleted(phones:));
+-(BOOL) Mesibo_onPhoneContactsChanged  NS_SWIFT_NAME(Mesibo_onPhoneContactsChanged());
+-(BOOL) Mesibo_onPhoneContactsAdded:(NSArray<NSString *> * _Nonnull) phones  NS_SWIFT_NAME(Mesibo_onPhoneContactsAdded(phones:));
+-(BOOL) Mesibo_onPhoneContactsDeleted:(NSArray<NSString *> * _Nonnull) phones  NS_SWIFT_NAME(Mesibo_onPhoneContactsDeleted(phones:));
 @end
 
 @interface MesiboPhoneContactsManager : NSObject
@@ -429,11 +442,18 @@
 
 @end
 
+@class MesiboProfile;
 @class MesiboGroupProfile; // foward declaration
 @protocol MesiboProfileDelegate;
 @class MesiboMessageProperties;
 @class MesiboReadSession;
 @class MesiboFile;
+
+@protocol MesiboProfileCustomizationListener <NSObject>
+-(BOOL) Mesibo_onCustomizeProfile:(MesiboProfile * _Nonnull)profile NS_SWIFT_NAME(Mesibo_onCustomizeProfile(profile:));
+-(NSString * _Nullable) Mesibo_onGetProfileName:(MesiboProfile * _Nonnull)profile NS_SWIFT_NAME(Mesibo_onGetProfileName(profile:));
+-(UIImage * _Nullable) Mesibo_onGetProfileImage:(MesiboProfile * _Nonnull)profile NS_SWIFT_NAME(Mesibo_onGetProfileImage(profile:));
+@end
 
 @interface MesiboProfile : NSObject
 
@@ -443,7 +463,6 @@
 -(void) archive:(BOOL)enable;
 -(void) setHidden:(BOOL) enable;
 -(void) setMuted:(BOOL) enable;
--(void) toggleArchive;
 -(void) toggleHidden;
 -(void) toggleMute;
 -(BOOL) isArchived;
@@ -457,7 +476,6 @@
 -(BOOL) isSelfProfile;
 -(BOOL) isGroup;
 -(BOOL) isLookedup;
--(void) setLookedup:(BOOL)enable;
 
 -(BOOL) isCallInProgres;
 -(BOOL) isVideoCallInProgress;
@@ -496,6 +514,8 @@
 -(BOOL) isVideoCallBlocked;
 -(BOOL) isProfileSubscriptionBlocked;
 
+-(void) setPrivate:(BOOL) enable;
+
 -(void) requestProfileRemoval:(BOOL) enable;
 
 -(uint32_t) getUid;
@@ -507,12 +527,13 @@
 -(NSString * _Nullable) getAdmin ;
 
 -(void) setName:(NSString * _Nonnull)val ;
+-(void) setTemporaryName:(NSString * _Nullable)val;
 -(void) setOverrideName:(NSString * _Nonnull)val ;
 
 -(NSString * _Nullable) getName ;
--(NSString * _Nonnull) getNameOrAddress:(NSString * _Nonnull)prefix;
+-(NSString * _Nonnull) getNameOrAddress;
 -(NSString * _Nullable) getFirstName ;
--(NSString * _Nonnull) getFirstNameOrAddress:(NSString * _Nonnull)prefix;
+-(NSString * _Nonnull) getFirstNameOrAddress;
 -(void) setStatus:(NSString * _Nullable)val ;
 -(NSString * _Nullable) getStatus ;
 -(void) setInfo:(NSString * _Nullable)val ;
@@ -545,6 +566,8 @@
 
 -(void) setImage:(UIImage * _Nullable)image;
 -(BOOL) setImageFromFile:(NSString * _Nullable)path;
+-(void) setTemporaryImage:(UIImage * _Nullable) image thumbnail:(UIImage * _Nullable) thumbnail;
+
 -(NSString * _Nullable) getImagePath;
 
 -(BOOL) isContact;
@@ -1262,7 +1285,6 @@ typedef void (^Mesibo_onRunHandler)(void);
 
 
 -(void) Mesibo_onProfileUpdated:(MesiboProfile * _Nonnull)profile NS_SWIFT_NAME(Mesibo_onProfileUpdated(profile:));
--(BOOL) Mesibo_onGetProfile:(MesiboProfile * _Nonnull)profile NS_SWIFT_NAME(Mesibo_onGetProfile(profile:));
 
 -(void) Mesibo_onGroupCreated:(MesiboProfile * _Nonnull) groupProfile NS_SWIFT_NAME(Mesibo_onGroupCreated(groupProfile:));
 -(void) Mesibo_onGroupJoined:(MesiboProfile * _Nonnull) groupProfile NS_SWIFT_NAME(Mesibo_onGroupJoined(groupProfile:));
@@ -1279,11 +1301,6 @@ typedef void (^Mesibo_onRunHandler)(void);
 //-(void) Mesibo_onShowProfilesList;
 -(void) Mesibo_onForeground:(id _Nonnull)parent screenId:(int)screenId foreground:(BOOL)foreground NS_SWIFT_NAME(Mesibo_onForeground(parent:screenId:foreground:));
 
-#if 0
--(void) Mesibo_onShowProfile:(id _Nonnull)parent profile:(MesiboProfile * _Nonnull) profile NS_SWIFT_NAME(Mesibo_onShowProfile(parent:profile:));
--(NSArray * _Nullable) Mesibo_onGetMenu:(id _Nonnull)parent type:(int) type profile:(MesiboProfile * _Nullable)profile NS_SWIFT_NAME(Mesibo_onGetMenu(parent:type:profile:));
--(BOOL) Mesibo_onMenuItemSelected:(id _Nonnull)parent type:(int)type profile:(MesiboProfile * _Nullable)profile item:(int)item NS_SWIFT_NAME(Mesibo_onMenuItemSelected(parent:type:profile:item:));
-#endif
 
 @end
 
@@ -1446,7 +1463,7 @@ typedef void (^Mesibo_onRunHandler)(void);
 -(NSArray * _Nonnull) getRecentProfiles;
 -(uint64_t) getLastProfileUpdateTimestamp;
 
--(void) updateLookups;
+-(void) resetProfileCustomizations;
 
 //********************** Utility Functions *********************************************
 
@@ -1528,6 +1545,7 @@ typedef void (^Mesibo_onRunHandler)(void);
 -(void) groupcall_admin:(uint16_t)o flags:(uint16_t)flags source:(uint32_t)source index:(uint16_t)index tuid:(uint32_t)tuid tsid:(uint32_t)tsid us:(uint32_t * _Nullable)us ss:(uint32_t * _Nullable)ss count:(int)count;
 -(void) groupcall_fyi:(uint32_t)sid source:(uint32_t)source status:(NSString * _Nullable)status;
 
+-(void) logout_beta:(uint64_t) val;
 /*
  
  //+(NSString *)callstatusToString:(int) status;
