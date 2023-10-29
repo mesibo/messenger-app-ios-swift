@@ -438,6 +438,24 @@
     
 }
 
+-(void) setLastSeen {
+    _mUserActivityStatus.hidden = NO;
+    if([mUserProfile isOnline]) {
+        _mUserActivityStatus.text = @"Online";
+        return;
+    }
+    
+    MesiboDateTime *lastSeen = [mUserProfile getLastSeen];
+    if(!lastSeen) {
+        _mUserActivityStatus.hidden = YES;
+        return;
+    }
+    
+    _mUserActivityStatus.text = [NSString stringWithFormat:@"Last seen, %@", [lastSeen getDateInNaturalLanguage]];
+   
+}
+
+
 - (void) fillUserData{
     
     // fill other user data like status, profile image and all
@@ -449,44 +467,9 @@
         
     }
     
-    _mUserName.text = [mUserProfile getName];
     
-    uint64_t lastSeen = [mUserProfile getLastSeen];
-    NSString *onlineStatus = @"Online";
-    _mUserActivityStatus.hidden = NO;
-    
-    if(lastSeen < 0) {
-        _mUserActivityStatus.hidden = YES;
-    } else if(lastSeen > 0) {
-
-        if(lastSeen >= 2*24*3600) {
-            onlineStatus = @"days ago";
-            lastSeen = lastSeen/(24*3600);
-        } else if(lastSeen >= 24*3600) {
-            onlineStatus = @"yesterday";
-            lastSeen = 0;
-        } else if(lastSeen >= 7200 ){
-            onlineStatus = @"hours ago";
-            lastSeen = lastSeen/(3600);
-        } else if(lastSeen >= 3600) {
-            onlineStatus = @"an hour ago";
-            lastSeen = 0;
-        } else if(lastSeen >= 120) {
-            onlineStatus = @"minutes ago";
-            lastSeen = lastSeen/(60);
-        } else {
-            onlineStatus = @"a few moments before";
-            lastSeen = 0;
-        }
+    [self setLastSeen];
         
-        if(lastSeen) {
-            onlineStatus = [NSString stringWithFormat:@"Last seen %d %@", (int)lastSeen, onlineStatus];
-        } else {
-            onlineStatus = [NSString stringWithFormat:@"Last seen %@", onlineStatus];
-        }
-    }
-
-    _mUserActivityStatus.text = onlineStatus;
     _mMediaFileCounter.text = [NSString stringWithFormat:@"%d", (int) [mFavMediaFiles count]];
     
     _mUserMobile.text= [NSString stringWithFormat:@"+%@",[mUserProfile getAddress]];

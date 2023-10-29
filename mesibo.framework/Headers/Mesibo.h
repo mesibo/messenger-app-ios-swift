@@ -317,6 +317,7 @@
 @class MesiboMessage; // forward declaration
 @class MesiboPresence;
 @class MesiboMessageProperties;
+@class MesiboProfile;
 
 @interface MesiboEndToEndEncryption : NSObject
 -(void) enable:(BOOL) enable;
@@ -392,13 +393,17 @@
 #define MESIBO_PHONETYPE_COUNTRY  10
 
 @interface MesiboPhoneContact : NSObject
+@property (nonatomic) MesiboProfile * _Nullable profile;
 @property (nonatomic) NSString * _Nullable name;
 @property (nonatomic) NSString * _Nullable phoneNumber;
 @property (nonatomic) NSString * _Nullable nationalNumber;
+@property (nonatomic) NSString * _Nullable formattedPhoneNumber;
 @property (nonatomic) NSString * _Nullable country;
-@property (nonatomic) int countryCode;
+@property (nonatomic) NSString * _Nullable countryIsoCode;
+@property (nonatomic) int countryPhoneCode;
 @property (nonatomic) int type;
 @property (nonatomic) BOOL valid;
+@property (nonatomic) BOOL possiblyValid;
 @end
 
 @protocol MesiboPhoneContactsListener <NSObject>
@@ -431,23 +436,25 @@
 -(BOOL) start:(BOOL) listenChanges;
 -(BOOL) start;
 -(void) reset;
--(int) setLocalPhoneNumber:(NSString * _Nonnull) phone;
--(BOOL) setCountryCode:(int) code;
--(MesiboPhoneContact * _Nonnull) getCountryCodeFromPhone:(NSString * _Nonnull) phone;
+-(MesiboPhoneContact * _Nonnull) setCountryCodeFromPhoneNumber:(NSString * _Nonnull) phone;
+-(MesiboPhoneContact * _Nonnull) setCountryCodeFromPhoneNumber:(NSString * _Nonnull) phone code:(NSString * _Nullable) code;
+-(MesiboPhoneContact * _Nonnull) setCountryCode:(NSString * _Nullable) code;
+-(MesiboPhoneContact * _Nonnull) getCountryCode:(NSString * _Nullable) code;
 -(MesiboPhoneContact * _Nonnull) getCountryCode;
 // Removed because of iOS 16 CTCarrier deprecation
 //-(MesiboPhoneContact * _Nonnull) getNetworkCountryCode;
 //-(MesiboPhoneContact * _Nonnull) getSimCountryCode;
--(MesiboPhoneContact * _Nonnull) validateAndLookupPhoneNumber:(NSString * _Nonnull) phone;
-
+-(MesiboPhoneContact * _Nonnull) getPhoneNumberInfo:(NSString * _Nonnull) phone;
+-(MesiboPhoneContact * _Nonnull) getPhoneNumberInfo:(NSString * _Nonnull) phone format:(BOOL)format;
+  -(MesiboPhoneContact * _Nonnull) getPhoneNumberInfo:(NSString * _Nonnull) phone code:(NSString * _Nullable)code format:(BOOL)format;
 @end
 
-@class MesiboProfile;
 @class MesiboGroupProfile; // foward declaration
 @protocol MesiboProfileDelegate;
 @class MesiboMessageProperties;
 @class MesiboReadSession;
 @class MesiboFile;
+@class MesiboDateTime;
 
 @protocol MesiboProfileCustomizationListener <NSObject>
 -(BOOL) Mesibo_onCustomizeProfile:(MesiboProfile * _Nonnull)profile NS_SWIFT_NAME(Mesibo_onCustomizeProfile(profile:));
@@ -522,7 +529,7 @@
 -(uint32_t) getGroupId;
 -(NSString * _Nullable) getAddress;
 
--(int) getLastSeen;
+-(MesiboDateTime * _Nullable) getLastSeen;
 
 -(NSString * _Nullable) getAdmin ;
 
@@ -669,20 +676,25 @@
 @property (nonatomic) int hour;
 @property (nonatomic) int min;
 @property (nonatomic) int sec;
-@property (nonatomic) int daysElapsed;
 
 +(BOOL) isMonthFirstDateFormat;
 +(BOOL) is24HourTimeFormat;
++(void) setDefaultRelativeDateText:(NSString * _Nullable)today yesterday:(NSString * _Nullable) yesterday;
++(void) setDefaultDateFormat:(BOOL) monthFirst;
 
 -(BOOL) isValid;
 -(BOOL) setTimestamp:(uint64_t) ts;
 -(BOOL) isToday;
--(int) getDays;
+-(BOOL) isYesterday;
+-(int) getDaysElapsed;
+-(int) getSecondsElapsed;
 -(NSString * _Nullable) getMonth;
--(NSString * _Nonnull) getDate:(BOOL)monthFirst;
--(NSString * _Nonnull) getDate:(BOOL)monthFirst today:(NSString * _Nullable)today yesterday:(NSString * _Nullable) yesterday;
+-(NSString * _Nonnull) getDate;
+-(NSString * _Nonnull) getNumericalDate;
 -(NSString * _Nonnull) getDate:(BOOL)monthFirst today:(NSString * _Nullable)today yesterday:(NSString * _Nullable) yesterday numerical:(BOOL)numerical;
 -(NSString * _Nonnull) getTime:(BOOL)seconds;
+-(NSString * _Nonnull) getDateInNaturalLanguage:(int)accuracy;
+-(NSString * _Nonnull) getDateInNaturalLanguage;
 @end
 
 @interface MesiboMessageProperties : NSObject
@@ -806,13 +818,6 @@
 -(MesiboDateTime * _Nonnull) getTimestamp;
 -(MesiboDateTime * _Nullable) getReadTimestamp:(NSString * _Nullable) peer;
 -(MesiboDateTime * _Nullable) getDeliveryTimestamp:(NSString * _Nullable) peer;
-
-#if 0
-/* These functions are removed now - use getTimestamp() and MesiboDateTime */
--(NSString * _Nonnull) getDate:(BOOL) monthFirst today:(NSString * _Nullable)today yesterday:(NSString * _Nullable)yesterday __deprecated_msg("Use getTimestamp instead -- this function will be removed in the next release.");
--(NSString * _Nonnull) getDate:(BOOL) monthFirst __deprecated_msg("Use getTimestamp instead -- this function will be removed in the next release.");
--(NSString * _Nonnull) getTime:(BOOL) seconds __deprecated_msg("Use getTimestamp instead -- this function will be removed in the next release.");
-#endif
 
 @end
 
