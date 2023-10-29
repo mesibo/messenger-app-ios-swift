@@ -22,14 +22,6 @@
 * Source Code Repository: https://github.com/mesibo/                          *
 *******************************************************************************/
 
-//
-//  UIColors.h
-//  LogSup
-//
-//  Created by rkb on 9/19/17.
-//  Copyright (c) 2015 _dinworx_. All rights reserved.
-//
-
 #import <UIKit/UIKit.h>
 
 #define USE_ALL_DEFAULT_COLOR 0
