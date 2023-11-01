@@ -67,17 +67,6 @@ var shareInProgress: Bool = false
 
     }
     
-    public class func launchProfile(_ parent: Any?, profile: MesiboProfile?) {
-        let storyboard = MesiboUIManager.getMeProfileStoryBoard()
-        let pvc = storyboard?.instantiateViewController(withIdentifier: "ProfileViewerController") as? ProfileViewerController
-        if (pvc is ProfileViewerController) {
-            pvc?.mUserData = profile
-            if let pvc = pvc {
-                ((parent as? UIViewController)?.navigationController)?.pushViewController(pvc, animated: true)
-            }
-        }
-    }
-    
     class func launchSettings(_ parent: UIViewController) {
         let storyboard = MesiboUIManager.getMeSettingsStoryBoard()
         let mtvc = storyboard?.instantiateViewController(withIdentifier: "SettingsViewController") as? SettingsViewController

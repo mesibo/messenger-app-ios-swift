@@ -30,7 +30,6 @@
 #import "CommonAppUtils.h"
 //#import "UIManager.h"
 #import <mesibo/mesibo.h>
-#import "AppUIManager.h"
 #import "UIColors.h"
 
 
@@ -45,7 +44,6 @@
 @property (weak, nonatomic) IBOutlet UIButton *mStatusCharCounter;
 @property (weak, nonatomic) IBOutlet UIScrollView *mProfileScroller;
 @property (weak, nonatomic) IBOutlet UIButton *mSaveBtn;
-
 @end
 
 #define MAX_NAME_CHAR_LIMIT     30
@@ -158,7 +156,7 @@
     if(path)
         _mProfilePicture.image = [UIImage imageWithContentsOfFile:path];
     else
-        _mProfilePicture.image = [AppUIManager getDefaultImage:NO];
+        _mProfilePicture.image = [MesiboUI getDefaultImage:NO];
     
     
     [_mProfilePicture layoutIfNeeded];
@@ -199,18 +197,37 @@
     [alert addAction:removeAction];
     [alert addAction:cancelAction];
     [self presentViewController:alert animated:YES completion:nil];
+}
+
+// Temporary - remove them once we convert this file to swift
++ (void) pickImageData:(ImagePicker*)im withParent:(id)Parent withMediaType:(int)type withBlockHandler:(void(^)(ImagePickerFile *file))handler {
+    if(nil == im){
+        im = [ImagePicker sharedInstance];
+    }
     
-    
+    im.mParent = Parent;
+    [im pickMedia:type :handler];
     
 }
+
++ (void) launchImageEditor:(ImagePicker*)im withParent:(id)Parent withImage:(UIImage *)image hideEditControls:(BOOL)hideControls withBlock: (MesiboImageEditorBlock)handler {
+    if(nil == im){
+        im = [ImagePicker sharedInstance];
+    }
+    
+    im.mParent = Parent;
+    [im getImageEditor:image title:@"Edit Picture" hideEditControl:hideControls showCaption:NO showCropOverlay:YES squareCrop:YES maxDimension:600 withBlock:handler];
+    
+}
+
 - (void) pickMediaWithFiletype :(int)filetype{
     ImagePicker *im = [ImagePicker sharedInstance];
     im.mParent = self;
     
-    [AppUIManager pickImageData:im withParent:self withMediaType:filetype withBlockHandler:^(ImagePickerFile *picker) {
+    [EditProfileController pickImageData:im withParent:self withMediaType:filetype withBlockHandler:^(ImagePickerFile *picker) {
         dispatch_async(dispatch_get_main_queue(), ^{
             NSLog(@"Returned data %@", [picker description]);
-            [AppUIManager launchImageEditor:im withParent:self withImage:picker.image hideEditControls:NO withBlock:^BOOL(UIImage *image, NSString *caption) {
+            [EditProfileController launchImageEditor:im withParent:self withImage:picker.image hideEditControls:NO withBlock:^BOOL(UIImage *image, NSString *caption) {
                 dispatch_async(dispatch_get_main_queue(), ^{
                     [mProfile setImage:image];
                     [mProfile save];

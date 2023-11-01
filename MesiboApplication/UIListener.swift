@@ -68,7 +68,7 @@ import Foundation
     func initilizeUserListScreen(screen: MesiboUserListScreen) {
         // add custom buttons to User list screen
         let button = UIButton(type: .custom)
-        button.setImage(UIImage(named: "ic_message_white"), for: .normal)
+        button.setImage(UIImage(named: MESIBO_DEFAULTICON_MESSAGE), for: .normal)
         button.frame = CGRect(x: 0, y: 0, width: 44, height: 44)
         button.tag = Int(MESIBOUI_TAG_NEWMESSAGE)
 
@@ -88,13 +88,13 @@ import Foundation
         }
 
         let button = UIButton(type: .custom)
-        var image = MesiboUI.imageNamed(profile.isGroup() ? "ic_call_add_white" : "ic_call_white")
+        var image = MesiboUI.imageNamed(profile.isGroup() ? MESIBO_DEFAULTICON_GROUPAUDIOCALL : MESIBO_DEFAULTICON_AUDIOCALL)
         button.setImage(image, for: .normal)
         button.frame = CGRect(x: 0, y: 0, width: 44, height: 44)
         MesiboUI.addTarget(self, screen: screen, view: button, action: #selector(onAudioCall(sender:)))
 
         let vbutton = UIButton(type: .custom)
-        image = MesiboUI.imageNamed(profile.isGroup() ? "ic_videocam_add_white" : "ic_videocam_white")
+        image = MesiboUI.imageNamed(profile.isGroup() ? MESIBO_DEFAULTICON_GROUPVIDEOCALL : MESIBO_DEFAULTICON_VIDEOCALL)
         vbutton.setImage(image, for: .normal)
         vbutton.frame = CGRect(x: 0, y: 0, width: 44, height: 44)
         MesiboUI.addTarget(self, screen: screen, view: vbutton, action: #selector(onVideoCall(sender:)))
@@ -124,7 +124,7 @@ import Foundation
 
     func onShowProfile(sender: Any) {
         let screen = MesiboUI.getParentScreen(sender) as! MesiboMessageScreen
-        MesiboUIManager.launchProfile(screen.parent, profile: screen.profile)
+        MesiboUI.showBasicProfileInfo(screen.parent, profile: screen.profile)
     }
 
     func onShowSettings(sender: Any) {

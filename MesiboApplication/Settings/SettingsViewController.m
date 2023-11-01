@@ -28,9 +28,6 @@
 #import <mesibo/mesibo.h>
 #import "MesiboMessengerSwift-Bridging-Header.h"
 #import "MesiboMessenger-Swift.h"
-#import "AppUIManager.h"
-
-//#import "AppUIManager.h"
 
 @interface SettingsViewController ()
 
@@ -98,7 +95,7 @@
             MesiboProfile *up = [MesiboInstance getSelfProfile];
             NSString *status = [up getStatus];
             imageView.image = [up getImageOrThumbnail];
-            if(!imageView.image) imageView.image = [AppUIManager getDefaultImage:NO];
+            if(!imageView.image) imageView.image = [MesiboUI getDefaultImage:NO];
     
             
             UILabel *nameLabel = [cell viewWithTag:101];

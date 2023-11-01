@@ -435,6 +435,7 @@
 -(BOOL) canOverrideProfileName;
 -(BOOL) start:(BOOL) listenChanges;
 -(BOOL) start;
+-(BOOL) isStarted;
 -(void) reset;
 -(MesiboPhoneContact * _Nonnull) setCountryCodeFromPhoneNumber:(NSString * _Nonnull) phone;
 -(MesiboPhoneContact * _Nonnull) setCountryCodeFromPhoneNumber:(NSString * _Nonnull) phone code:(NSString * _Nullable) code;
@@ -681,6 +682,7 @@
 +(BOOL) is24HourTimeFormat;
 +(void) setDefaultRelativeDateText:(NSString * _Nullable)today yesterday:(NSString * _Nullable) yesterday;
 +(void) setDefaultDateFormat:(BOOL) monthFirst;
++(BOOL) setMonthName:(int)month name:(NSString * _Nonnull)name;
 
 -(BOOL) isValid;
 -(BOOL) setTimestamp:(uint64_t) ts;
@@ -688,7 +690,7 @@
 -(BOOL) isYesterday;
 -(int) getDaysElapsed;
 -(int) getSecondsElapsed;
--(NSString * _Nullable) getMonth;
+-(NSString * _Nullable) getMonthName;
 -(NSString * _Nonnull) getDate;
 -(NSString * _Nonnull) getNumericalDate;
 -(NSString * _Nonnull) getDate:(BOOL)monthFirst today:(NSString * _Nullable)today yesterday:(NSString * _Nullable) yesterday numerical:(BOOL)numerical;
@@ -1360,7 +1362,8 @@ typedef void (^Mesibo_onRunHandler)(void);
 //-(void) didReceiveIncomingPushWithPayload:(PKPushPayload *)payload forType:(PKPushType)type withCompletionHandler:(void (^)(void))completion;
 
 //********************** Database **********************************************
--(BOOL) setDatabase:(nullable NSString *)name resetTables:(uint32_t)resetTables;
+-(BOOL) setDatabase:(nullable NSString *)name resetTables:(uint32_t)resetTables __deprecated_msg("Use setDatabase(name) instead.");;
+-(BOOL) setDatabase:(nullable NSString *)name;
 -(void) resetDatabase:(uint32_t) tables;
 -(NSString * _Nonnull) getDatabasePath;
 -(NSString * _Nonnull) getDatabaseBackupPath:(nullable NSString *)path;

@@ -13,11 +13,9 @@
 		3E595B671E3CE313005E1396 /* AboutViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 3E595B661E3CE313005E1396 /* AboutViewController.m */; };
 		3EA48FB01E38998C00492966 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 3EA48FAE1E38998C00492966 /* Main.storyboard */; };
 		3EA48FB51E38998C00492966 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 3EA48FB31E38998C00492966 /* LaunchScreen.storyboard */; };
-		3EA490001E389AA700492966 /* ProfileViewerController.m in Sources */ = {isa = PBXBuildFile; fileRef = 3EA48FE01E389AA700492966 /* ProfileViewerController.m */; };
 		3EA490031E389AA700492966 /* CommonAppUtils.m in Sources */ = {isa = PBXBuildFile; fileRef = 3EA48FE41E389AA700492966 /* CommonAppUtils.m */; };
 		3EA490061E389AA700492966 /* EditProfileController.m in Sources */ = {isa = PBXBuildFile; fileRef = 3EA48FE91E389AA700492966 /* EditProfileController.m */; };
 		3EA490071E389AA700492966 /* settings.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 3EA48FEA1E389AA700492966 /* settings.storyboard */; };
-		3EA490081E389AA700492966 /* profile.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 3EA48FEB1E389AA700492966 /* profile.storyboard */; };
 		3EA490091E389AA700492966 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 3EA48FEC1E389AA700492966 /* Assets.xcassets */; };
 		3EA4900B1E389AA700492966 /* AppAlert.m in Sources */ = {isa = PBXBuildFile; fileRef = 3EA48FF01E389AA700492966 /* AppAlert.m */; };
 		3EA4900C1E389AA700492966 /* prof.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 3EA48FF51E389AA700492966 /* prof.jpg */; };
@@ -66,7 +64,6 @@
 		88B4F3291EBB617F0032E9F2 /* mesibo-Regular.otf in Resources */ = {isa = PBXBuildFile; fileRef = 88B4F3281EBB61690032E9F2 /* mesibo-Regular.otf */; };
 		88B6A0531EA736080051A873 /* opensource_ios.png in Resources */ = {isa = PBXBuildFile; fileRef = 88B6A0521EA736080051A873 /* opensource_ios.png */; };
 		88C4EC1521EE3D8C0066F405 /* mesibo.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 88C4EC1421EE3D8C0066F405 /* mesibo.framework */; };
-		88D671F42686C3FB004B1570 /* AppUIManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 88D671F32686C3FB004B1570 /* AppUIManager.m */; };
 		88DE780A21EDA35000A1876A /* mesibocall.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 88DE780921EDA35000A1876A /* mesibocall.framework */; };
 		88F30B531F7D0BB700803AA8 /* Contacts.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 88F30B521F7D0BB700803AA8 /* Contacts.framework */; };
 		88F39D602436428500361C78 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 88F39D5F2436428500361C78 /* AppDelegate.swift */; };
@@ -122,17 +119,14 @@
 		3EA48FAF1E38998C00492966 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		3EA48FB41E38998C00492966 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		3EA48FB61E38998C00492966 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		3EA48FE01E389AA700492966 /* ProfileViewerController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ProfileViewerController.m; sourceTree = "<group>"; };
 		3EA48FE41E389AA700492966 /* CommonAppUtils.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CommonAppUtils.m; sourceTree = "<group>"; };
 		3EA48FE51E389AA700492966 /* CommonAppUtils.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CommonAppUtils.h; sourceTree = "<group>"; };
 		3EA48FE91E389AA700492966 /* EditProfileController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = EditProfileController.m; sourceTree = "<group>"; };
 		3EA48FEA1E389AA700492966 /* settings.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = settings.storyboard; sourceTree = "<group>"; };
-		3EA48FEB1E389AA700492966 /* profile.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = profile.storyboard; sourceTree = "<group>"; };
 		3EA48FEC1E389AA700492966 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		3EA48FED1E389AA700492966 /* UIColors.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UIColors.h; sourceTree = "<group>"; };
 		3EA48FF01E389AA700492966 /* AppAlert.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AppAlert.m; sourceTree = "<group>"; };
 		3EA48FF11E389AA700492966 /* EditProfileController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EditProfileController.h; sourceTree = "<group>"; };
-		3EA48FF21E389AA700492966 /* ProfileViewerController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ProfileViewerController.h; sourceTree = "<group>"; };
 		3EA48FF31E389AA700492966 /* AppAlert.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AppAlert.h; sourceTree = "<group>"; };
 		3EA48FF41E389AA700492966 /* Includes.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Includes.h; sourceTree = "<group>"; };
 		3EA48FF51E389AA700492966 /* prof.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = prof.jpg; sourceTree = "<group>"; };
@@ -193,8 +187,6 @@
 		88B4F3281EBB61690032E9F2 /* mesibo-Regular.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "mesibo-Regular.otf"; sourceTree = "<group>"; };
 		88B6A0521EA736080051A873 /* opensource_ios.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = opensource_ios.png; sourceTree = "<group>"; };
 		88C4EC1421EE3D8C0066F405 /* mesibo.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = mesibo.framework; sourceTree = "<group>"; };
-		88D671F22686C3FB004B1570 /* AppUIManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AppUIManager.h; sourceTree = "<group>"; };
-		88D671F32686C3FB004B1570 /* AppUIManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AppUIManager.m; sourceTree = "<group>"; };
 		88DE780921EDA35000A1876A /* mesibocall.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = mesibocall.framework; sourceTree = "<group>"; };
 		88F30B521F7D0BB700803AA8 /* Contacts.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Contacts.framework; path = System/Library/Frameworks/Contacts.framework; sourceTree = SDKROOT; };
 		88F39D5E2436428400361C78 /* MesiboMessengerSwift-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "MesiboMessengerSwift-Bridging-Header.h"; sourceTree = "<group>"; };
@@ -356,7 +348,6 @@
 			children = (
 				3EA48FB31E38998C00492966 /* LaunchScreen.storyboard */,
 				3EA48FEA1E389AA700492966 /* settings.storyboard */,
-				3EA48FEB1E389AA700492966 /* profile.storyboard */,
 				3EA48FAE1E38998C00492966 /* Main.storyboard */,
 			);
 			name = Storyboards;
@@ -488,10 +479,6 @@
 		88F6C03B243ADD7A003767D6 /* ProfileViews */ = {
 			isa = PBXGroup;
 			children = (
-				88D671F22686C3FB004B1570 /* AppUIManager.h */,
-				88D671F32686C3FB004B1570 /* AppUIManager.m */,
-				3EA48FF21E389AA700492966 /* ProfileViewerController.h */,
-				3EA48FE01E389AA700492966 /* ProfileViewerController.m */,
 				3EA48FF11E389AA700492966 /* EditProfileController.h */,
 				3EA48FE91E389AA700492966 /* EditProfileController.m */,
 			);
@@ -592,7 +579,6 @@
 			buildActionMask = 2147483647;
 			files = (
 				88B4F3291EBB617F0032E9F2 /* mesibo-Regular.otf in Resources */,
-				3EA490081E389AA700492966 /* profile.storyboard in Resources */,
 				883F3E4221A9B0700090D7B9 /* MesiboUIHelperResource.bundle in Resources */,
 				3EA4900D1E389AA700492966 /* q.png in Resources */,
 				8880D83A1EA0E0AD004D5121 /* users.png in Resources */,
@@ -621,7 +607,6 @@
 			buildActionMask = 2147483647;
 			files = (
 				88F39D602436428500361C78 /* AppDelegate.swift in Sources */,
-				88D671F42686C3FB004B1570 /* AppUIManager.m in Sources */,
 				88F39D90243A3ED800361C78 /* SampleAppNotify.swift in Sources */,
 				3EA4900B1E389AA700492966 /* AppAlert.m in Sources */,
 				88F39D8E2439A61B00361C78 /* SampleAppFileTransferHandler.swift in Sources */,
@@ -637,7 +622,6 @@
 				3E595B671E3CE313005E1396 /* AboutViewController.m in Sources */,
 				3EA490061E389AA700492966 /* EditProfileController.m in Sources */,
 				3EA490031E389AA700492966 /* CommonAppUtils.m in Sources */,
-				3EA490001E389AA700492966 /* ProfileViewerController.m in Sources */,
 				3EA490201E389B4C00492966 /* SettingsUtils.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

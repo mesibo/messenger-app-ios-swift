@@ -33,7 +33,6 @@
 #import "EditProfileController.h"
 #import <mesibouihelper/mesibouihelper.h>
 #import "logs.h"
-#import "ProfileViewerController.h"
 #import "SettingsViewController.h"
 
 typedef void (^SampleAPI_LogoutBlock)(id parent);

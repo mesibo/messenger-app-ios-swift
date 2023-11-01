@@ -206,6 +206,8 @@ import UIKit
     func launchMesiboUI() {
         let ui = MesiboUI.getUiDefaults()
         ui.emptyUserListMessage = "No active conversations! Invite your family and friends to try mesibo."
+        ui.showAddressInProfileView = true
+        ui.showAddressAsPhoneInProfileView = true
         
         uiListener = UIListener()
         
