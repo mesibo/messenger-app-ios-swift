@@ -68,7 +68,8 @@ import Foundation
     func initilizeUserListScreen(screen: MesiboUserListScreen) {
         // add custom buttons to User list screen
         let button = UIButton(type: .custom)
-        button.setImage(UIImage(named: MESIBO_DEFAULTICON_MESSAGE), for: .normal)
+        var image = MesiboUI.imageNamed(MESIBO_DEFAULTICON_MESSAGE)
+        button.setImage(image, for: .normal)
         button.frame = CGRect(x: 0, y: 0, width: 44, height: 44)
         button.tag = Int(MESIBOUI_TAG_NEWMESSAGE)
 

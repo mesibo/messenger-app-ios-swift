@@ -523,6 +523,7 @@
 -(BOOL) isProfileSubscriptionBlocked;
 
 -(void) setPrivate:(BOOL) enable;
+-(void) setRecent:(BOOL) enable;
 
 -(void) requestProfileRemoval:(BOOL) enable;
 
@@ -1243,8 +1244,6 @@ typedef BOOL (^Mesibo_onHTTPProgress)(MesiboHttp * _Nonnull http, int state, int
 @end
 
 
-
-
 /*
  typedef void (^MesiboConnectionStatusBlock)(int status);
  typedef BOOL (^MesiboMessageFilterBlock)(MesiboParams *params, NSData *data, int type, NSString *url, NSString *tnurl);
@@ -1296,9 +1295,9 @@ typedef void (^Mesibo_onRunHandler)(void);
 -(void) Mesibo_onGroupCreated:(MesiboProfile * _Nonnull) groupProfile NS_SWIFT_NAME(Mesibo_onGroupCreated(groupProfile:));
 -(void) Mesibo_onGroupJoined:(MesiboProfile * _Nonnull) groupProfile NS_SWIFT_NAME(Mesibo_onGroupJoined(groupProfile:));
 -(void) Mesibo_onGroupLeft:(MesiboProfile * _Nonnull) groupProfile NS_SWIFT_NAME(Mesibo_onGroupLeft(groupProfile:));
--(void) Mesibo_onGroupMembers:(MesiboProfile * _Nonnull) groupProfile members:(NSArray * _Nonnull)members NS_SWIFT_NAME(Mesibo_onGroupMembers(groupProfile:members:));
--(void) Mesibo_onGroupMembersJoined:(MesiboProfile * _Nonnull) groupProfile members:(NSArray * _Nonnull)members NS_SWIFT_NAME(Mesibo_onGroupMembersJoined(groupProfile:members:));
--(void) Mesibo_onGroupMembersRemoved:(MesiboProfile * _Nonnull) groupProfile members:(NSArray * _Nonnull)members NS_SWIFT_NAME(Mesibo_onGroupMembersRemoved(groupProfile:members:));
+-(void) Mesibo_onGroupMembers:(MesiboProfile * _Nonnull) groupProfile members:(NSArray<MesiboGroupMember *> * _Nonnull)members NS_SWIFT_NAME(Mesibo_onGroupMembers(groupProfile:members:));
+-(void) Mesibo_onGroupMembersJoined:(MesiboProfile * _Nonnull) groupProfile members:(NSArray<MesiboGroupMember *> * _Nonnull)members NS_SWIFT_NAME(Mesibo_onGroupMembersJoined(groupProfile:members:));
+-(void) Mesibo_onGroupMembersRemoved:(MesiboProfile * _Nonnull) groupProfile members:(NSArray<MesiboGroupMember *> * _Nonnull)members NS_SWIFT_NAME(Mesibo_onGroupMembersRemoved(groupProfile:members:));
 -(void) Mesibo_onGroupSettings:(MesiboProfile * _Nonnull) groupProfile settings:(MesiboGroupSettings * _Nonnull)settings permissions:(MesiboMemberPermissions * _Nonnull)permissions pins:(NSArray<MesiboGroupPin *> * _Nullable) pins NS_SWIFT_NAME(Mesibo_onGroupSettings(groupProfile:settings:permissions:pins:));
 -(void) Mesibo_onGroupError:(MesiboProfile * _Nonnull) groupProfile error:(uint32_t)error NS_SWIFT_NAME(Mesibo_onGroupError(groupProfile:error:));
 
@@ -1325,6 +1324,7 @@ typedef void (^Mesibo_onRunHandler)(void);
 //-(void) someInit; //TBD
 -(void) reset;
 -(BOOL) setPath:(NSString * _Nullable)path;
+-(NSString * _Nonnull) getAppIdForAccessToken;
 -(int) setAccessToken:(NSString * _Nullable)accessToken;
 -(int) setPushToken:(NSString * _Nonnull)pushToken voip:(BOOL)voip;
 -(void) setPushRegistryCompletion:(nullable void (^)(void))completion;
