@@ -623,6 +623,8 @@
 @end
 
 @interface MesiboGroupProfile : MesiboProfile
+-(BOOL) isOwner;
+-(BOOL) canAdmin;
 -(BOOL) canModify;
 -(BOOL) canAddMembers;
 -(BOOL) canRemoveMembers;
@@ -1257,8 +1259,11 @@ typedef BOOL (^Mesibo_onHTTPUtilsProgress)(id _Nullable cbdata, int progress, NS
 typedef void (^Mesibo_onSetGroupHandler)(uint32_t groupid);
 typedef void (^Mesibo_onRunHandler)(void);
 
-@protocol MesiboDelegate <NSObject>
+@protocol MesiboInitListener <NSObject>
+-(void) Mesibo_onInit:(BOOL)started NS_SWIFT_NAME(Mesibo_onInit(started:));
+@end
 
+@protocol MesiboDelegate <NSObject>
 @required
 
 @optional

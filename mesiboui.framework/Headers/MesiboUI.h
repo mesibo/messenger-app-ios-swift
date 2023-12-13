@@ -68,10 +68,25 @@
 
 @end
 
+@interface MesiboMessageScreenControls : NSObject
+@property (nonatomic, nonnull) UITextView *editText;
+@property (nonatomic, nonnull) UIButton *cameraButton;
+@property (nonatomic, nonnull) UIButton *imageButton;
+// _videoButton is not in use in iOS, instead use imageButton to select images and video
+//@property (nonatomic, nonnull) UIButton *videoButton;
+@property (nonatomic, nonnull) UIButton *audioButton;
+@property (nonatomic, nonnull) UIButton *fileButton;
+@property (nonatomic, nonnull) UIButton *locationButton;
+@property (nonatomic, nonnull) UIButton *attachButton;
+@property (nonatomic, nonnull) UIButton *moreButton;
+@property (nonatomic, nonnull) UIButton *sendButton;
+@end
+
 @interface MesiboMessageScreen : MesiboScreen
 @property (nonatomic, nonnull) MesiboProfile *profile;
 @property (nonatomic, nonnull) UIButton *profileImage;
-@property (nonatomic, nonnull) UITextView *editText;
+@property (nonatomic, nonnull) MesiboMessageScreenControls *controls;
+
 -(void) reset;
 @end
 
@@ -150,16 +165,6 @@
 -(BOOL) MesiboUI_onClickedRow:(MesiboScreen * _Nonnull)screen row:(MesiboRow * _Nonnull) row  NS_SWIFT_NAME(MesiboUI_onClickedRow(screen:row:));
 
 @end
-
-/* depreciated - kept for reference - replace implementation with MesiboUIListener*/
-#if 0
-@protocol MesiboUIDelegate <NSObject>
-@required
--(void) MesiboUI_onShowProfile:(id _Nonnull)parent profile:(MesiboProfile * _Nonnull) profile NS_SWIFT_NAME(MesiboUI_onShowProfile(parent:profile:));
--(NSArray * _Nullable) MesiboUI_onGetMenu:(id _Nonnull)parent type:(int) type profile:(MesiboProfile * _Nullable)profile NS_SWIFT_NAME(MesiboUI_onGetMenu(parent:type:profile:));
--(BOOL) MesiboUI_onMenuItemSelected:(id _Nonnull)parent type:(int)type profile:(MesiboProfile * _Nullable)profile item:(int)item NS_SWIFT_NAME(MesiboUI_onMenuItemSelected(parent:type:profile:item:));
-@end
-#endif
 
 #define LOCATION_APP_APPLE      0
 #define LOCATION_APP_GOOGLEMAP  1

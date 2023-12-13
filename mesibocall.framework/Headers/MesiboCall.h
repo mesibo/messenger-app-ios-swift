@@ -333,7 +333,7 @@ typedef void (^MesiboPermissionBlock)(BOOL granted, BOOL existing);
 @interface MesiboCall : NSObject
 
 + (MesiboCall* _Nonnull) getInstance;
-+ (id _Nonnull) startWith:(_Nullable id<MesiboCallIncomingListener>)listner name:(NSString * _Nonnull)appName icon:(UIImage * _Nullable)icon callKit:(BOOL)enabled;
++ (id _Nonnull) startWith:(_Nullable id<MesiboCallIncomingListener>)listner name:(NSString * _Nullable)appName icon:(UIImage * _Nullable)icon callKit:(BOOL)enabled;
 + (id _Nonnull) startWith:(_Nullable id<MesiboCallIncomingListener>)listner name:(NSString * _Nonnull)appName icon:(UIImage * _Nullable)icon callKit:(BOOL)enabled recentLogs:(BOOL) recentLogs;
 +(void) testRing;
 
