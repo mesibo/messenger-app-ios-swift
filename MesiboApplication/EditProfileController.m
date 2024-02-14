@@ -102,7 +102,7 @@
     [self setProfilePicture];
 
     _mNameTextField.text = [mProfile getName];
-    _mStatusTextView.text = [mProfile getStatus];
+    _mStatusTextView.text = [mProfile getString:@"status" defval:@""];
     _mPhoneNumber.text = [mProfile getAddress];
     
     _mSaveBtn.backgroundColor = [UIColor getColor:PRIMARY_COLOR];
@@ -117,7 +117,7 @@
 
 -(void)onPictureClicked{
      
-    NSString *picturePath = [mProfile getImageOrThumbnailPath];
+    NSString *picturePath = [[mProfile getImage] getImageOrThumbnailPath];
     
     if(picturePath) {
         UIImage *image = [UIImage imageWithContentsOfFile:picturePath];
@@ -139,7 +139,7 @@
     }
     
     [mProfile setName:name];
-    [mProfile setStatus:status];
+    [mProfile setString:@"status" value:status];
     [mProfile save];
     
     if(_mLaunchMesibo) {
@@ -152,7 +152,7 @@
 
 -(void) setProfilePicture {
    
-    NSString *path = [mProfile getImageOrThumbnailPath];
+    NSString *path = [[mProfile getImage] getImageOrThumbnailPath];
     if(path)
         _mProfilePicture.image = [UIImage imageWithContentsOfFile:path];
     else

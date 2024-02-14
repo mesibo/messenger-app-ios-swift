@@ -93,15 +93,15 @@
             imageView.layer.masksToBounds = YES;
             
             MesiboProfile *up = [MesiboInstance getSelfProfile];
-            NSString *status = [up getStatus];
-            imageView.image = [up getImageOrThumbnail];
+            NSString *status = [up getString:@"status" defval:@""];
+            imageView.image = [[up getImage] getImageOrThumbnail];
             if(!imageView.image) imageView.image = [MesiboUI getDefaultImage:NO];
     
             
             UILabel *nameLabel = [cell viewWithTag:101];
             nameLabel.text = [up getName];
             UILabel *statusLabel = [cell viewWithTag:102];
-            statusLabel.text = [up getStatus];
+            statusLabel.text = status;
             
         }
         break;
