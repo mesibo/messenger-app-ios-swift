@@ -137,7 +137,7 @@ let CC_KEY = "cc"
         Mesibo.getInstance().setPath(appdir)
         
         Mesibo.getInstance().setAccessToken(getToken())
-        Mesibo.getInstance().setDatabase("mesibo.db", resetTables: (__uint32_t)(resetProfiles ? MESIBO_DBTABLE_PROFILES : 0)) //TBD, change this after testing
+        Mesibo.getInstance().setDatabase("mesibo.db") //TBD, change this after testing
         
         initAutoDownload()
         
