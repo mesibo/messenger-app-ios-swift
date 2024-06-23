@@ -53,10 +53,11 @@
 
 
 @implementation EditProfileController {
-    MesiboProfile *mProfile;
+    MesiboSelfProfile *mProfile;
+    UIImage *mImage;
 }
 
-- (void) setProfile:(MesiboProfile *) profile {
+- (void) setProfile:(MesiboSelfProfile *) profile {
     mProfile = profile;
 }
 
@@ -67,8 +68,10 @@
     // Do any additional setup after loading the view.
     [self.view layoutIfNeeded];
     
-    if(!mProfile) mProfile = [MesiboInstance getSelfProfile];
+    mImage = nil;
     
+    if(!mProfile) mProfile = (MesiboSelfProfile *) [MesiboInstance getSelfProfile];
+
     _mPictureEditBtn.layer.cornerRadius = _mPictureEditBtn.layer.frame.size.width/2;
     _mPictureEditBtn.layer.masksToBounds = YES;
     
@@ -140,6 +143,7 @@
     
     [mProfile setName:name];
     [mProfile setString:@"status" value:status];
+    [mProfile setSearchable:YES];
     [mProfile save];
     
     if(_mLaunchMesibo) {
@@ -349,5 +353,11 @@
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
 }
+
+-(void) Mesibo_onProfileUpdated:(MesiboProfile *)profile  {
+    
+    
+}
+
 
 @end
