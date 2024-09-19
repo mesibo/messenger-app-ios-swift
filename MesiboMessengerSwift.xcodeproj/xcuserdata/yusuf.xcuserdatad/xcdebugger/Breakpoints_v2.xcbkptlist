@@ -101,8 +101,7 @@
                   startingColumnNumber = "9223372036854775807"
                   endingColumnNumber = "9223372036854775807"
                   startingLineNumber = "244"
-                  endingLineNumber = "244"
-                  offsetFromSymbolStart = "376">
+                  endingLineNumber = "244">
                </Location>
                <Location
                   uuid = "FD3EC64F-9DED-4CC8-8A1F-F3454110C32F - 824522784b2a77c7"
@@ -117,8 +116,7 @@
                   startingColumnNumber = "9223372036854775807"
                   endingColumnNumber = "9223372036854775807"
                   startingLineNumber = "245"
-                  endingLineNumber = "245"
-                  offsetFromSymbolStart = "72">
+                  endingLineNumber = "245">
                </Location>
                <Location
                   uuid = "FD3EC64F-9DED-4CC8-8A1F-F3454110C32F - af51101214b85c6a"
@@ -133,8 +131,7 @@
                   startingColumnNumber = "9223372036854775807"
                   endingColumnNumber = "9223372036854775807"
                   startingLineNumber = "244"
-                  endingLineNumber = "244"
-                  offsetFromSymbolStart = "20">
+                  endingLineNumber = "244">
                </Location>
             </Locations>
          </BreakpointContent>
@@ -538,8 +535,7 @@
                   startingColumnNumber = "9223372036854775807"
                   endingColumnNumber = "9223372036854775807"
                   startingLineNumber = "230"
-                  endingLineNumber = "230"
-                  offsetFromSymbolStart = "64">
+                  endingLineNumber = "230">
                </Location>
                <Location
                   uuid = "E687B8C1-9EB7-4F60-B461-540B4C4FDD22 - deb16cfd22036679"
@@ -553,8 +549,7 @@
                   startingColumnNumber = "9223372036854775807"
                   endingColumnNumber = "9223372036854775807"
                   startingLineNumber = "230"
-                  endingLineNumber = "230"
-                  offsetFromSymbolStart = "24">
+                  endingLineNumber = "230">
                </Location>
                <Location
                   uuid = "E687B8C1-9EB7-4F60-B461-540B4C4FDD22 - 8fd3cfe35bfb72e0"
@@ -568,8 +563,7 @@
                   startingColumnNumber = "9223372036854775807"
                   endingColumnNumber = "9223372036854775807"
                   startingLineNumber = "230"
-                  endingLineNumber = "230"
-                  offsetFromSymbolStart = "16">
+                  endingLineNumber = "230">
                </Location>
             </Locations>
          </BreakpointContent>
@@ -584,8 +578,8 @@
             filePath = "MesiboApplication/SampleAppListeners.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "66"
-            endingLineNumber = "66"
+            startingLineNumber = "67"
+            endingLineNumber = "67"
             landmarkName = "Mesibo_onMessage(message:)"
             landmarkType = "7">
          </BreakpointContent>
@@ -632,8 +626,8 @@
             filePath = "MesiboApplication/SampleAppListeners.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "73"
-            endingLineNumber = "73"
+            startingLineNumber = "74"
+            endingLineNumber = "74"
             landmarkName = "Mesibo_onConnectionStatus(status:)"
             landmarkType = "7">
          </BreakpointContent>
@@ -648,8 +642,8 @@
             filePath = "MesiboApplication/SampleAppListeners.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "74"
-            endingLineNumber = "74"
+            startingLineNumber = "75"
+            endingLineNumber = "75"
             landmarkName = "Mesibo_onConnectionStatus(status:)"
             landmarkType = "7">
          </BreakpointContent>

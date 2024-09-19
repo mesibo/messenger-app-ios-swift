@@ -47,7 +47,8 @@ import MesiboUIHelper
     
     func initialize() {
         Mesibo.getInstance().addListener(self)
-        //setup listener if you need to customize mesibo call
+        //setup listener if you need to customize mesibo call. You need to implement
+        // incomung call listener
         //MesiboCall.sharedInstance()!.setListener(self)
     }
     
@@ -90,32 +91,6 @@ import MesiboUIHelper
         if foreground && 0 == screenId {
             SampleAppNotify.getInstance().clear()
         }
-    }
-    
-        
-    public func mesiboCall_(onNotifyIncoming type: Int32, profile: MesiboProfile?, video: Bool) -> Bool {
-        
-        var n: String? = nil
-        var subj: String? = nil
-        if MESIBOCALL_NOTIFY_INCOMING == type {
-            subj = "Mesibo Incoming Call"
-            if let name = profile?.getName() {
-                n = String(format: "Mesibo %scall from %@", video ? "Video " : "", name)
-            }
-        } else if MESIBOCALL_NOTIFY_MISSED == type {
-            subj = "Mesibo Missed Call"
-            if let name = profile?.getName() {
-                n = String(format: "You missed a Mesibo %scall from %@", video ? "Video " : "", name)
-            }
-        }
-        
-        if n != nil {
-            Mesibo.getInstance().run(inThread: true, handler: {
-                SampleAppNotify.getInstance().notify(2, subject: subj, message: n)
-            })
-        }
-        
-        return true
     }
     
 }
