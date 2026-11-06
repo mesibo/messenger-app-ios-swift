@@ -1,0 +1,299 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 77;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		A10000000000000000000101 /* mesibo in Frameworks */ = {isa = PBXBuildFile; productRef = A10000000000000000000201 /* mesibo */; };
+		A10000000000000000000102 /* MesiboUI in Frameworks */ = {isa = PBXBuildFile; productRef = A10000000000000000000202 /* MesiboUI */; };
+		A10000000000000000000103 /* MesiboCall in Frameworks */ = {isa = PBXBuildFile; productRef = A10000000000000000000203 /* MesiboCall */; };
+		A10000000000000000000104 /* MesiboUIHelper in Frameworks */ = {isa = PBXBuildFile; productRef = A10000000000000000000204 /* MesiboUIHelper */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXFileReference section */
+		A10000000000000000000301 /* MesiboMessenger.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = MesiboMessenger.app; sourceTree = BUILT_PRODUCTS_DIR; };
+/* End PBXFileReference section */
+
+/* Begin PBXFileSystemSynchronizedBuildFileExceptionSet section */
+		A10000000000000000000401 /* Exceptions for "MesiboApplication" folder in "MesiboMessengerSwift" target */ = {
+			isa = PBXFileSystemSynchronizedBuildFileExceptionSet;
+			membershipExceptions = (
+				Info.plist,
+			);
+			target = A10000000000000000000601 /* MesiboMessengerSwift */;
+		};
+/* End PBXFileSystemSynchronizedBuildFileExceptionSet section */
+
+/* Begin PBXFileSystemSynchronizedRootGroup section */
+		A10000000000000000000501 /* MesiboApplication */ = {
+			isa = PBXFileSystemSynchronizedRootGroup;
+			exceptions = (
+				A10000000000000000000401 /* Exceptions for "MesiboApplication" folder in "MesiboMessengerSwift" target */,
+			);
+			path = MesiboApplication;
+			sourceTree = "<group>";
+		};
+/* End PBXFileSystemSynchronizedRootGroup section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		A10000000000000000000701 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				A10000000000000000000101 /* mesibo in Frameworks */,
+				A10000000000000000000102 /* MesiboUI in Frameworks */,
+				A10000000000000000000103 /* MesiboCall in Frameworks */,
+				A10000000000000000000104 /* MesiboUIHelper in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		A10000000000000000000801 = {
+			isa = PBXGroup;
+			children = (
+				A10000000000000000000501 /* MesiboApplication */,
+				A10000000000000000000802 /* Products */,
+			);
+			sourceTree = "<group>";
+		};
+		A10000000000000000000802 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				A10000000000000000000301 /* MesiboMessenger.app */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXNativeTarget section */
+		A10000000000000000000601 /* MesiboMessengerSwift */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = A10000000000000000000902 /* Build configuration list for PBXNativeTarget "MesiboMessengerSwift" */;
+			buildPhases = (
+				A10000000000000000000602 /* Sources */,
+				A10000000000000000000701 /* Frameworks */,
+				A10000000000000000000603 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			fileSystemSynchronizedGroups = (
+				A10000000000000000000501 /* MesiboApplication */,
+			);
+			name = MesiboMessengerSwift;
+			packageProductDependencies = (
+				A10000000000000000000201 /* mesibo */,
+				A10000000000000000000202 /* MesiboUI */,
+				A10000000000000000000203 /* MesiboCall */,
+				A10000000000000000000204 /* MesiboUIHelper */,
+			);
+			productName = MesiboMessenger;
+			productReference = A10000000000000000000301 /* MesiboMessenger.app */;
+			productType = "com.apple.product-type.application";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		A10000000000000000000001 /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				BuildIndependentTargetsInParallel = 1;
+				LastSwiftUpdateCheck = 2700;
+				LastUpgradeCheck = 2700;
+				TargetAttributes = {
+					A10000000000000000000601 = {
+						CreatedOnToolsVersion = 27.0;
+					};
+				};
+			};
+			buildConfigurationList = A10000000000000000000901 /* Build configuration list for PBXProject "MesiboMessengerSwift" */;
+			developmentRegion = en;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				en,
+				Base,
+			);
+			mainGroup = A10000000000000000000801;
+			minimizedProjectReferenceProxies = 1;
+			packageReferences = (
+				A10000000000000000001001 /* XCRemoteSwiftPackageReference "mesibo-ios-sdk" */,
+			);
+			preferredProjectObjectVersion = 77;
+			productRefGroup = A10000000000000000000802 /* Products */;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				A10000000000000000000601 /* MesiboMessengerSwift */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXResourcesBuildPhase section */
+		A10000000000000000000603 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXResourcesBuildPhase section */
+
+/* Begin PBXSourcesBuildPhase section */
+		A10000000000000000000602 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin XCBuildConfiguration section */
+		A10000000000000000000903 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = dwarf;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				ENABLE_TESTABILITY = YES;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				IPHONEOS_DEPLOYMENT_TARGET = 15.0;
+				ONLY_ACTIVE_ARCH = YES;
+				SDKROOT = iphoneos;
+				SWIFT_ACTIVE_COMPILATION_CONDITIONS = "DEBUG $(inherited)";
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+			};
+			name = Debug;
+		};
+		A10000000000000000000904 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				ENABLE_NS_ASSERTIONS = NO;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 15.0;
+				SDKROOT = iphoneos;
+				SWIFT_COMPILATION_MODE = wholemodule;
+				VALIDATE_PRODUCT = YES;
+			};
+			name = Release;
+		};
+		A10000000000000000000905 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_ENTITLEMENTS = MesiboApplication/MesiboApplication.entitlements;
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = HXKDD24ZQ6;
+				INFOPLIST_FILE = MesiboApplication/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+				);
+				MARKETING_VERSION = 2.10.0;
+				PRODUCT_BUNDLE_IDENTIFIER = org.mesibo.messenger;
+				PRODUCT_NAME = MesiboMessenger;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = 1;
+			};
+			name = Debug;
+		};
+		A10000000000000000000906 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_ENTITLEMENTS = MesiboApplication/MesiboApplication.entitlements;
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = HXKDD24ZQ6;
+				INFOPLIST_FILE = MesiboApplication/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+				);
+				MARKETING_VERSION = 2.10.0;
+				PRODUCT_BUNDLE_IDENTIFIER = org.mesibo.messenger;
+				PRODUCT_NAME = MesiboMessenger;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = 1;
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		A10000000000000000000901 /* Build configuration list for PBXProject "MesiboMessengerSwift" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				A10000000000000000000903 /* Debug */,
+				A10000000000000000000904 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		A10000000000000000000902 /* Build configuration list for PBXNativeTarget "MesiboMessengerSwift" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				A10000000000000000000905 /* Debug */,
+				A10000000000000000000906 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+/* End XCConfigurationList section */
+
+/* Begin XCRemoteSwiftPackageReference section */
+		A10000000000000000001001 /* XCRemoteSwiftPackageReference "mesibo-ios-sdk" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/mesibo/mesibo-ios-sdk";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 2.10.1;
+			};
+		};
+/* End XCRemoteSwiftPackageReference section */
+
+/* Begin XCSwiftPackageProductDependency section */
+		A10000000000000000000201 /* mesibo */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = A10000000000000000001001 /* XCRemoteSwiftPackageReference "mesibo-ios-sdk" */;
+			productName = mesibo;
+		};
+		A10000000000000000000202 /* MesiboUI */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = A10000000000000000001001 /* XCRemoteSwiftPackageReference "mesibo-ios-sdk" */;
+			productName = MesiboUI;
+		};
+		A10000000000000000000203 /* MesiboCall */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = A10000000000000000001001 /* XCRemoteSwiftPackageReference "mesibo-ios-sdk" */;
+			productName = MesiboCall;
+		};
+		A10000000000000000000204 /* MesiboUIHelper */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = A10000000000000000001001 /* XCRemoteSwiftPackageReference "mesibo-ios-sdk" */;
+			productName = MesiboUIHelper;
+		};
+/* End XCSwiftPackageProductDependency section */
+	};
+	rootObject = A10000000000000000000001 /* Project object */;
+}
