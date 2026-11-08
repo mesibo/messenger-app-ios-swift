@@ -1,83 +1,64 @@
-## Mesibo Messenger for iOS - Swift
-[Mesibo](https://mesibo.com) Messenger is an open-source app with real-time messaging, voice and video call features. This repo contains the source code for Mesibo Messenger App for iOS. 
+# Mesibo Messenger for iOS
 
+[Mesibo Messenger](https://mesibo.com) is an open-source real-time messaging, voice & video calling, and conferencing application. This repository contains the source code for the **Mesibo Messenger App for iOS (Swift)**.
 
-### Other Versions
-- [iOS - Objective-C](https://github.com/mesibo/messenger-app-ios)
-- [Android - Java](https://github.com/mesibo/messenger-app-android) 
-- [Android - Kotlin](https://github.com/mesibo/messenger-app-android-kotlin)
+---
 
-### Features
-- One-on-one messaging and Group chat
-- High quality voice and video calling
-- Rich messaging (text, picture, video, audio, other files)
-- Encryption 
-- Location sharing
-- Message status and typing indicators
-- Online status (presence) and real-time profile update
-- Push notifications
+## 🌐 Source Code Repositories
 
-Latest versions are also available through Google Play Store and Apple App Store:
+Mesibo Messenger is available across various native and hybrid platforms, alongside its backend components:
 
-<a href="https://play.google.com/store/apps/details?id=com.mesibo.mesiboapplication"><img
-  alt="Get it on Google Play" height="80"
-  src="https://play.google.com/intl/en_us/badges/images/generic/en_badge_web_generic.png" /></a> <a href="https://itunes.apple.com/us/app/mesibo-realtime-messaging-voice-video/id1222921751"><img alt="Get it on Apple App Store" height="80"
-  src="https://media.mesibo.com/files/mesibo/appstore.png" /></a>
+### Mobile & Web Clients
+* **Android (Java):** [messenger-app-android](https://github.com/mesibo/messenger-app-android)
+* **Android (Kotlin):** [messenger-app-android-kotlin](https://github.com/mesibo/messenger-app-android-kotlin)
 
-## Downloading the Source Code
+* **iOS (Swift):** [messenger-app-ios-swift](https://github.com/mesibo/messenger-app-ios-swift)
+* **iOS (Objective-C):** [messenger-app-ios](https://github.com/mesibo/messenger-app-ios)
 
-### Clone the Repository (Recommended)
-If you have git installed, this is a recommended approach as you can quickly sync and stay up to date with the latest version. This is also a preferred way of downloading the code if you decide to contribute to the project. 
+* **Web Messenger:** [messenger-javascript](https://github.com/mesibo/messenger-javascript)
 
-To download, open a terminal and issue following commands:
+* **Flutter (Android & iOS):** [messenger-app-flutter](https://github.com/mesibo/messenger-app-flutter)
 
-    $ mkdir Messenger
-    $ cd Messenger
-    $ git lfs install
-    $ git clone https://github.com/mesibo/messenger-app-ios-swift.git
+### Backend Services
+* **Backend APIs:** [messenger-app-backend](https://github.com/mesibo/messenger-app-backend)
 
-### Download the code as a zip file
-You can also download the complete iOS Messenger source code as a [zip file](https://github.com/mesibo/messenger-app-ios/archive/master.zip). Although simple, the downsize of this approach is that you will have to download the complete source code everytime it is updated on the repository. 
+---
 
-### Notes of mixed code
-Swift version still has some auxiliary UI code in Objective-C. However, all mesibo specific code is in Swift. Refer, AppDelegate.swift, MesiboUIManager.swift, SampleAppListeners.swift and BackendAPI.swift contain most of the mesibo specific code which you can use it for your reference.
+## ✨ Features
 
-### Stay Up-to-date
-Whatever approach you take to download the code, it is important to stay up-to-date with the latest changes, new features, fixes etc. Ensure to **Star(*)** the project on GitHub to get notified whenever the source code is updated. 
+* **Messaging:** One-on-one messaging and Group chat.
+* **Voice & Video:** High-quality voice and video calling + multi-party conferencing.
+* **Rich Media:** Send and receive text, pictures, videos, audio, and arbitrary files.
+* **Security:** End-to-End Encryption (E2EE) built-in.
+* **Geolocation:** Real-time location sharing.
+* **User Experience:** Real-time message status (sent, delivered, read) and typing indicators.
+* **Presence:** Online/offline status indicators and real-time profile updates.
+* **Notifications:** Seamless push notification infrastructure.
 
-## Build and Run
+---
 
-Before we dive into building and running a fully featured Messenger for iOS, ensure that you've read the following.
+## 🔑 Generating a Verification Code (OTP) for the Demo
 
- - Latest Xcode Installed, at least 11.4 or later
- - An iPhone Device
+To make testing easier, this demo version removes the need for commercial SMS gateways. The application still requires a valid phone number and verification to log in, but you can generate the verification OTP manually:
 
-Building the Messenger source code is as simple as:
+1. Log into your [Mesibo Console](https://console.mesibo.com).
+2. Generate an OTP for any phone number you wish to use for testing.
+3. Enter that code into the app's login screen.
 
- 1. Launch XCode
- 2. Open the project from the folder where you have downloaded the code using menu `File -> Open`
- 3. Build using menu `Product -> Build`
- 4. It may take a while to build the project for the first time. 
- 5. Once the build is over, run on the device using menu `Product -> Run`
- 6. That's it, you should see the welcome screen like below.
+> 🔒 **Important Security & Sandbox Notes:**
+> * **Privacy:** All users are restricted to your specific Mesibo app/account. This demo app cannot see or communicate with users from other Mesibo accounts.
+> * **Contact Synchronization:** The demo app utilizes local contact synchronization to discover other users under your account. Ensure that your test devices use correct phone numbers and that those numbers are saved in each other's phone books.
 
-Login using your phone number and OTP 123456. You can even start using the app you've just built to communicate with your family and friends.
+---
 
-## Key SDKs user in this project
+## 📚 Documentation & Reference
 
-These apps use following [Mesibo SDKs](https://mesibo.com).
+For comprehensive setup steps, refer to our multi-part tutorial guide:  
+👉 **[Build a fully featured WhatsApp clone using Mesibo](https://docs.mesibo.com/tutorials/open-source-whatsapp-clone/)**
 
-- Mesibo SDK
-- Mesibo Messaging UI Module
-- Mesibo Call UI Module
-
-These apps also use following third party libraries/services.
-
-- [Google Maps](https://developers.google.com/maps/documentation/) and [Google Places](https://cloud.google.com/maps-platform/places/) SDKs for Geolocation integration 
-
-## Documentation & Tutorials
-
-- [Mesibo Documentation](https://mesibo.com/documentation/) 
-- [Mesibo Get Started Guide](https://mesibo.com/documentation/get-started/).
-- Tutorial - [A fully featured WhatsApp clone using mesibo](https://mesibo.com/documentation/tutorials/open-source-whatsapp-clone/)
+The documentation covers:
+* Compilation & platform-specific configuration instructions.
+* How to download backend source code and host your private API server.
+* Hosting the entire real-time messaging, voice, and video platform on-premise.
+* Deep customizations, themes, and white-labeling/rebranding guidelines.
 
